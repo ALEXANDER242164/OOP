@@ -14,9 +14,14 @@
 
 ## Limitations
 - Producto
-- Requirements
-- Process
-- Video
-- Lista de cotejo
+## Requirements
+- [Functional Requirements](https://github.com/ALEXANDER242164/OOP/blob/First-review/Requirements.md)
+
+
+## Process
+
+## Video
+
+## Lista de cotejo
 
 
