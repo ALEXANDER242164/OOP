@@ -29,9 +29,5 @@
 
 ## Lista de cotejo
 
-=======
-# clinicaPrueba
-Repositorio de prueba
 
->>>>>>> f5d80a0 (docs(readme): add YouTube demo (VuRZZwlWc9o) and docs page)
 
