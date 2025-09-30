@@ -1,0 +1,52 @@
+Reunión proyecto POO
+lun, 1 sept 2025
+
+Resumen:
+
+Se abordaron los objetivos del proyecto de implementar una agenda web para la clínica de psicología, destacando la necesidad de simplificar procesos y centrarse en elementos clave. Se mencionó que los equipos anteriores habían recopilado información relevante y se presentó un prototipo que permite a los pacientes solicitar citas de manera eficiente, gestionando la disponibilidad de horarios y la administración de citas. Se discutió la importancia de mantener un registro de citas canceladas y la comunicación con los pacientes en caso de problemas con la programación.
+
+El equipo acordó que el primer paso es comprender el problema y definir claramente las tareas del sistema, priorizando la funcionalidad del administrador antes de abordar la solicitud de citas. Se compartió un enlace a una página interactiva para simular la creación y modificación de eventos, aunque sin funcionalidad real. Los participantes se comprometieron a revisar la documentación y plantear preguntas a medida que avancen en el proyecto.
+
+
+Capítulos y Temas:
+
+Contexto del Proyecto de Agenda para la Clínica de Psicología
+Edgar Cambranes Martinez introdujo el proyecto de una agenda web para la clínica de psicología, enfatizando que se debe simplificar el proceso y centrarse en los elementos esenciales. Carlos Roberto Ek Raigoza confirmó que el repositorio está en la plataforma de vinculación y se discutió la posibilidad de utilizar diferentes frameworks para su desarrollo.
+
+Prototipo de Sistema de Citas para Pacientes
+Carlos Roberto Ek Raigoza explicó el funcionamiento del nuevo prototipo web para la gestión de citas en la clínica. Los pacientes pueden consultar horarios disponibles, llenar formularios con su información personal y recibir retroalimentación sobre sus solicitudes. Además, se detalló el proceso de asignación de terapeutas y la importancia de la documentación inicial para el tratamiento.
+* Prototipo web y su funcionalidad.
+* Implementación de un sistema de gestión de citas para la clínica de psicología.
+
+Desarrollo del CRUD para la Agenda de Citas
+Carlos Roberto Ek Raigoza explicó que el sistema permitirá a los pacientes solicitar citas y reprogramarlas, pero no modificar la agenda directamente. Edgar Cambranes Martínez añadió que la secretaria es la responsable de gestionar las citas y que los pacientes pueden recibir actualizaciones sobre el estado de sus solicitudes.
+* Roles y responsabilidades en la gestión de citas.
+
+Discusión sobre la gestión de citas y documentación del proyecto POO
+Carlos Roberto Ek Raigoza y Edgar Cambranes Martinez abordaron la gestión de citas en el sistema, destacando que las citas canceladas deben permanecer registradas. Se aclaró que el sistema no permite la eliminación de citas, sino que se cambia su estado. Además, se mencionó la necesidad de revisar la documentación relacionada con el primer contacto y la agenda.
+* Revisión y acceso a la documentación del proyecto.
+
+Acceso y Modificaciones al Repositorio
+Carlos Roberto Ek Raigoza mencionó que los participantes pueden explorar la página localmente, siempre que no realicen modificaciones. Edgar Cambranes Martinez sugirió arreglar el repositorio de vinculación y se acordó que se revisaría la URL para facilitar el acceso sin cambios.
+
+Discusión sobre el Proyecto POO
+Edgar Cambranes Martínez instó al equipo a revisar la documentación y generar preguntas para asegurar que todos estén alineados. Se discutió la necesidad de centrarse en la parte del sistema que controlaría el administrador antes de avanzar a la solicitud de citas. Carlos Roberto Ek Raigoza proporcionó un enlace para que el equipo explore la página interactiva, aclarando que no está conectada a ninguna base de datos.
+
+
+Puntos de Acción:
+
+* Carlos Roberto Ek Raigoza compartirá el enlace del repositorio de proyectos de vinculación con los participantes.
+* Carlos Roberto Ek Raigoza enviará el URL de la gráfica realizada por Maliachi para que los participantes la tengan como referencia.
+* Edgar Cambranes Martinez solicitará a los participantes que revisen la documentación del proyecto para que puedan formular preguntas.
+* Carlos Roberto Ek Raigoza proporcionará acceso a la página web del prototipo para que los participantes puedan navegar por ella.
+
+
+Preguntas clave:
+
+* ¿Qué información se necesita para completar la documentación del proyecto?
+* ¿Es correcto que la versión minimizada de la agenda será la tarea principal?
+
+
+Bloc de notas:
+
+* No hay notas

@@ -31,8 +31,19 @@ Nobody works in the main branch.
 The use of GitKraken was recommended to facilitate understanding.
 We should work in the command line (Git Bash, Warp, etc).
 
-## *posible imagen para representar el flujo*
-
+## Example of how Git is used
+```mermaid
+graph LR
+A[First-review] -- Paola's branch local --> B((git add ))
+P[git push]
+L[First-review]
+R[Pull request]
+A --> L
+B --> D{git commit}
+D-->P
+P--Paola's branch remote--> R
+R-->L
+```
 
 ## File
 The file-folder names must be typed with Pascal Case.
