@@ -21,6 +21,7 @@ We will focus on appointment management to help the secretary/administrator opti
 - [Non-functional requirements (NFR)](https://github.com/ALEXANDER242164/OOP/blob/First-review/Requirements.md#2-non-functional-requirements-nfr)
 - [Prioritization](https://github.com/ALEXANDER242164/OOP/blob/First-review/Prioritization.md)
 ## Artifacs
+- [Use Case Diagram](https://github.com/ALEXANDER242164/OOP/blob/First-review/assets/Casos%20de%20Uso%20Agenda%20de%20Citas.png)
 - [Use Case](documentation/Artifacts/UseCase.md)
 - [User Stories](documentation/Artifacts/UserStories.md)
 - [Class Diagram](https://github.com/ALEXANDER242164/OOP/blob/First-review/diagram/Diagrama%20en%20blanco.png)
