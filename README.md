@@ -9,7 +9,7 @@ Our objective is to create a CRUD for only the appointment scheduling section.
 We will focus on appointment management to help the secretary/administrator optimize their tasks.
 
 ## Relevance
-- [Value Proposition]()
+- [Value Proposition](https://github.com/ALEXANDER242164/OOP/blob/First-review/documentation/ValueProposition.md)
 
 
 ## Limitations
@@ -20,11 +20,14 @@ We will focus on appointment management to help the secretary/administrator opti
 - [Functional requirements (FR)](https://github.com/ALEXANDER242164/OOP/blob/First-review/Requirements.md)
 - [Non-functional requirements (NFR)](https://github.com/ALEXANDER242164/OOP/blob/First-review/Requirements.md#2-non-functional-requirements-nfr)
 - [Prioritization](https://github.com/ALEXANDER242164/OOP/blob/First-review/Prioritization.md)
-
+## Artifacs
+- [Use Case](documentation/Artifacts/UseCase.md)
+- [User Stories](documentation/Artifacts/UserStories.md)
+- [Class Diagram](https://github.com/ALEXANDER242164/OOP/blob/First-review/diagram/Diagrama%20en%20blanco.png)
 ## Process
 - [Process Description](https://github.com/ALEXANDER242164/OOP/blob/First-review/documentation/ProcessDescription.md)
-- [Process Management]()
-- [Individual Contribution Metric]()
+- [Process Management](https://github.com/ALEXANDER242164/OOP/blob/First-review/documentation/ProcessManagement.md)
+- [Individual Contribution Metric](https://github.com/ALEXANDER242164/OOP/blob/First-review/documentation/IndividualContributionMetric.md)
 ## Video
 
 [![Watch on YouTube](https://img.youtube.com/vi/VuRZZwlWc9o/hqdefault.jpg)](https://www.youtube.com/watch?v=VuRZZwlWc9o)

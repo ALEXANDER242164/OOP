@@ -10,7 +10,7 @@ We use a method based on size.
 |3|Medium|
 |5|Hard|
 
-In the following charts, you can [see the PDF]() with the content
+In the following charts, you can [see the PDF](documentation/EachTasks.pdf) with the content
 
 |ID Tasks|Description|Size|
 |----|-----------|---------|
@@ -32,6 +32,6 @@ In the following charts, you can [see the PDF]() with the content
 |H2.0|Video recording|5|
 
 ## Tasks assigned per member
-![tasks]()
+![tasks](assets/Contribution.png)
 ## Percentage table
-![table]()
+![table](assets/grafic.png)
