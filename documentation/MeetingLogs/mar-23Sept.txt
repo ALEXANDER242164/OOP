@@ -1,0 +1,50 @@
+Junta
+mar, 23 sept 2025
+
+Resumen:
+
+Se presentaron los requisitos de documentación del sistema, organizados en tres carpetas, y se discutieron los módulos disponibles, con énfasis en la agenda y las funcionalidades para la programación de citas. Se abordaron temas como la creación y gestión de citas, la visualización de la agenda, y la necesidad de uniformizar términos y verificar que los requisitos coincidan con el mockup. Se estableció la intención de tener todo listo para la próxima semana, y se destacó que la maqueta presentada es solo front-end, requiriendo la adición de funcionalidades como la impresión de la agenda.
+
+Se enfatizó la importancia de definir un proceso de trabajo en equipo, donde cada miembro tenga responsabilidades claras y mantenga una bitácora de actividades. Se propuso trabajar en Sprints, utilizar herramientas como Markdown, y asignar puntajes a las actividades para medir la contribución individual. También se discutió la representación de clases y métodos en diagramas de OML, la identificación de entidades de datos y reglas de negocio, y la transformación de casos de uso en historias de usuario. Se acordó revisar los requisitos y artefactos en la próxima llamada, así como la organización del repositorio y la delegación de tareas para facilitar el trabajo colaborativo.
+
+
+Capítulos y Temas:
+
+Revisión de requisitos y documentación del sistema
+Leonardo Lomas López y Alfredo Alexander Castañeda Euan revisaron los requisitos de documentación del sistema, encontrando tres carpetas diferentes. Edgar Cambranes Martínez explicó que los requisitos se dividen en módulos, destacando la importancia de la agenda y las funcionalidades relacionadas con la programación de citas. Se mencionaron aspectos como la creación y reprogramación de citas, así como la gestión de solicitudes.
+
+Discusión sobre la Maqueta y Proceso de Desarrollo
+Edgar Cambranes Martínez explicó que la maqueta actual carece de back-end y enfatizó la necesidad de documentar el sistema y la agenda. Se abordó la importancia de trabajar en equipo, asignar tareas y llevar un seguimiento de las actividades mediante una métrica de contribución individual.
+* Proceso de gestión de tareas y actividades en el repositorio.
+* Revisión de requisitos funcionales y no funcionales.
+
+Revisión de Requisitos y Proceso de Abstracción
+En la conversación, Alfredo Alexander Castañeda Euan y Edgar Cambranes Martinez abordaron la representación visual de las clases y métodos en un diagrama de OML. Edgar destacó la importancia de mapear las entidades de datos y las reglas de negocio, así como la necesidad de priorizar los requisitos no funcionales para el desarrollo del proyecto.
+* Importancia de mantener una bitácora de actividades.
+
+Discusión sobre el manejo de repositorios y pull requests
+Alfredo Alexander Castañeda Euan abordó la promoción de habilidades blandas y la estructura de ramas en Git, enfatizando la necesidad de un manejo adecuado de los repositorios. Edgar Cambranes Martinez explicó que los colaboradores deben hacer pull requests en lugar de tener acceso directo a las ramas protegidas, y que la actividad de cada miembro debe ser balanceada. También mencionó la importancia de cumplir con los plazos establecidos para las tareas.
+* Creación y uso de ramas en el repositorio.
+
+Discusión sobre requisitos y metodología de trabajo
+Edgar Cambranes y Alfredo Castañeda finalizaron la discusión sin preguntas adicionales y compartieron un enlace para la próxima clase. Leonardo Lomas enfatizó la necesidad de definir los requisitos y utilizar artefactos para mostrar los avances del proyecto, sugiriendo la creación de un sprint para organizar el trabajo. También mencionó la importancia de la delegación de tareas y el uso adecuado de herramientas como Git.
+
+
+Puntos de Acción:
+
+* Edgar Cambranes Martinez solicitará que cada miembro del equipo mantenga una bitácora de actividades y tareas.
+* Edgar Cambranes Martinez proporcionará retroalimentación sobre la especificación de los requisitos y la documentación del sistema.
+* Alfredo Alexander Castañeda Euan y Leonardo Lomas Lopez establecerán fechas para las actividades del proyecto en el próximo día de llamada.
+* Alfredo Alexander Castañeda Euan revisará los requisitos funcionales y no funcionales para asegurarse de que estén completos y bien definidos.
+* Alfredo Alexander Castañeda Euan y Leonardo Lomas Lopez discutirán la creación de ramas en el repositorio y la delegación de actividades en el próximo sprint.
+
+
+Preguntas clave:
+
+* ¿Cuáles son los requisitos no funcionales que deben ser considerados en el proyecto?
+* ¿Cuál es el proceso para hacer un pull request en el repositorio?
+
+
+Bloc de notas:
+
+* No hay notas

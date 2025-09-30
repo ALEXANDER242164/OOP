@@ -1,0 +1,41 @@
+Reunión-POO
+vie, 12 sept 2025
+
+Resumen:
+
+Se discutieron aspectos clave del proyecto de la clínica de la Facultad de Psicología, centrándose en la gestión de la agenda de citas. Leonardo Lomas López planteó preguntas sobre el manejo de las citas, mientras que Edgar Cambranes Martínez aclaró que el sistema debe permitir la cancelación de citas en lugar de su eliminación y que es necesario contar con una interfaz de usuario para visualizar las citas programadas. Alfredo Alexander Castañeda Euan indagó sobre las funcionalidades del sistema y la necesidad de utilizar tecnologías como Spring Boot, a lo que Cambranes respondió que esta tecnología facilitaría la creación de un API en Java.
+
+Se acordó que el equipo debe compilar una lista de requerimientos funcionales y no funcionales, incluyendo preguntas sobre el proceso de agendar citas, y se destacó la importancia de revisar la documentación existente para identificar el "Happy Path" y las excepciones. Se concluyó que la claridad en los requisitos es esencial para el desarrollo y se revisará la información recopilada en una próxima sesión.
+
+
+Capítulos y Temas:
+
+Discusión sobre el Proyecto de la Clínica de la Facultad de Psicología
+Leonardo Lomas López expresó inquietudes sobre el proyecto de la clínica de la Facultad de Psicología, centrándose en la agenda de citas. Edgar Cambranes Martínez explicó que el trabajo debe enfocarse en el CRUD de las citas registradas, enfatizando que no se deben borrar, sino cancelar. Alfredo Alexander Castañeda Euan también participó, planteando preguntas sobre la funcionalidad del sistema.
+
+Discusión sobre el desarrollo de API y herramientas tecnológicas
+Alfredo Alexander Castañeda Euan expresó confusión sobre la necesidad de tecnologías como Spring Boot en su proyecto. Edgar Cambranes Martinez aclaró que Spring Boot serviría como backend en Java, permitiendo la creación de un API. Además, mencionó la posibilidad de utilizar diversas herramientas y recursos en línea para construir un CRUD de manera eficiente.
+* Herramientas y tecnologías para el desarrollo del CRUD.
+
+Revisión de Requerimientos Funcionales y No Funcionales
+Edgar Cambranes instó al equipo a crear un listado de requerimientos y a considerar preguntas relacionadas con el proceso de agendar citas. Alfredo Alexander Castañeda destacó la importancia de definir claramente los requisitos y las excepciones que podrían surgir. Ambos oradores coincidieron en la necesidad de revisar la documentación y los detalles de los requerimientos para asegurar una comprensión adecuada.
+* Estrategias para manejar excepciones en el flujo normal del proceso.
+* Especificaciones de la interfaz de usuario (UI).
+
+
+Puntos de Acción:
+
+* Edgar Cambranes Martinez revisará la lista de requisitos funcionales y no funcionales de la agenda y proporcionará retroalimentación sobre ellos.
+* Alfredo Alexander Castañeda Euan y Leonardo Lomas Lopez crearán un documento que contenga la descripción del requerimiento y el título del requerimiento.
+* Alfredo Alexander Castañeda Euan y Leonardo Lomas Lopez enviarán un mensaje a Edgar Cambranes Martinez cuando tengan algo listo para revisar.
+
+
+Preguntas clave:
+
+* ¿Habría alguna otra funcionalidad aparte de eso o es solamente esa parte?
+* ¿Qué requisitos funcionales y no funcionales se deben incluir en el proyecto?
+
+
+Bloc de notas:
+
+* No hay notas

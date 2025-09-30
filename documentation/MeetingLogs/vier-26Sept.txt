@@ -1,0 +1,73 @@
+Teams Meeting
+vie, 26 sept 2025
+
+Resumen:
+
+Se abordaron los requisitos no funcionales del sistema, con un enfoque en la usabilidad para el personal administrativo. Se establecieron métricas que indican que un nuevo usuario debe completar tareas críticas en menos de 15 minutos y reprogramar citas en menos de seis minutos. Se propuso enriquecer la documentación con más información y métricas, así como la importancia de los mockups y casos de uso para representar los requisitos funcionales. Se concluyó que la presentación de la documentación debe ser mejorada.
+
+Se discutió la gestión de citas, destacando que la secretaria es responsable de registrar a los pacientes, lo que puede generar confusión. Se sugirió que se aclare que tanto secretarias como administradores pueden crear y reprogramar citas, y se propusieron cambios en la interfaz para mejorar la claridad. La comunicación con la secretaria para reprogramar citas debe ser accesible y clara, utilizando diversos medios de contacto. Se enfatizó la necesidad de que los usuarios puedan gestionar sus citas de manera efectiva.
+
+Se definieron y priorizaron los requisitos del sistema, con algunos pendientes para revisión. Se destacó la importancia de la retroalimentación del sistema y se discutieron operaciones clave como crear, guardar y cancelar citas. Se sugirió que todas las operaciones deben mostrar mensajes de éxito o error de manera eficiente, y se enfatizó que los mensajes deben ser claros y específicos, especialmente en casos de fallos de validación. La necesidad de realizar pruebas para asegurar la funcionalidad del sistema también fue un punto importante.
+
+Se propuso que la interfaz de la agenda cargue en menos de dos segundos y se discutió la importancia de optimizar tanto la carga inicial como la respuesta a las interacciones del usuario. Se sugirió que la agenda permita vistas semanales y diarias, y se aclaró la confusión entre "nueva cita" y "nuevo evento". Se acordó que el diseño de la interfaz debe ser consistente y adaptable a diferentes dispositivos, siguiendo una guía de estilo común. Finalmente, se establecieron los requisitos funcionales del proyecto y se introdujo el método Moskú para priorizar tareas, con un llamado a la colaboración y comunicación abierta entre los participantes.
+
+
+Capítulos y Temas:
+
+Requisitos No Funcionales
+Alfredo Alexander Castañeda Euan abordó los requisitos no funcionales, enfatizando la importancia de la usabilidad del sistema. Se establecieron métricas que indican que un usuario nuevo debe poder realizar ciertas tareas en tiempos específicos. Además, se sugirió enriquecer la documentación con más detalles para mejorar su presentación.
+* Priorización de requisitos utilizando el método Moskú.
+
+Discusión sobre la gestión de citas y usuarios en el sistema
+Alfredo Alexander Castañeda Euan discutió la contradicción en la gestión de citas, señalando que el sistema debe reflejar que la secretaria es la responsable de registrar a los pacientes. Propuso que se aclare que un nuevo usuario puede crear y reprogramar citas, y sugirió cambios en la interfaz para facilitar estas acciones. Además, mencionó la importancia de la usabilidad del sistema para los usuarios.
+* Comunicación entre usuarios y secretarias.
+
+Revisión de Requisitos y Funcionalidades del Sistema
+Alfredo Alexander Castañeda Euan enfatizó la necesidad de establecer los requisitos más importantes para el repositorio, asegurando que haya algo tangible que entregar. Se mencionó la retroalimentación del sistema y se discutieron las operaciones de crear, guardar y cancelar, así como la modificación de ciertos requisitos.
+
+Discusión sobre el sistema y mensajes de error
+Alfredo Alexander Castañeda Euan discutió la velocidad de respuesta del sistema, sugiriendo que debe mostrar mensajes de éxito o error en menos de un segundo. También se mencionó que los mensajes de error por fallos de validación deben ser claros y específicos, como en el caso de conflictos de horarios. Se destacó la importancia de que el sistema brinde retroalimentación adecuada al usuario.
+
+Rendimiento y Carga de la Agenda
+Alfredo Alexander Castañeda Euan enfatizó que todos los campos de la agenda son obligatorios y que la interfaz debe ser rápida y fluida. Se mencionó que la carga de la lista de la agenda diaria semanal debe realizarse en menos de dos segundos, dependiendo de la cantidad de operaciones realizadas. También se discutió la carga de datos desde la base de datos y su impacto en el rendimiento.
+
+Discusión sobre la agenda y formularios de citas
+Alfredo Alexander Castañeda Euan discutió la visualización de la agenda, proponiendo que se incluya la opción de elegir entre vistas semanales y diarias. Además, planteó la importancia de aclarar el rendimiento en la apertura de modales y formularios, sugiriendo que la terminología utilizada para "nueva cita" y "nuevo evento" debería ser consistente. 
+
+Diseño de Consistencia y Adaptabilidad
+Alfredo Alexander Castañeda Euan abordó la necesidad de un diseño de interfaz que sea consistente y adaptable a diversas resoluciones de pantalla. Se destacó que todos los botones, formularios y colores deben alinearse con una guía de estilo unificada. Además, se mencionó que el diseño debe ser funcional en dispositivos de escritorio y tabletas, evitando problemas de usabilidad.
+* Métricas de usabilidad y rendimiento.
+
+Requisitos Funcionales y Tareas
+Alfredo Alexander Castañeda Euan definió los requisitos funcionales del proyecto, limitándolos a la creación, visualización y actualización de citas. También se abordó la priorización de tareas utilizando el método Moskú, que facilita la clasificación de requisitos. Se enfatizó la necesidad de cumplir con los puntos de la lista de cotejo para obtener una calificación adecuada.
+
+Interacción y Progreso del Proyecto
+Alfredo Alexander Castañeda Euan tuvo dificultades técnicas al cargar documentos en Teams, lo que generó confusión en la conversación. Se abordó la necesidad de definir claramente el objetivo del producto y se destacó que la persona encargada de la tarea debe investigar y documentar adecuadamente. Además, se propuso utilizar una ruleta para asignar responsabilidades en el proyecto.
+
+Tareas y Propuestas de Valor
+Alfredo Alexander Castañeda Euan abordó la necesidad de asignar tareas específicas, como la propuesta de valor y la redacción de requisitos no funcionales. Se destacó que todos los requisitos no funcionales ya están listos y se deben incluir en el repositorio. Además, se planteó la importancia de investigar y definir métodos para la priorización de tareas.
+
+Organización del Backlog y Metodología Kanban
+Alfredo Alexander Castañeda Euan enfatizó la necesidad de que cada miembro del equipo, como Paola, cree y asigne tareas en el Backlog. Se abordó el uso de Kanban como metodología para gestionar el flujo de trabajo y se confirmó que el repositorio está listo para su uso. Además, se mencionó que las tareas deben ser registradas y que se están definiendo los pesos en un archivo de Excel.
+* Organización y gestión del repositorio del proyecto.
+
+
+Puntos de Acción:
+
+* Alfredo Alexander Castañeda Euan enviará la liga del archivo de Google por el chat de Teams.
+* Alfredo Alexander Castañeda Euan revisará y añadirá métricas a los requisitos no funcionales para que sean más detallados.
+* Alfredo Alexander Castañeda Euan especificará que el nuevo usuario se refiere a una nueva secretaria o administrador en el sistema.
+* Alfredo Alexander Castañeda Euan definirá los requisitos funcionales que se van a poner en el repositorio.
+* Alfredo Alexander Castañeda Euan priorizará los requisitos que se van a utilizar en el proyecto.
+
+
+Preguntas clave:
+
+* ¿Qué métricas adicionales se pueden agregar a los requisitos no funcionales?
+* ¿Cómo se gestionará la comunicación entre el usuario y la secretaria para la reprogramación de citas?
+* ¿Qué método se utilizará para priorizar los requisitos?
+
+
+Bloc de notas:
+
+* No hay notas

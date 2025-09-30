@@ -1,0 +1,82 @@
+requisitos
+dom, 21 sept 2025
+
+Resumen:
+
+Se discutieron aspectos clave sobre la gestión de ramas en el repositorio, enfatizando que cada tarea debe tener su propia rama para facilitar el trabajo en equipo. Se destacó la importancia de que los pull requests sean aprobados por los líderes y se mencionó un documento en desarrollo que guiará al equipo en su trabajo. También se abordó la tarea de Cambrana, generando incertidumbre sobre su progreso entre los miembros del equipo.
+
+Alfredo Alexander Castañeda Euan presentó la estructura del proyecto, que incluye la creación de carpetas para el modelo, la vista y el controlador, y la necesidad de implementar la apertura, lectura y escritura de archivos .txt. Se discutió la interacción del controlador con la base de datos y la validación de nuevos usuarios antes de su inserción. La conversación se centró en asegurar que todos comprendieran los requisitos técnicos del proyecto.
+
+Se organizó la asignación de roles, con Castañeda Euan y Leonardo Lomas López liderando el grupo de Bakken. Paola Lizzeth Parra Canche solicitó un cambio de grupo, y se enfatizó la responsabilidad individual en las tareas. Se discutió la necesidad de claridad en el trabajo práctico y se invitó a los participantes a expresar dudas. Además, se proporcionaron instrucciones sobre el uso de Git y la importancia de trabajar en ramas separadas.
+
+Finalmente, se revisaron los requisitos funcionales y no funcionales del sistema de gestión de citas, destacando la creación, visualización, actualización y eliminación de citas, así como la necesidad de notificaciones. Se acordó que los requisitos deben ser refinados y presentados en su forma actual para recibir retroalimentación. La urgencia de completar el trabajo antes de la próxima reunión con el profesor fue un punto central de la discusión, reflejando un ambiente colaborativo y la necesidad de claridad en los requisitos del proyecto.
+
+
+Capítulos y Temas:
+
+Requisitos de trabajo en el repositorio
+Alfredo Alexander Castañeda Euan detalló cómo se deben crear ramas para cada tarea en el repositorio y la importancia de realizar merges de manera organizada. Se mencionó que los pull requests deben ser revisados y aprobados por los líderes del equipo, y que se pueden establecer reglas para evitar merges forzados. También se hizo referencia a un documento en proceso que ilustra el flujo de trabajo.
+* Organización del trabajo en el repositorio.
+
+Requisitos del Proyecto
+Alfredo Alexander Castañeda Euan detalló la organización del proyecto, mencionando que el archivo main debe estar fuera de las carpetas que contienen el modelo, la vista y el controlador. También destacó la importancia de manejar la apertura, lectura y escritura de archivos. Juan Manuel Hernández Miranda complementó que, además de esto, se debe validar que un nuevo usuario no esté ya registrado en la base de datos antes de su inserción.
+
+Requisitos
+Alfredo Alexander Castañeda Euan propone la formación de grupos y menciona que él y Leonardo Lomas López serán los líderes de Bakken. Paola Lizzeth Parra Canche solicita ser asignada a Rony, mientras que Castañeda Euan expresa su preferencia por no estar en Frohnen. Se enfatiza la responsabilidad de cada miembro en sus tareas.
+
+Requisitos de Trabajo en Git
+Alfredo Alexander Castañeda Euan detalló el flujo de trabajo en Git, destacando la necesidad de clonar el repositorio y realizar cambios en ramas específicas. Paola Lizzeth Parra Canche y Leonardo Lomas López participaron en la discusión, aclarando que no se debe trabajar directamente en la rama principal. Se acordó que el equipo se dividiría en backend y frontend, utilizando Kanban y GitHub para la gestión del proyecto.
+* Asignación de tareas entre los miembros del equipo.
+* Discusión sobre la organización y planificación del trabajo en equipo.
+* Manejo de conflictos en el trabajo colaborativo.
+
+Requisitos de colaboración en archivos
+Alfredo Alexander Castañeda Euan planteó la viabilidad de que dos personas modifiquen un archivo al mismo tiempo, destacando el uso de Live Share. Leonardo Lomas López y Juan Manuel Hernández Miranda confirmaron que es posible, pero advirtieron sobre los conflictos que pueden surgir al realizar commits simultáneamente. Se sugirió la necesidad de probar esta dinámica en un entorno controlado.
+* Estrategias para abordar la reunión con el profesor.
+
+Requisitos
+Alfredo Alexander Castañeda Euan destacó que los requisitos deben estar claramente definidos y disponibles en el repositorio principal. Se sugirió que cada miembro del equipo cree ramas para sus tareas individuales, como videos y presentaciones, para facilitar el trabajo colaborativo. Juan Manuel Hernández Miranda apoyó la idea de dividir las tareas para evitar confusiones.
+
+Requisitos
+Alfredo Alexander Castañeda Euan se refirió a la tarea y a la confusión sobre cuál registro era el correcto. Comentó sobre la dificultad del examen que se avecina y cómo las tecnologías pueden consumir tiempo. Además, mencionó que había compartido un repositorio con Gemini, lo que le generó confusiones.
+
+Requisitos
+Alfredo Alexander Castañeda Euan y Juan Manuel Hernández Miranda revisaron los requisitos funcionales necesarios para el proyecto, destacando la importancia de presentar información adicional. Paola Lizzeth Parra Canche enumeró requisitos específicos, incluyendo notificaciones automáticas y gestión de datos de pacientes, mientras que el grupo consideró la posibilidad de mejorar la presentación de los requisitos existentes.
+
+Requisitos del sistema de citas
+Alfredo Alexander Castañeda Euan detalló los requisitos del sistema de citas, incluyendo la creación, visualización, actualización y eliminación de citas. Se destacó la importancia de que, al cancelar una cita, esta no se elimine completamente del sistema, sino que permanezca visible con un estado de cancelación. Paola Lizzeth Parra Canche y Juan Manuel Hernandez Miranda también contribuyeron a la discusión sobre la funcionalidad del sistema.
+
+Requisitos
+Alfredo Alexander Castañeda Euan abordó la presentación de requisitos no funcionales, destacando la usabilidad del sistema. Paola Lizzeth Parra Canche y Leonardo Lomas López contribuyeron a la discusión sobre la necesidad de mejorar y agregar requisitos antes de presentarlos. Se acordó que se deben mostrar los requisitos actuales y discutir su refinamiento posteriormente.
+* Creación de documentos necesarios para la presentación.
+* Revisión de requisitos para la presentación.
+* Requisitos funcionales del proyecto.
+* Estrategias para la presentación de requisitos al profesor.
+
+Requisitos
+La conversación gira en torno a la preparación de un documento que contenga los requisitos necesarios para un proyecto. Juan Manuel Hernández Miranda y Paola Lizzeth Parra Canche expresan la importancia de entender lo que se ha recibido de Gemini antes de presentar al profesor. Alfredo Alexander Castañeda Euan asigna tareas específicas a los miembros del equipo para que cada uno se enfoque en diferentes aspectos de la documentación.
+
+
+Puntos de Acción:
+
+* Alfredo Alexander Castañeda Euan enviará un documento que explique cómo se debe trabajar en el repositorio.
+* Leonardo Lomas Lopez revisará el repositorio para asegurarse de que todos los cambios estén actualizados.
+* Paola Lizzeth Parra Canche creará una rama para el frontend en el repositorio.
+* Juan Manuel Hernandez Miranda se encargará de buscar requisitos adicionales para el proyecto.
+* Paola Lizzeth Parra Canche creará un documento en PDF que incluya el tipo de carpeta y todos los requisitos necesarios para la presentación.
+* Leonardo Lomas López se encargará de la documentación de contacto y extraerá los requisitos necesarios.
+* Alfredo Alexander Castañeda Euan coordinará la revisión de los requisitos del sistema y se asegurará de que todos los miembros del equipo estén al tanto.
+* Juan Manuel Hernandez Miranda compartirá un documento de Word con información resumida sobre los requisitos discutidos.
+
+
+Preguntas clave:
+
+* ¿Cómo se manejarán los conflictos si dos personas trabajan en el mismo archivo al mismo tiempo?
+* ¿Qué requisitos se deben presentar al profesor?
+* ¿Cuáles son los plazos para completar la documentación requerida?
+* ¿Qué requisitos específicos se necesitan para la presentación?
+
+
+Bloc de notas:
+
+* No hay notas
