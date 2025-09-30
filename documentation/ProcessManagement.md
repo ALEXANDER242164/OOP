@@ -1,8 +1,10 @@
 # Meeting Logs
 An AI tool helped summarize each meeting held during this first project phase.
-<summary><small>click to expand</small></summary>
+
 
 ### Meeting of Monday, September 1, 2025
+<details>
+<summary><small>click to expand</small></summary>
 
 #### Meeting Summary:
 In this first meeting, we talked about the project's goal: a web calendar for the psychology clinic. The team discussed making the process simple and showed a working model. We agreed to work on the administrator features before the patient features.
@@ -15,8 +17,12 @@ In this first meeting, we talked about the project's goal: a web calendar for th
 #### Assigned Tasks and People in Charge:
 - Edgar Cambranes Martinez: Asked the participants to review the project documents to come up with questions.
 - Carlos Roberto Ek Raigoza: Will share the link to the project repository, send the URL for a reference graph, and provide access to the prototype website so the team can explore it.
+</details>
+
 
 ### Meeting of Friday, September 12, 2025
+<details>
+<summary><small>click to expand</small></summary>
 
 #### Meeting Summary:
 The discussion was about managing the appointment calendar and the project's technical needs. We clarified key features, like how to cancel appointments. We agreed to create a detailed list of functional and non-functional requirements to guide the project.
@@ -30,9 +36,11 @@ The discussion was about managing the appointment calendar and the project's tec
 - Alfredo Alexander Castañeda Euan and Leonardo Lomas Lopez: Will create a document with the description and title of each requirement and will let Edgar Cambranes Martinez know when it is ready for review.
 #### Results:
 - A formal document with the list of the project's functional and non-functional requirements.
-<summary><small>click to expand</small></summary>
+</details>
 
 ### Meeting of Friday, September 19, 2025
+<details>
+<summary><small>click to expand</small></summary>
 
 #### Meeting Summary:
 This meeting was about project planning. We discussed functional and non-functional requirements, the work method, and team organization. We defined roles, suggested using Scrum, and scheduled a meeting to finalize the requirements to be presented to the professor.
@@ -51,9 +59,11 @@ This meeting was about project planning. We discussed functional and non-functio
 #### Results:
 - A document or definition of the Scrum methodology to be implemented.
 - A project presentation video.
-<summary><small>click to expand</small></summary>
+</details>
 
 ### Meeting of Sunday, September 21, 2025
+<details>
+<summary><small>click to expand</small></summary>
 
 #### Meeting Summary:
 The team discussed how to manage branches in the repository, the project's structure, and how roles are assigned. Instructions were given on how to use Git, and we reviewed the functional and non-functional requirements to improve them for feedback.
@@ -74,9 +84,12 @@ The team discussed how to manage branches in the repository, the project's struc
 - A "frontend" branch in the repository.
 - A PDF document for the presentation, detailing the folder structure and requirements.
 - A Word document with a summary of the requirements discussed.
-<summary><small>click to expand</small></summary>
+
+</details>
 
 ### Meeting of Tuesday, September 23, 2025
+<details>
+<summary><small>click to expand</small></summary>
 
 #### Meeting Summary:
 In this meeting, we reviewed the system documentation and discussed the existing model, clarifying that it is only a front-end. We emphasized the importance of defining a team workflow with clear responsibilities, activity logs, and using Sprints for organization.
@@ -92,9 +105,11 @@ In this meeting, we reviewed the system documentation and discussed the existing
 #### Results:
 - Individual activity logs for each team member.
 - A schedule with defined dates for the project activities.
-<summary><small>click to expand</small></summary>
+</details>
 
 ### Meeting of Friday, September 26, 2025
+<details>
+<summary><small>click to expand</small></summary>
 
 #### Meeting Summary:
 This session focused on detailing the non-functional requirements by setting usability and performance goals. We discussed appointment management, system feedback to the user, and introduced the MoSCoW method for prioritizing tasks.
@@ -114,3 +129,4 @@ This session focused on detailing the non-functional requirements by setting usa
 - An updated non-functional requirements document with detailed goals.
 - A defined and prioritized list of the functional requirements that will be included in the repository.
 - A project Backlog with tasks created and assigned.
+</details>
