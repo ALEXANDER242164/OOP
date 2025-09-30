@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Clinic-System
 ## First Preview
 ### Introduction
