@@ -1,5 +1,9 @@
 # Clinic-System
+<<<<<<< HEAD
 ## Second review
+=======
+## First Preview
+>>>>>>> fcf91b914bde6c9562b953865f3aa73b264d6fe1
 ### Introduction
 For this first delivery, we worked with the help of the [repository](https://github.com/Proyectos-Vinculacion-FMAT/ClinicaWeb) of Clinica Web that belongs to Carlos Roberto Ek Raigoza, which is a project for the psychology faculty. Therefore, our task is to make it a reality since it has solid foundations; however, it does not yet have a backend.
 We worked with the requirements that are already in the [repository](https://github.com/Proyectos-Vinculacion-FMAT/ClinicaWeb).
@@ -31,6 +35,12 @@ We will focus on appointment management to help the secretary/administrator opti
 - [Individual Contribution Metric](https://github.com/ALEXANDER242164/OOP/blob/First-review/documentation/IndividualContributionMetric.md)
 ## Video
 
+<<<<<<< HEAD
+=======
+[![Watch on YouTube](https://img.youtube.com/vi/VuRZZwlWc9o/hqdefault.jpg)](https://www.youtube.com/watch?v=VuRZZwlWc9o)
+
+**Overview:** This video provides a general overview of the project: it introduces the team, states the main goal, outlines the limitations, and presents the functional and non-functional requirements.
+>>>>>>> fcf91b914bde6c9562b953865f3aa73b264d6fe1
 
 
 

@@ -1,0 +1,53 @@
+planificación
+vie, 19 sept 2025
+
+Resumen:
+
+Se abordaron diversos aspectos relacionados con la próxima entrega del proyecto, centrándose en los requisitos funcionales y no funcionales. Alfredo Alexander Castañeda Euan destacó la importancia de que estos requisitos sean claros y medibles, y se acordó que el profesor revisará la lista de requerimientos para proporcionar retroalimentación. Juan Manuel Hernández Miranda expresó su preocupación por la falta de rúbricas y claridad en las expectativas, mientras que otros miembros del equipo discutieron la necesidad de un sistema de validación para los datos ingresados por los usuarios y la consideración de la edad de los mismos al agendar citas. Se enfatizó la importancia de incluir diagramas y artefactos en la documentación del proyecto, así como la entrega de videos en inglés.
+
+En cuanto a la planificación del proyecto, se definieron roles clave dentro del equipo y se propuso implementar métodos ágiles como Scrum. Se establecieron métricas para evaluar la contribución de cada miembro y se acordó realizar un sprint para organizar los documentos en el repositorio. Se programó una reunión para el domingo a las 6 p.m. con el objetivo de depurar y seleccionar los requisitos que se presentarán al profesor, y se destacó la necesidad de mejorar la estética del repositorio y de incluir todos los requisitos en las entregas, así como la importancia de definir claramente los roles de cada miembro del equipo.
+
+
+Capítulos y Temas:
+
+Planificación del Proyecto
+Alfredo Alexander Castañeda Euan destacó la importancia de los requisitos funcionales y no funcionales para la entrega del proyecto programada para el lunes. Juan Manuel Hernández Miranda expresó su preocupación por la falta de rúbricas y claridad en las entregas. Se mencionó que el grupo tiene cierta ventaja al estar avanzados en su proyecto, lo que les permite mejorar los requisitos existentes.
+
+Planificación de citas y requisitos del sistema
+Alfredo Alexander Castañeda Euan cuestionó cómo se manejarían los casos específicos en la programación de citas, sugiriendo la necesidad de consultar al profesor sobre los requisitos. Juan Manuel Hernández Miranda y Freddie Abdiel Uitzil Pat debatieron sobre el rol de la secretaria como intermediaria y la falta de un sistema de validación para los datos ingresados por los usuarios al agendar citas.
+
+Requisitos Funcionales y No Funcionales
+Alfredo Alexander Castañeda Euan abordó la clasificación de los requisitos funcionales y no funcionales, mencionando la necesidad de verificar y priorizar estos requisitos. Juan Manuel Hernández Miranda sugirió que se incluyan diagramas en la entrega, mientras que Castañeda Euan recordó que se deben presentar videos en inglés como parte del proyecto. 
+* Revisión de requisitos funcionales y no funcionales.
+
+Planificación del Proyecto
+Alfredo Alexander Castañeda Euan explicó el proceso de desarrollo del producto, enfatizando la organización del equipo y el uso de métodos ágiles. Se mencionaron roles clave como el Scrum Master y el Product Manager, y se abordó la flexibilidad en la aplicación de metodologías. Juan Manuel Hernández Miranda y otros participantes compartieron sus experiencias previas con proyectos similares, resaltando la importancia de simular el proceso completo de desarrollo.
+* Coordinación de reuniones para asegurar el avance del proyecto.
+* Definición de roles y responsabilidades dentro del equipo.
+
+Planificación de Requisitos
+Alfredo Alexander Castañeda Euan se comprometió a enviar los requisitos del proyecto y propuso una reunión para revisarlos. Leonardo Lomas López sugirió que Rony y Paola también participen para estar al tanto. Se acordó realizar una reunión el domingo a las 6 p.m. para seleccionar los requisitos relevantes.
+
+Planificación del Proyecto
+Alfredo Alexander Castañeda Euan propuso embellecer el repositorio y asegurar que contenga todos los requisitos necesarios. Se acordó que cada entrega incluiría un video explicativo y se mencionó la importancia de definir roles dentro del equipo, así como la metodología Scrum para organizar las tareas. Juan Manuel Hernández Miranda y Leonardo Lomas López también participaron en la discusión sobre la planificación y la asignación de responsabilidades.
+* Preparación de la presentación y video para la entrega del proyecto.
+
+
+Puntos de Acción:
+
+* Alfredo Alexander Castañeda Euan y el equipo definirán la metodología Scrum que se utilizará para el desarrollo del proyecto.
+* Alfredo Alexander Castañeda Euan enviará todos los requisitos que encuentre en el repositorio para que el equipo los revise.
+* Juan Manuel Hernandez Miranda y el equipo crearán un video de presentación para la entrega del proyecto.
+* Leonardo Lomas Lopez coordinará una reunión el domingo a las 6 para revisar los requisitos y definir los roles de cada miembro del equipo.
+
+
+Preguntas clave:
+
+* ¿Qué diagramas se deben incluir en la entrega del proyecto?
+* ¿Se va a hacer la presentación en inglés?
+* ¿Qué requisitos específicos se deben presentar al profesor?
+
+
+Bloc de notas:
+
+* No hay notas
