@@ -66,3 +66,8 @@ The prioritization ensures that deliverables meet the primary user needs and bus
 - **Historical record** of rescheduled and canceled appointments.
     
 - Visual confirmation of changes on the calendar.
+
+## 2. Should (Important but Not Critical)
+
+**Description:** No requirements have been identified for this category in the initial version.  
+**Justification:** All current requirements are essential for the system’s core operation; there are no secondary features that add immediate value without affecting functionality.
