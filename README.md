@@ -23,10 +23,11 @@ las caracteristicas que tendra esta rama es que en ella se subiran los archivos 
 - estructura de clases casi determinada 
 - requisitos planteados y aprobados
 - creacion de una pre-alpha de la API
+-se creo la base de datos provicional que basicamente es la base de datos solo que no en un servidor web
 
 ## ➡️ Roadmap
 ### actividades que se implementaran en el futuro
-- creacion de la base de datos
+- creacion de la base de datos (avanzado)
 - frontend (pero eso no estara en esta rama)
 - subir a un servidor web
 
