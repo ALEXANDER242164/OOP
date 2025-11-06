@@ -47,6 +47,34 @@ Change Validation: When saving changes, the same business rule validations as fo
 History: The system should record that the appointment was rescheduled (ideally retaining a reference to its original date).
 +   **Confirmation:** Upon successful update, the system should display a confirmation message and reflect the changes in the calendar.
 
+### 1-4. FR - **Delete appointment**
+The system must allow authorized users (secretary) to delete an existing appointment in the system
+
+***acceptance criteria***
++   **Expediente paciente estatus:** La cita debe de ser marcada como "suspendida" en el expediente del paciente
++   **Eliminacion del sistema:** La cita eliminada solo puede ser accesada para ver la informacion referente a la misma
++   **criterio de eliminacion:** El paciente debe de haber solicitado la anulacion de la cita por medio del sistema o con la ayuda del personal autorizado (secretarias)
+
+### 1-5. FR - **Appointment reminder**
+The system must have to send a remimnder to the patient about his appointment.
+
+***acceptance criteria***
++   **Recordatorio cita:** El sistema debe de mandar un recordatorio de la cita proxima del paciente
++   **Tiempo:** La notificacion debe de ser mandado un dia antes de la cita del paciente.
++   **Informacion del recordatorio:** El recordatorio debera de contener la siguiente informacion
+    + **Hora:** el horario de la cita
+    + **Fecha:** Fecha de la cita en formato -> Dia/Mes/Año
+    + **Tipo de cita:** El tipo de cita escogida -> Evaluacion integral / Cita de terapia
+    +  **Datos del paciente:** Nombre completo y informacion de contacto
+    + **Terapista:** El nombre del terapista asignado
+    + **Sala:** El numero de la sala/cuarto asignado para la terapia
+### 1.6. FR - **Appoinment management**
+Las secretarias y personal administrativo autorizado debe de poder tener un control sobre las citas establecidas.
+
+**acceptance criteria**
+
++  **Acciones en el sistema:** Debe de poder asignar una cita, actualizar una cita y eliminar una cita.   
++  **Acceso:** Este acceso al control de la agenda debe de ser unicamente de los usuarios autorizados (secretarias, coordinadores y administradores).
 
 ## 2. Non-functional requirements (NFR)
 Non-functional requirements describe the quality, performance, and user experience standards of the system.
@@ -81,4 +109,3 @@ The interface should be consistent and work across different devices.
 
 +   All buttons, forms, and colors must follow the same style guide throughout the module.
 +   The application must be fully functional and visually correct on desktop (1920px) and tablet (768px) screen resolutions, without generating horizontal scroll bars.
-
