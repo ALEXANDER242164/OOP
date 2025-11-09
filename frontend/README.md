@@ -12,19 +12,19 @@ Crear una interfaz clara y funcional que permita a los pacientes ingresar sus da
 
 ###  Estructura del proyecto
 
-- `index.html`: Contiene la estructura del formulario, incluyendo campos como nombre, apellidos, teléfono, correo, fecha, hora, motivo y comentarios.
+-  [`index.html`](https://github.com/ALEXANDER242164/OOP/blob/ronnieSE/frontend/Appointment%20Form/index.html): Contiene la estructura del formulario, incluyendo campos como nombre, apellidos, teléfono, correo, fecha, hora, motivo y comentarios.
   
-- `style.css`: Define el diseño visual del formulario, incluyendo fondo con imagen clínica, contenedor flotante, botones estilizados y diseño responsivo.
+-  [`style.css`](https://github.com/ALEXANDER242164/OOP/blob/ronnieSE/frontend/Appointment%20Form/style.css): Define el diseño visual del formulario, incluyendo fondo con imagen clínica, contenedor flotante, botones estilizados y diseño responsivo.
   
-- `Documentation HTML.md`: Explica detalladamente la estructura y propósito del archivo HTML.
+- [`Documentation HTML.md`](https://github.com/ALEXANDER242164/OOP/blob/ronnieSE/frontend/Appointment%20Form/Documentation%20HTML.md): Explica detalladamente la estructura y propósito del archivo HTML.
   
-- `Documentation CSS.md`: Describe los estilos aplicados, su función y cómo se adaptan a distintos dispositivos.
+-  [`Documentation CSS.md`](https://github.com/ALEXANDER242164/OOP/blob/ronnieSE/frontend/Appointment%20Form/Documentation%20CSS.md): Describe los estilos aplicados, su función y cómo se adaptan a distintos dispositivos.
 
 ---
 
 ###  Tecnologías utilizadas
 
-- **HTML5**: Lenguaje de marcado utilizado para definir la estructura semántica y el contenido del formulario.
+- **HTML**: Lenguaje de marcado utilizado para definir la estructura semántica y el contenido del formulario.
   
 - **CSS**: Lenguaje de hojas de estilo empleado para el diseño visual, la adaptación responsiva y la optimización de la experiencia de usuario.
   
