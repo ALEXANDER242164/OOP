@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programar Cita - Clínica Salud</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="overlay">
+        <div class="form-container">
+            <h1>Programar Cita</h1>
+
+            <form class="appointment-form">
+                <!-- Nombres -->
+                <div class="form-group">
+                    <label for="nombre">Nombres</label>
+                    <input type="text" id="nombre" placeholder="Ingrese sus nombres" required>
+                </div>
+
+                <!-- Apellidos -->
+                <div class="form-group">
+                    <label for="apellidos">Apellidos</label>
+                    <input type="text" id="apellidos" placeholder="Ingrese sus apellidos" required>
+                </div>
+
+                <!-- Teléfono -->
+                <div class="form-group">
+                    <label for="telefono">Teléfono</label>
+                    <input type="tel" id="telefono" placeholder="Ej: 999-123-4567" required>
+                </div>
+
+                <!-- Correo -->
+                <div class="form-group">
+                    <label for="correo">Correo electrónico</label>
+                    <input type="email" id="correo" placeholder="Ingrese su correo electrónico" required>
+                </div>
+
+                <!-- Fecha -->
+                <div class="form-group">
+                    <label for="fecha">Fecha</label>
+                    <input type="date" id="fecha" required>
+                </div>
+
+                <!-- Hora -->
+                <div class="form-group">
+                    <label for="hora">Hora</label>
+                    <input type="time" id="hora" required>
+                </div>
+
+                <!-- Motivo -->
+                <div class="form-group">
+                    <label for="motivo">Motivo</label>
+                    <input type="text" id="motivo" placeholder="Ingrese el motivo de su visita" required>
+                </div>
+
+                <!-- Comentarios -->
+                <div class="form-group">
+                    <label for="comentarios">Comentarios adicionales</label>
+                    <textarea id="comentarios" class="input-text" rows="3" placeholder="Ingrese algún detalle importante..."></textarea>
+                </div>
+
+                <!-- Botones -->
+                <div class="form-buttons">
+                    <button type="submit" class="btn-primary">Enviar</button>
+                    <button type="reset" class="btn-secondary">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
