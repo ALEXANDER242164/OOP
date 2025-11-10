@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full bg-gray-100">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prototipo - Agenda de Citas (FR 1-2)</title>
+    <!-- 1. Carga de Tailwind CSS para un diseño moderno -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Estilo simple para el scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-thumb { background-color: #cbd5e1; border-radius: 3px; }
+    </style>
+</head>
+<body class="h-full flex antialiased font-sans text-gray-800">
+
+    <!-- 
+      Contenedor principal de la aplicación.
+      Usamos Flexbox para crear el layout de dashboard (Sidebar + Main Content).
+    -->
+    <div class="flex h-full w-full">
+
+        <!-- ======================================================= -->
+        <!-- SIDEBAR (Barra de Navegación Izquierda)                 -->
+        <!-- Contiene la navegación principal de la aplicación.      -->
+        <!-- ======================================================= -->
+        <aside classs="w-64 flex-shrink-0 bg-white border-r border-gray-200 hidden md:block">
+            <div class="p-6">
+                <h2 class="text-2xl font-bold text-blue-700">ClínicaPsico</h2>
+                <span class="text-sm text-gray-500">Gestión de Citas</span>
+            </div>
+            <nav class="mt-4 px-4">
+                <a href="#" class="flex items-center px-4 py-3 bg-blue-100 text-blue-700 font-semibold rounded-lg">
+                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                    Agenda
+                </a>
+                <a href="#" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 rounded-lg mt-2">
+                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                    Pacientes
+                </a>
+                <a href="#" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 rounded-lg mt-2">
+                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.653-.125-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.653.125-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                    Terapeutas
+                </a>
+                <a href="#" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 rounded-lg mt-2">
+                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                    Configuración
+                </a>
+            </nav>
+        </aside>
+
+        <!-- ======================================================= -->
+        <!-- ÁREA DE CONTENIDO PRINCIPAL                             -->
+        <!-- Aquí es donde se muestra la agenda (FR 1-2).           -->
+        <!-- ======================================================= -->
+        <main class="flex-1 flex flex-col overflow-auto">
+            
+            <!-- Encabezado del contenido principal (con botones de acción) -->
+            <header class="bg-white border-b border-gray-200 p-4 flex justify-between items-center">
+                <!-- Botones de Filtro (Requerimiento FR 1-2) -->
+                <div>
+                    <button onclick="filterByWeek()" class="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-l-md hover:bg-blue-700 focus:outline-none">
+                        Semana
+                    </button>
+                    <button onclick="filterByDay()" class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-r-md hover:bg-gray-300 focus:outline-none">
+                        Día
+                    </button>
+                </div>
+                
+                <!-- Botón de Acción Principal (Requerimiento FR 1-1) -->
+                <button onclick="showCreateModal()" class="px-4 py-2 font-medium text-white bg-green-600 rounded-lg hover:bg-green-700 flex items-center">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+                    Agendar Cita
+                </button>
+            </header>
+
+            <!-- 
+              Contenedor del Calendario (Agenda)
+              Usamos CSS Grid para simular un calendario semanal.
+            -->
+            <div class="flex-1 p-6 overflow-auto">
+                <div class="grid grid-cols-6 gap-px bg-gray-200 border border-gray-200 rounded-lg overflow-hidden">
+                    
+                    <!-- Fila de Encabezado de Horas (vacía la primera celda) -->
+                    <div class="bg-white p-2 text-center text-sm font-semibold text-gray-500 uppercase tracking-wider">Hora</div>
+                    
+                    <!-- Encabezados de Días de la Semana (Lunes a Viernes, como pide FR 1-2) -->
+                    <div class="bg-white p-2 text-center">
+                        <span class="text-sm font-semibold text-gray-700">Lunes</span>
+                        <!-- Indicador de Carga (Requerimiento FR 1-2) -->
+                        <span class="block text-xs font-medium text-yellow-800 bg-yellow-200 rounded-full px-2 py-0.5 mt-1">Media</span>
+                    </div>
+                    <div class="bg-white p-2 text-center">
+                        <span class="text-sm font-semibold text-gray-700">Martes</span>
+                        <span class="block text-xs font-medium text-green-800 bg-green-200 rounded-full px-2 py-0.5 mt-1">Baja</span>
+                    </div>
+                    <div class="bg-white p-2 text-center">
+                        <span class="text-sm font-semibold text-gray-700">Miércoles</span>
+                        <span class="block text-xs font-medium text-green-800 bg-green-200 rounded-full px-2 py-0.5 mt-1">Baja</span>
+                    </div>
+                    <div class="bg-white p-2 text-center">
+                        <span class="text-sm font-semibold text-gray-700">Jueves</span>
+                        <span class="block text-xs font-medium text-red-800 bg-red-200 rounded-full px-2 py-0.5 mt-1">Alta</span>
+                    </div>
+                    <div class="bg-white p-2 text-center">
+                        <span class="text-sm font-semibold text-gray-700">Viernes</span>
+                        <span class="block text-xs font-medium text-green-800 bg-green-200 rounded-full px-2 py-0.5 mt-1">Baja</span>
+                    </div>
+
+                    <!-- 
+                      Filas de Horas (09:00 - 17:00, como pide FR 1-1)
+                      Cada celda es un 'slot' de hora.
+                    -->
+
+                    <!-- Fila 09:00 -->
+                    <div class="bg-white p-2 text-center text-sm font-bold text-gray-500 border-t border-gray-200">09:00</div>
+                    <div class="bg-white border-t border-gray-200 p-1">
+                        <!-- Cita de Ejemplo 1 (FR 1-2: Clickable y con color) -->
+                        <div onclick="showDetailsModal({ id: '1', tipo: 'Evaluación', paciente: 'Ana Gómez', terapeuta: 'Dr. Salas', sala: 'Sala A', hora: '09:00 - 10:30' })" 
+                             class="h-full bg-purple-200 text-purple-800 border border-purple-300 rounded-lg p-2 cursor-pointer hover:bg-purple-300">
+                            <p class="font-semibold text-sm">Evaluación</p>
+                            <p class="text-xs">Ana Gómez</p>
+                            <p class="text-xs italic">Sala A</p>
+                        </div>
+                    </div>
+                    <div class="bg-white border-t border-gray-200"></div>
+                    <div class="bg-white border-t border-gray-200"></div>
+                    <div class="bg-white border-t border-gray-200 p-1">
+                        <!-- Cita de Ejemplo 2 -->
+                        <div onclick="showDetailsModal({ id: '2', tipo: 'Terapia', paciente: 'Luis Torres', terapeuta: 'Dra. Paez', sala: 'Sala B', hora: '09:30 - 10:30' })" 
+                             class="h-full bg-blue-200 text-blue-800 border border-blue-300 rounded-lg p-2 cursor-pointer hover:bg-blue-300">
+                            <p class="font-semibold text-sm">Terapia</p>
+                            <p class="text-xs">Luis Torres</p>
+                            <p class="text-xs italic">Sala B</p>
+                        </div>
+                    </div>
+                    <div class="bg-white border-t border-gray-200"></div>
+
+                    <!-- Fila 10:00 -->
+                    <div class="bg-white p-2 text-center text-sm font-bold text-gray-500 border-t border-gray-200">10:00</div>
+                    <div class="bg-white border-t border-gray-200"></div>
+                    <div class="bg-white border-t border-gray-200"></div>
+                    <div class="bg-white border-t border-gray-200"></div>
+                    <div class="bg-white border-t border-gray-200"></div>
+                    <div class="bg-white border-t border-gray-200"></div>
+
+                    <!-- Fila 11:00 -->
+                    <div class="bg-white p-2 text-center text-sm font-bold text-gray-500 border-t border-gray-200">11:00</div>
+                    <div class="bg-white border-t border-gray-200"></div>
+                    <div class="bg-white border-t border-gray-200 p-1">
+                        <!-- Cita de Ejemplo 3 -->
+                        <div onclick="showDetailsModal({ id: '3', tipo: 'Terapia', paciente: 'Carla Ruiz', terapeuta: 'Dr. Salas', sala: 'Sala A', hora: '11:00 - 12:00' })" 
+                             class="h-full bg-blue-200 text-blue-800 border border-blue-300 rounded-lg p-2 cursor-pointer hover:bg-blue-300">
+                            <p class="font-semibold text-sm">Terapia</p>
+                            <p class="text-xs">Carla Ruiz</p>
+                            <p class="text-xs italic">Sala A</p>
+                        </div>
+                    </div>
+                    <div class="bg-white border-t border-gray-200"></div>
+                    <div class="bg-white border-t border-gray-200"></div>
+                    <div class="bg-white border-t border-gray-200"></div>
+                    
+                    <!-- Fila 12:00 -->
+                    <div class="bg-white p-2 text-center text-sm font-bold text-gray-500 border-t border-gray-200">12:00</div>
+                    <div class="bg-white border-t border-gray-200"></div>
+                    <div class="bg-white border-t border-gray-200"></div>
+                    <div class="bg-white border-t border-gray-200"></div>
+                    <div class="bg-white border-t border-gray-200"></div>
+                    <div class="bg-white border-t border-gray-200"></div>
+                    
+                    <!-- Fila 13:00 -->
+                    <div class="bg-white p-2 text-center text-sm font-bold text-gray-500 border-t border-gray-200">13:00</div>
+                    <div class="bg-white border-t border-gray-200"></div>
+                    <div class="bg-white border-t border-gray-200"></div>
+                    <div class="bg-white border-t border-gray-200"></div>
+                    <div class="bg-white border-t border-gray-200"></div>
+                    <div class="bg-white border-t border-gray-200"></div>
+
+                    <!-- Fila 14:00 -->
+                    <div class="bg-white p-2 text-center text-sm font-bold text-gray-500 border-t border-gray-200">14:00</div>
+                    <div class="bg-white border-t border-gray-200"></div>
+                    <div class="bg-white border-t border-gray-200"></div>
+                    <div class="bg-white border-t border-gray-200"></div>
+                    <div class="bg-white border-t border-gray-200"></div>
+                    <div class="bg-white border-t border-gray-200"></div>
+
+                    <!-- Fila 15:00 -->
+                    <div class="bg-white p-2 text-center text-sm font-bold text-gray-500 border-t border-gray-200">15:00</div>
+                    <div class="bg-white border-t border-gray-200"></div>
+                    <div class="bg-white border-t border-gray-200"></div>
+                    <div class="bg-white border-t border-gray-200"></div>
+                    <div class="bg-white border-t border-gray-200"></div>
+                    <div class="bg-white border-t border-gray-200"></div>
+
+                    <!-- Fila 16:00 -->
+                    <div class="bg-white p-2 text-center text-sm font-bold text-gray-500 border-t border-gray-200">16:00</div>
+                    <div class="bg-white border-t border-gray-200"></div>
+                    <div class="bg-white border-t border-gray-200"></div>
+                    <div class="bg-white border-t border-gray-200"></div>
+                    <div class="bg-white border-t border-gray-200"></div>
+                    <div class="bg-white border-t border-gray-200"></div>
+                    
+                    <!-- Fila 17:00 (última hora 17:30) -->
+                    <div class="bg-white p-2 text-center text-sm font-bold text-gray-500 border-t border-gray-200">17:00</div>
+                    <div class="bg-white border-t border-gray-200"></div>
+                    <div class="bg-white border-t border-gray-200"></div>
+                    <div class="bg-white border-t border-gray-200"></div>
+                    <div class="bg-white border-t border-gray-200"></div>
+                    <div class="bg-white border-t border-gray-200"></div>
+
+                </div>
+            </div>
+        </main>
+    </div>
+
+
+    <!-- ======================================================= -->
+    <!-- MODALES (Ocultos por defecto)                           -->
+    <!-- ======================================================= -->
+
+    <!-- 
+      Modal para VER DETALLES (FR 1-2) y EDITAR (FR 1-3)
+      Este modal se muestra al hacer clic en una cita existente.
+    -->
+    <div id="detailsModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-lg">
+            <!-- Modal Header -->
+            <div class="border-b border-gray-200 p-4 flex justify-between items-center">
+                <h3 class="text-lg font-semibold" id="detailsModalTitle">Detalles de la Cita</h3>
+                <button onclick="hideDetailsModal()" class="text-gray-400 hover:text-gray-600">&times;</button>
+            </div>
+            <!-- Modal Body -->
+            <div class="p-6 space-y-4">
+                <p><strong>Paciente:</strong> <span id="detailsPaciente"></span></p>
+                <p><strong>Tipo:</strong> <span id="detailsTipo"></span></p>
+                <p><strong>Terapeuta:</strong> <span id="detailsTerapeuta"></span></p>
+                <p><strong>Sala:</strong> <span id="detailsSala"></span></p>
+                <p><strong>Hora:</strong> <span id="detailsHora"></span></p>
+            </div>
+            <!-- Modal Footer -->
+            <div class="border-t border-gray-200 p-4 flex justify-end space-x-2">
+                <button onclick="hideDetailsModal()" class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200">
+                    Cerrar
+                </button>
+                <button onclick="handleEditClick()" class="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700">
+                    Editar / Reprogramar
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- 
+      Modal para CREAR CITA (FR 1-1)
+      Este modal se muestra al hacer clic en "Agendar Cita".
+      El formulario coincide con los criterios de aceptación de FR 1-1.
+    -->
+    <div id="createModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center p-4 hidden">
+        <form id="createForm" class="bg-white rounded-lg shadow-xl w-full max-w-lg">
+            <!-- Modal Header -->
+            <div class="border-b border-gray-200 p-4 flex justify-between items-center">
+                <h3 class="text-lg font-semibold">Agendar Nueva Cita</h3>
+                <button type="button" onclick="hideCreateModal()" class="text-gray-400 hover:text-gray-600">&times;</button>
+            </div>
+            <!-- Modal Body -->
+            <div class="p-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Campos del formulario según FR 1-1 -->
+                <div>
+                    <label for="tipo_sesion" class="block text-sm font-medium text-gray-700">Tipo de Sesión</label>
+                    <select id="tipo_sesion" name="tipo_sesion" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                        <option>Evaluación Inicial</option>
+                        <option>Cita Terapéutica</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="paciente" class="block text-sm font-medium text-gray-700">Paciente</label>
+                    <input type="text" id="paciente" name="paciente" placeholder="Buscar paciente..." class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                </div>
+                <div>
+                    <label for="terapeuta" class="block text-sm font-medium text-gray-700">Terapeuta</lebel>
+                    <select id="terapeuta" name="terapeuta" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                        <option>Dr. Salas</option>
+                        <option>Dra. Paez</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="sala" class="block text-sm font-medium text-gray-700">Sala</lebel>
+                    <select id="sala" name="sala" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                        <option>Sala A</option>
+                        <option>Sala B</option>
+                        <option>Consultorio 1</option>
+                    </select>
+                </div>
+                <div class="md:col-span-2">
+                    <label for="fecha" class="block text-sm font-medium text-gray-700">Fecha</lebel>
+                    <input type="date" id="fecha" name="fecha" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                </div>
+                <div>
+                    <label for="hora_inicio" class="block text-sm font-medium text-gray-700">Hora Inicio</lebel>
+                    <input type="time" id="hora_inicio" name="hora_inicio" step="1800" min="09:00" max="17:30" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                </div>
+                <div>
+                    <label for="hora_fin" class="block text-sm font-medium text-gray-700">Hora Fin</lebel>
+                    <input type="time" id="hora_fin" name="hora_fin" step="1800" min="09:00" max="17:30" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                </div>
+            </div>
+            <!-- Modal Footer -->
+            <div class="border-t border-gray-200 p-4 flex justify-end space-x-2">
+                <button type="button" onclick="hideCreateModal()" class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200">
+                    Cancelar
+                </button>
+                <button type="submit" class="px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-lg hover:bg-green-700">
+                    Guardar Cita
+                </button>
+            </div>
+        </form>
+    </div>
+
+
+    <!-- ======================================================= -->
+    <!-- JAVASCRIPT (Funciones establecidas, sin lógica)         -->
+    <!-- ======================================================= -->
+    <script>
+        // --- Referencias a los Modales ---
+        const createModal = document.getElementById('createModal');
+        const detailsModal = document.getElementById('detailsModal');
+        const createForm = document.getElementById('createForm');
+
+        // --- Funciones para el Modal de CREACIÓN (FR 1-1) ---
+
+        /**
+         * Muestra el modal para crear una nueva cita.
+         * Se llama desde el botón "Agendar Cita".
+         */
+        function showCreateModal() {
+            console.log("Función 'showCreateModal' llamada: Mostrando modal de creación.");
+            createModal.classList.remove('hidden');
+        }
+
+        /**
+         * Oculta el modal de creación de citas.
+         * Se llama desde el botón "Cancelar" del modal.
+         */
+        function hideCreateModal() {
+            console.log("Función 'hideCreateModal' llamada.");
+            createModal.classList.add('hidden');
+        }
+
+        /**
+         * Maneja el envío (submit) del formulario de creación.
+         * Por ahora, solo previene el envío y loguea los datos.
+         */
+        createForm.addEventListener('submit', function(event) {
+            event.preventDefault(); // Previene que la página se recargue
+            
+            const formData = new FormData(event.target);
+            const data = Object.fromEntries(formData.entries());
+            
+            console.log("Función 'handleCreateSubmit' llamada.");
+            console.log("Datos del formulario (simulando envío al backend):", data);
+            
+            // Aquí iría la lógica de fetch() para llamar al backend (POST /api/appointments)
+            
+            hideCreateModal(); // Oculta el modal después de "guardar"
+            alert("Prototipo: Cita guardada (simulación). Revisa la consola.");
+        });
+
+
+        // --- Funciones para el Modal de DETALLES (FR 1-2 / FR 1-3) ---
+
+        /**
+         * Muestra el modal con los detalles de una cita existente.
+         * Se llama al hacer clic en una cita en el calendario.
+         * @param {object} appointmentData - Un objeto con los datos de la cita (pasado en el onclick).
+         */
+        function showDetailsModal(appointmentData) {
+            console.log("Función 'showDetailsModal' llamada con:", appointmentData);
+            
+            // Poblar el modal con los datos de la cita
+            document.getElementById('detailsModalTitle').innerText = `Detalles: ${appointmentData.tipo}`;
+            document.getElementById('detailsPaciente').innerText = appointmentData.paciente;
+            document.getElementById('detailsTipo').innerText = appointmentData.tipo;
+            document.getElementById('detailsTerapeuta').innerText = appointmentData.terapeuta;
+            document.getElementById('detailsSala').innerText = appointmentData.sala;
+            document.getElementById('detailsHora').innerText = appointmentData.hora;
+            
+            // Almacenar ID para la función de editar (no visible)
+            detailsModal.dataset.appointmentId = appointmentData.id;
+
+            detailsModal.classList.remove('hidden');
+        }
+
+        /**
+         * Oculta el modal de detalles.
+         */
+        function hideDetailsModal() {
+            console.log("Función 'hideDetailsModal' llamada.");
+            detailsModal.classList.add('hidden');
+        }
+
+        /**
+         * Maneja el clic en el botón "Editar / Reprogramar".
+         * (FR 1-3)
+         */
+        function handleEditClick() {
+            const appointmentId = detailsModal.dataset.appointmentId;
+            console.log(`Función 'handleEditClick' llamada para la cita ID: ${appointmentId}.`);
+            
+            // En una aplicación real, esto podría:
+            // 1. Ocultar el modal de detalles.
+            // 2. Mostrar el modal de creación (showCreateModal) pero lleno con los datos de esta cita.
+            
+            alert("Prototipo: Se abriría el modo de edición (simulación).");
+            hideDetailsModal();
+        }
+
+
+        // --- Funciones para los FILTROS (FR 1-2) ---
+
+        /**
+         * Simula el cambio de vista a "Día".
+         */
+        function filterByDay() {
+            console.log("Función 'filterByDay' llamada. Lógica para filtrar por día iría aquí.");
+            alert("Prototipo: Vista cambiaría a 'Día'.");
+        }
+
+        /**
+         * Simula el cambio de vista a "Semana".
+         */
+        function filterByWeek() {
+            console.log("Función 'filterByWeek' llamada. Lógica para filtrar por semana iría aquí.");
+            alert("Prototipo: Vista cambiaría a 'Semana'.");
+        }
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,228 @@
+/* -------------- RESET & VARIABLES ------------------------------ */
+*,
+*::before,
+*::after{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+:root{
+  /* Paleta principal */
+  --clr-primary:#004080;
+  --clr-primary-light:#0066cc;
+  --clr-primary-dark:#003d99;
+
+  /* Estados */
+  --clr-success:#2ecc71;   /* terapia (verde)            */
+  --clr-integral:#9b59b6;  /* evaluación integral (morado)*/
+  --clr-danger:#e74c3c;
+  --clr-warning:#e67e22;
+  --clr-info:#3498db;      /* info / botones azules       */
+
+  /* Neutros */
+  --clr-bg-light:#f9f9f9;
+  --clr-bg:#ffffff;
+  --clr-text:#333;
+
+  /* Sombras y radio */
+  --shadow-sm:0 1px 3px rgba(0,0,0,.1);
+  --shadow-md:0 2px 5px rgba(0,0,0,.15);
+  --radius:6px;
+}
+
+/* -------------- GLOBAL ------------------------------------------------ */
+html{scroll-behavior:smooth;font-size:16px;}
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:var(--clr-bg-light);
+  color:var(--clr-text);
+  line-height:1.5;
+  padding:20px;
+}
+
+/* -------------- HEADER & NAV ---------------------------------------- */
+header{
+  background:var(--clr-primary);
+  color:#fff;
+  padding:1rem 1.5rem;
+  border-radius:var(--radius);
+  margin-bottom:1.5rem;
+  box-shadow:var(--shadow-md);
+}
+header h1{font-size:1.75rem;margin-bottom:.5rem;}
+nav ul{list-style:none;display:flex;flex-wrap:wrap;gap:.75rem;}
+nav a{
+  display:inline-block;
+  background:var(--clr-primary-light);
+  color:#fff;
+  text-decoration:none;
+  padding:.5rem 1rem;
+  border-radius:var(--radius);
+  font-weight:500;
+  transition:background .25s,transform .15s;
+}
+nav a:hover,
+nav a.active{background:var(--clr-primary-dark);transform:translateY(-1px);}
+
+/* -------------- LAYOUT PRINCIPAL ------------------------------------- */
+main{
+  background:var(--clr-bg);
+  padding:1.5rem;
+  border-radius:var(--radius);
+  box-shadow:var(--shadow-md);
+}
+
+/* ►► Ajuste de flex para mantener agenda a la derecha ◄◄ */
+.main-container{
+  display:flex;
+  gap:1.5rem;
+  flex-wrap:nowrap;          /* evita que la agenda salte abajo en escritorio */
+}
+
+.inbox{
+  flex:0 0 340px;            /* ancho fijo, no se encoge */
+  background:var(--clr-bg-light);
+  border-radius:var(--radius);
+  padding:1rem;
+  box-shadow:var(--shadow-sm);
+}
+
+.content-area{
+  flex:1 1 0;                /* crece/encoge tomando espacio restante */
+  min-width:0;               /* permite que el grid se reduzca sin forzar wrap */
+}
+
+/* -------------- BANDEJA DE ENTRADA ----------------------------------- */
+.inbox-header{margin-bottom:1rem;}
+.inbox-tabs{display:flex;border-bottom:2px solid #ddd;margin-bottom:1rem;}
+.tab-btn{
+  flex:1;padding:.5rem;background:none;border:none;cursor:pointer;font-weight:500;
+  border-bottom:3px solid transparent;transition:color .25s,border-color .25s;
+}
+.tab-btn:hover{color:var(--clr-primary-dark);}
+.tab-btn.active{border-bottom-color:var(--clr-primary);color:var(--clr-primary);}
+.tab-content{display:none;}
+.tab-content.active{display:block;}
+.request-item{
+  background:var(--clr-bg);padding:1rem;margin-bottom:1rem;border-radius:var(--radius);
+  box-shadow:var(--shadow-sm);
+}
+.request-item h3{font-size:1rem;color:var(--clr-primary-dark);margin-bottom:.75rem;}
+.request-actions{margin-top:.75rem;display:flex;gap:.5rem;}
+.approve-btn{
+  background:var(--clr-info);color:#fff;border:none;padding:.4rem .75rem;border-radius:var(--radius);
+  cursor:pointer;font-size:.85rem;transition:background .25s;
+}
+.approve-btn:hover{background:#2d83c5;}
+.status-pending{color:var(--clr-warning);font-weight:600;}
+
+/* -------------- FILTROS --------------------------------------------- */
+#filters{margin-bottom:1.5rem;}
+#filters h2{margin-bottom:.75rem;color:var(--clr-primary-dark);}
+.filter-group{
+  display:inline-flex;align-items:center;gap:.5rem;margin-right:1rem;margin-bottom:.75rem;
+}
+.filter-group label{font-weight:500;}
+.filter-group input,
+.filter-group select,
+.filter-group button{
+  padding:.4rem .6rem;border:1px solid #ccc;border-radius:var(--radius);font-size:.9rem;
+}
+.filter-group button{
+  background:var(--clr-primary-light);color:#fff;cursor:pointer;transition:background .25s;
+}
+.filter-group button:hover{background:var(--clr-primary-dark);}
+#newEventBtn{
+  background:var(--clr-info);color:#fff;border:none;padding:.4rem .8rem;border-radius:var(--radius);
+  cursor:pointer;transition:background .25s;
+}
+#newEventBtn:hover{background:#2d83c5;}
+
+/* -------------- CALENDARIO GRID ------------------------------------- */
+#calendarContainer{
+  display:grid;
+  grid-template-columns:60px repeat(5,1fr);
+  grid-auto-rows:60px;
+  border:1px solid #ddd;
+  position:relative;
+}
+.day-header{
+  background:var(--clr-primary);color:#fff;display:flex;align-items:center;justify-content:center;
+  border:1px solid #ddd;font-size:.9rem;padding:.35rem;
+}
+
+/*  -- Carga diaria (colores 25-75-100 %) -- */
+.day-low{background:var(--clr-success);}    /* <25 %  */
+.day-mid{background:var(--clr-warning);color:#222;} /* 25-75 % */
+.day-high{background:var(--clr-danger);}    /* >75 %  */
+
+.time-cell{
+  background:#ebeff5;text-align:center;border:1px solid #ddd;font-size:.85rem;padding:.3rem;
+}
+.empty-cell{border:1px solid #ddd;position:relative;}
+.cell-container{position:relative;width:100%;height:100%;display:flex;flex-direction:column;gap:2px;padding:2px;}
+
+/* -------------- EVENTOS --------------------------------------------- */
+.appointment{
+  flex:1 1 auto;border-radius:var(--radius);padding:2px 4px;font-size:.78rem;color:#fff;
+  cursor:pointer;display:flex;align-items:center;overflow:hidden;box-shadow:var(--shadow-sm);
+  transition:opacity .2s,transform .2s;
+}
+.appointment:hover{opacity:.9;transform:scale(1.02);}
+.appointment.tipo-1{background:var(--clr-integral);} /* evaluación integral */
+.appointment.tipo-2{background:var(--clr-info);}     /* terapia = azul     */
+
+/* -------------- MODALES ---------------------------------------------- */
+.modal{
+  display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:1000;
+  overflow-y:auto;padding:2rem 1rem;
+}
+.modal-content{
+  background:var(--clr-bg);margin:auto;padding:1.5rem;border-radius:var(--radius);
+  max-width:600px;width:90%;max-height:90vh;overflow-y:auto;box-shadow:var(--shadow-md);position:relative;
+}
+.close-button{
+  position:absolute;top:.6rem;right:.8rem;font-size:1.5rem;background:none;border:none;
+  color:var(--clr-text);cursor:pointer;transition:color .2s;
+}
+.close-button:hover{color:var(--clr-danger);}
+
+/* -------------- FORMULARIOS ----------------------------------------- */
+.form-group{margin-bottom:1rem;}
+.form-group label{display:block;margin-bottom:.35rem;font-weight:500;}
+.form-group input,
+.form-group select{
+  width:100%;padding:.5rem .6rem;border:1px solid #ccc;border-radius:var(--radius);font-size:.9rem;
+}
+.time-selection{display:flex;gap:1rem;flex-wrap:wrap;}
+.time-selection .form-group{flex:1 1 150px;}
+.duration-info{font-size:.9rem;}
+
+#saveBtn,
+.modal-content button[type="submit"]{
+  background:var(--clr-primary-light);color:#fff;border:none;padding:.5rem 1rem;border-radius:var(--radius);
+  cursor:pointer;transition:background .25s;font-size:.9rem;
+}
+#saveBtn:hover,
+.modal-content button[type="submit"]:hover{background:var(--clr-primary-dark);}
+
+/* -------------- INPUT FILE ------------------------------------------ */
+input[type="file"]{
+  font-size:.85rem;
+  padding:.4rem .4rem;
+  background:#fff;
+  border:1px solid #ccc;
+  border-radius:var(--radius);
+}
+
+/* -------------- UTILITARIOS ---------------------------------------- */
+.hidden{display:none !important;}
+
+/* -------------- RESPONSIVE ----------------------------------------- */
+@media(max-width:650px){      /* ↓ breakpoint reducido a 650 px */
+  .main-container{flex-direction:column;}
+  .inbox{width:100%;order:2;}
+  #calendarContainer{grid-template-columns:60px 1fr;}
+  .day-header:nth-child(n+3){display:none;}
+}

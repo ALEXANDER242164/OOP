@@ -1,0 +1,178 @@
+<!DOCTYPE html> 
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clínica – Agenda</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- ================= CABECERA ================= -->
+  <header>
+    <h1>Clínica de Atención Psicológica</h1>
+    <nav>
+      <ul>
+        <li><a href="agenda.html" class="active">Agenda</a></li>
+        <li><a href="../pacientes/pacientes.html">Pacientes</a></li>
+        <li><a href="../terapeuta/terapeuta.html">Terapeutas</a></li>
+        <li><a href="../salas/salas.html">Salas</a></li>
+        <li><a href="../reportes/reportes.html">Reportes</a></li>
+        <li><a href="../index.html">Salir</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- ================= CONTENIDO ================= -->
+  <main>
+    <div class="main-container">
+      <!-- -------- BANDEJA DE ENTRADA -------- -->
+      <aside class="inbox">
+        <div class="inbox-header"><h2>Bandeja de Entrada</h2></div>
+
+        <div class="inbox-tabs">
+          <button class="tab-btn active" data-tab="requests">
+            Solicitudes <span id="requests-count">(0)</span>
+          </button>
+          <button class="tab-btn" data-tab="reschedules">
+            Reprogramaciones <span id="reschedules-count">(0)</span>
+          </button>
+        </div>
+
+        <div class="inbox-content">
+          <div id="requests-tab"    class="tab-content active"></div>
+          <div id="reschedules-tab" class="tab-content"></div>
+        </div>
+      </aside>
+
+      <!-- -------- ÁREA DE AGENDA -------- -->
+      <div class="content-area">
+        <!-- Filtros -->
+        <section id="filters">
+          <h2>Filtros de Agenda</h2>
+
+          <div class="filter-group">
+            <label for="filterPeriod">Periodo:</label>
+            <select id="filterPeriod">
+              <option value="day" selected>Día</option>
+              <option value="week">Semana</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label for="filterDate">Fecha:</label>
+            <input type="date" id="filterDate" />
+          </div>
+
+          <div class="filter-group">
+            <button id="printView">Imprimir</button>
+            <button id="newEventBtn">Nuevo Evento</button>
+          </div>
+        </section>
+
+        <!-- Calendario -->
+        <section id="calendarContainer"><!-- grid dinámico --></section>
+      </div>
+    </div>
+  </main>
+
+  <!-- ================= MODAL DETALLES ================= -->
+  <div id="appointmentModal" class="modal">
+    <div class="modal-content">
+      <span class="close-button" id="closeModal">&times;</span>
+      <h2>Detalles del Evento</h2>
+      <div id="modalInfo"></div>
+    </div>
+  </div>
+
+  <!-- ================= MODAL NUEVO / REPROG. ================= -->
+  <div id="newEventModal" class="modal">
+    <div class="modal-content">
+      <span class="close-button" id="closeNewEventModal">&times;</span>
+      <h2 id="newEventTitle">Nuevo Evento</h2>
+
+      <form id="newEventForm">
+        <!-- Tipo -->
+        <div class="form-group">
+          <label for="eventType">Tipo de Evento:</label>
+          <select id="eventType" name="eventType" required>
+            <option value="">Seleccionar tipo</option>
+            <option value="1">Evaluación inicial integral</option>
+            <option value="2">Cita de Terapia</option>
+          </select>
+        </div>
+
+        <!-- Paciente -->
+        <div class="form-group">
+          <label for="eventPatient">Paciente:</label>
+          <select id="eventPatient" name="eventPatient" required>
+            <option value="">Seleccionar paciente</option>
+            <option>Ana Martínez</option><option>Luis García</option>
+            <option>Carmen Robles</option><option>José Romero</option>
+            <option>María Torres</option><option>Diego Fuentes</option>
+            <option>Sofía Paredes</option><option>Ricardo Vargas</option>
+            <option>Elena Castillo</option><option>Pedro Rivas</option>
+          </select>
+        </div>
+
+        <!-- Terapeuta -->
+        <div class="form-group" id="therapistGroup">
+          <label for="eventTherapist">Terapeuta:</label>
+          <select id="eventTherapist" name="eventTherapist"></select>
+        </div>
+
+        <!-- Folio (readonly) -->
+        <div class="form-group">
+          <label for="eventFolio">Folio:</label>
+          <input type="text" id="eventFolio" name="eventFolio" readonly />
+        </div>
+
+        <!-- Fecha -->
+        <div class="form-group">
+          <label for="eventDate">Fecha:</label>
+          <input type="date" id="eventDate" name="eventDate" required />
+        </div>
+
+        <!-- Hora -->
+        <div class="time-selection">
+          <div class="form-group">
+            <label for="eventStartTime">Hora Inicio:</label>
+            <input type="time" id="eventStartTime" name="eventStartTime" required />
+          </div>
+        </div>
+
+        <!-- Duración (informativa) -->
+        <div class="form-group duration-info">
+          <strong>Duración:</strong>
+          <span id="eventDurationLabel">--</span>
+          <input type="hidden" id="eventDuration" name="eventDuration" />
+        </div>
+
+        <!-- Sala -->
+        <div class="form-group">
+          <label for="eventRoom">Sala:</label>
+          <select id="eventRoom" name="eventRoom" required>
+            <option value="">Seleccionar sala</option>
+            <option>Sala 101</option><option>Sala 102</option><option>Sala 103</option>
+          </select>
+        </div>
+
+        <!-- Comprobante de Pago -->
+        <div class="form-group" id="payProofGroup">
+          <label for="payProof">Comprobante de pago (PDF, PNG, JPG – máx&nbsp;5&nbsp;MB):</label>
+          <input type="file" id="payProof" name="payProof" accept=".pdf,image/png,image/jpeg" />
+        </div>
+
+        <!-- Cuota (solo para Cita de terapia) -->
+        <div class="form-group hidden" id="feeGroup">
+          <label for="eventFee">Cuota a pagar (MXN):</label>
+          <input type="number" id="eventFee" name="eventFee" min="0" step="0.01" />
+        </div>
+
+        <button type="submit" id="saveBtn">Guardar</button>
+      </form>
+    </div>
+  </div>
+  
+</body>
+</html>
+
