@@ -1,0 +1,6 @@
+- tenemos que en mi service solo debo teenr la logica del programa como puede ser, el hceh de borrar cálculos, validaciones, coordinación de múltiples operaciones, 
+y la aplicación de reglas de negocio específicas
+
+## patient 
+en particular lo que va hacer mi clase abstracta de paciente es poder ver el historial de citas de el paciente, crear paciente, acrualizar paciente,  
+lista de paciente,obtner paciente, dar de baja a paciente, 

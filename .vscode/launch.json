@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-SprinbootCitasApplication<sprinboot-citas>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.mipart.spring.agenda.sprinboot_citas.SprinbootCitasApplication",
+            "projectName": "sprinboot-citas",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
