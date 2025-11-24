@@ -1,21 +1,29 @@
 package com.informaticonfing.spring.app.springboot.model;
-import jakarta.persistence.*;
-@Entity
-public class Therapist {
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "therapists")
+public class Therapist {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String nombre;
+    private String name;
 
-    public Therapist() {}
-
-    public Therapist(String nombre) {
-        this.nombre = nombre;
+    public Therapist() {
     }
 
-    public Long getId() { return id; }
-    public String getNombre() { return nombre; }
-    public void setNombre(String nombre) { this.nombre = nombre; }
+    public Therapist(String name) {
+        this.name = name;
+    }
+
+    // Getters son OBLIGATORIOS para que el JSON salga bien
+    public Long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
 }

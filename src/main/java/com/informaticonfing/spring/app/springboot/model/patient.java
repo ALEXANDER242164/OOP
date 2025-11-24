@@ -1,27 +1,41 @@
 package com.informaticonfing.spring.app.springboot.model;
-import jakarta.persistence.*;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 
 @Entity
-public class patient {
-
+public class Patient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String nombre;
+    private String apellido;
 
-    @Column(unique = true)
-    private String folio;
+    // getters y setters
+    public Long getId() {
+        return id;
+    }
 
-    public patient() {}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public patient(String nombre) {
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
-    public Long getId() { return id; }
-    public String getNombre() { return nombre; }
-    public void setNombre(String nombre) { this.nombre = nombre; }
-    public String getFolio() { return folio; }
-    public void setFolio(String folio) { this.folio = folio; }
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
 }
