@@ -1,59 +1,44 @@
 package com.mipart.spring.agenda.sprinboot_citas.controller;
 
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import com.mipart.spring.agenda.sprinboot_citas.model.PatientModel;
+import java.util.List;
 
-import com.mipart.spring.agenda.sprinboot_citas.model.DTOs.patientDTO;
-import com.mipart.spring.agenda.sprinboot_citas.services.PacienteService;
-import org.springframework.data.domain.*;
-import org.springframework.http.*;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+
+import com.mipart.spring.agenda.sprinboot_citas.services.PatientService;
 
 import jakarta.validation.Valid;
-import java.net.URI;
+
+
 
 
 @RestController
-@RequestMapping("/api/v1/pacientes")
-@Validated
+@RequestMapping("/api/patients")
 public class PatientController {
 
-    private final PacienteService svc;
+    private final PatientService service;
 
-    public PatientController(PacienteService svc) {
-        this.svc = svc;
-    }
+    public PatientController(PatientService service) { this.service = service; }
 
-    // Crear paciente, vemos que el prefijo o que debe llevar simepre antes de las peticiones http, deben ser /api/v1/pacientes
-    //esto cada vez que se haga una peticion a la api.
-    @PostMapping
-    public ResponseEntity<patientDTO> createPaciente(@Valid @RequestBody patientDTO dto) {
-        patientDTO created = svc.createPaciente(dto);
-        URI location = URI.create(String.format("/api/v1/pacientes/%d", created.getId()));
-        return ResponseEntity.created(location).body(created);
-    }
-
-    // Actualizar paciente (PUT /api/v1/pacientes/{id})
-    @PutMapping("/{id}")
-    public ResponseEntity<patientDTO> updatePaciente(
-            @PathVariable Long id,
-            @Valid @RequestBody patientDTO dto) {
-        patientDTO updated = svc.updatePaciente(id, dto);
-        return ResponseEntity.ok(updated);
-    }
-
-    // Obtener paciente por id (GET /api/v1/pacientes/{id})
-    @GetMapping("/{id}")
-    public ResponseEntity<patientDTO> getPaciente(@PathVariable Long id) {
-        patientDTO dto = svc.getPaciente(id);
-        return ResponseEntity.ok(dto);
-    }
-
-    // Lista de pacientes con paginación (GET /api/v1/pacientes?page=0&size=10)
     @GetMapping
-    public ResponseEntity<Page<patientDTO>> listPacientes(Pageable pageable) {
-        Page<patientDTO> page = svc.listPacientes(pageable);
-        return ResponseEntity.ok(page);
+    public List<PatientModel> listAll() {
+        return service.listAll();
     }
 
+    @GetMapping("/{id}")
+    public PatientModel getById(@PathVariable Long id) {
+        return service.getById(id);
+    }
 
+    @PutMapping("/{id}")
+    public PatientModel update(@PathVariable Long id, @Valid @RequestBody PatientModel body) {
+        return service.update(id, body);
+    }
+
+        // NO crear POST aquí: pacientes ya creados en la BD, lo hace otro equipo.
 }

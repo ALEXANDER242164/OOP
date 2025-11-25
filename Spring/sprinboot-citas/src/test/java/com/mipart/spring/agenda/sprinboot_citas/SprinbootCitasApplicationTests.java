@@ -8,6 +8,7 @@ class SprinbootCitasApplicationTests {
 
 	@Test
 	void contextLoads() {
+		
 	}
 
 }

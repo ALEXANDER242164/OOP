@@ -1,10 +1,10 @@
-package com.mipart.spring.agenda.sprinboot_citas.repositories;
+package com.mipart.spring.agenda.sprinboot_citas.repository;
 
 import com.mipart.spring.agenda.sprinboot_citas.model.PatientModel;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import java.util.Optional;
 
-@Repository
 public interface PatientRepository extends JpaRepository<PatientModel, Long> {
-    
+    Optional<PatientModel> findByEmail(String email);
+    boolean existsByEmail(String email);
 }
