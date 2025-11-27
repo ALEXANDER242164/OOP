@@ -17,13 +17,13 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/catalogs")
 @CrossOrigin("*")
-public class catalogController {
+public class CatalogController {
 
         private final PatientRepository patientRepo;
         private final TherapistRepository therapistRepo;
         private final RoomRepository roomRepo;
 
-        public catalogController(PatientRepository patientRepo,
+        public CatalogController(PatientRepository patientRepo,
                         TherapistRepository therapistRepo,
                         RoomRepository roomRepo) {
                 this.patientRepo = patientRepo;

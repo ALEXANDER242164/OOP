@@ -1,0 +1,38 @@
+package com.informaticonfing.spring.app.springboot.dto;
+
+import com.informaticonfing.spring.app.springboot.model.SessionType;
+import java.time.LocalDateTime;
+
+public class AppointmentCalendarItem {
+    private Long id;
+    private SessionType sessionType;
+    private String patientNombre;
+    private String therapistNombre;
+    private String roomNombre;
+    private LocalDateTime start;
+    private LocalDateTime end;
+
+    public AppointmentCalendarItem(Long id,
+                                   SessionType sessionType,
+                                   String patientNombre,
+                                   String therapistNombre,
+                                   String roomNombre,
+                                   LocalDateTime start,
+                                   LocalDateTime end) {
+        this.id = id;
+        this.sessionType = sessionType;
+        this.patientNombre = patientNombre;
+        this.therapistNombre = therapistNombre;
+        this.roomNombre = roomNombre;
+        this.start = start;
+        this.end = end;
+    }
+
+    public Long getId() { return id; }
+    public SessionType getSessionType() { return sessionType; }
+    public String getPatientNombre() { return patientNombre; }
+    public String getTherapistNombre() { return therapistNombre; }
+    public String getRoomNombre() { return roomNombre; }
+    public LocalDateTime getStart() { return start; }
+    public LocalDateTime getEnd() { return end; }
+}
