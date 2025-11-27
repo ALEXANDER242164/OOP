@@ -2,6 +2,7 @@ package com.informaticonfing.spring.app.springboot.controllers;
 
 import com.informaticonfing.spring.app.springboot.dto.AppointmentRequest;
 import com.informaticonfing.spring.app.springboot.dto.AppointmentResponse;
+import com.informaticonfing.spring.app.springboot.dto.AppointmentCalendarItem;
 import com.informaticonfing.spring.app.springboot.AppointmentService.AppointmentService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -16,16 +17,17 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.time.LocalDate;
 
 @Tag(name = "Appointments", description = "Operaciones para gestionar citas: creación, verificación y consulta.")
 @RestController
 @RequestMapping("/api/appointments")
 @CrossOrigin("*")
-public class appointmentController {
+public class AppointmentController {
 
         private final AppointmentService appointmentService;
 
-        public appointmentController(AppointmentService appointmentService) {
+        public AppointmentController(AppointmentService appointmentService) {
                 this.appointmentService = appointmentService;
         }
 
@@ -52,6 +54,18 @@ public class appointmentController {
         @GetMapping
         public ResponseEntity<List<AppointmentResponse>> getAll() {
                 return ResponseEntity.ok(appointmentService.findAll());
+        }
+
+        @Operation(summary = "Citas del día", description = "Devuelve citas para una fecha específica.")
+        @GetMapping("/day")
+        public List<AppointmentCalendarItem> day(@RequestParam("date") LocalDate date) {
+                return appointmentService.getDay(date);
+        }
+
+        @Operation(summary = "Citas de la semana", description = "Devuelve citas desde la fecha (lunes) hasta domingo.")
+        @GetMapping("/week")
+        public List<AppointmentCalendarItem> week(@RequestParam("monday") LocalDate monday) {
+                return appointmentService.getWeek(monday);
         }
 
         @ResponseStatus(HttpStatus.BAD_REQUEST)
