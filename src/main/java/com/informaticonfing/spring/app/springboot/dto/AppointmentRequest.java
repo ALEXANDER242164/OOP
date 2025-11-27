@@ -14,9 +14,20 @@ public class AppointmentRequest {
         @NotNull
         private SessionType sessionType;
 
-        @Schema(description = "ID del paciente que solicita la cita.", example = "12")
-        @NotNull(message = "El patientId es requerido")
+        @Schema(description = "ID del paciente que solicita la cita. Si es nulo, se creará un nuevo paciente con los datos proporcionados.", example = "12")
         private Long patientId;
+
+        @Schema(description = "Nombre del paciente (Requerido si patientId es nulo).", example = "Juan")
+        private String patientNombre;
+
+        @Schema(description = "Apellido del paciente (Requerido si patientId es nulo).", example = "Pérez")
+        private String patientApellido;
+
+        @Schema(description = "Teléfono del paciente.", example = "555-1234")
+        private String patientTelefono;
+
+        @Schema(description = "Email del paciente.", example = "juan@mail.com")
+        private String patientEmail;
 
         @Schema(description = "ID del terapeuta asignado a la cita.", example = "5")
         @NotNull(message = "El therapistId es requerido")
@@ -115,5 +126,37 @@ public class AppointmentRequest {
 
         public void setFolio(String folio) {
                 this.folio = folio;
+        }
+
+        public String getPatientNombre() {
+                return patientNombre;
+        }
+
+        public void setPatientNombre(String patientNombre) {
+                this.patientNombre = patientNombre;
+        }
+
+        public String getPatientApellido() {
+                return patientApellido;
+        }
+
+        public void setPatientApellido(String patientApellido) {
+                this.patientApellido = patientApellido;
+        }
+
+        public String getPatientTelefono() {
+                return patientTelefono;
+        }
+
+        public void setPatientTelefono(String patientTelefono) {
+                this.patientTelefono = patientTelefono;
+        }
+
+        public String getPatientEmail() {
+                return patientEmail;
+        }
+
+        public void setPatientEmail(String patientEmail) {
+                this.patientEmail = patientEmail;
         }
 }

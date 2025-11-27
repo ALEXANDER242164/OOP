@@ -1,18 +1,32 @@
 package com.informaticonfing.spring.app.springboot.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import java.time.LocalDate;
 
 @Entity
+@Table(name = "patients")
 public class Patient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String nombre;
-    private String apellido;
+    @Column(name = "first_name")
+    private String firstName;
+
+    @Column(name = "last_name")
+    private String lastName;
+
+    @Column(name = "birth_date")
+    private LocalDate birthDate;
+
+    private String email;
+
+    private String phone;
 
     // getters y setters
     public Long getId() {
@@ -23,19 +37,43 @@ public class Patient {
         this.id = id;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getApellido() {
-        return apellido;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public LocalDate getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }
