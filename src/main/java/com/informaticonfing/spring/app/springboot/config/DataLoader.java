@@ -35,8 +35,10 @@ public class DataLoader implements CommandLineRunner {
         // Cargar Pacientes
         if (patientRepo.count() == 0) {
             Patient p = new Patient();
-            p.setNombre("Paciente");
-            p.setApellido("Prueba");
+            p.setFirstName("Paciente");
+            p.setLastName("Prueba");
+            p.setEmail("paciente@test.com");
+            p.setPhone("555-0000");
             patientRepo.save(p);
             System.out.println("✅ Paciente de prueba cargado (ID 1).");
         }
