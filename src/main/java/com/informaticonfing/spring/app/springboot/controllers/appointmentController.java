@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.time.LocalDate;
+import com.informaticonfing.spring.app.springboot.model.AppointmentStatus;
 
 @Tag(name = "Appointments", description = "Operaciones para gestionar citas: creación, verificación y consulta.")
 @RestController
@@ -30,6 +31,21 @@ public class AppointmentController {
         public AppointmentController(AppointmentService appointmentService) {
                 this.appointmentService = appointmentService;
         }
+
+                @Operation(summary = "Cambiar estado de una cita", description = "Actualiza el estado de la cita a pendiente, completado o cancelado.")
+                @PutMapping("/{id}/status")
+                public ResponseEntity<AppointmentResponse> updateStatus(@PathVariable("id") Long id, @RequestParam("status") String status) {
+                        AppointmentResponse resp = appointmentService.updateStatus(id, status);
+                        return ResponseEntity.ok(resp);
+                }
+
+                @Operation(summary = "Cancelar una cita", description = "Marca la cita como 'cancelado' sin eliminar el registro.")
+                @PostMapping("/{id}/cancel")
+                public ResponseEntity<AppointmentResponse> cancelAppointment(@PathVariable("id") Long id) {
+                        // Uso del servicio existente para actualizar el estado a 'cancelado'
+                        AppointmentResponse resp = appointmentService.updateStatus(id, "cancelado");
+                        return ResponseEntity.ok(resp);
+                }
 
         @Operation(summary = "Crear una nueva cita", description = "Registra una cita en el sistema validando horarios, disponibilidad, sala, terapeuta y reglas de negocio.")
         @ApiResponses(value = {

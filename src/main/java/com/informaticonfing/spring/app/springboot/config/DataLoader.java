@@ -8,6 +8,11 @@ import com.informaticonfing.spring.app.springboot.repository.RoomRepository;
 import com.informaticonfing.spring.app.springboot.repository.TherapistRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+import java.util.List;
+import java.util.Random;
+import com.informaticonfing.spring.app.springboot.model.Appointment;
+import com.informaticonfing.spring.app.springboot.model.AppointmentStatus;
+import com.informaticonfing.spring.app.springboot.repository.AppointmentRepository;
 
 @Component
 public class DataLoader implements CommandLineRunner {
@@ -15,11 +20,13 @@ public class DataLoader implements CommandLineRunner {
     private final TherapistRepository therapistRepo;
     private final PatientRepository patientRepo;
     private final RoomRepository roomRepo;
+    private final AppointmentRepository appointmentRepo;
 
-    public DataLoader(TherapistRepository therapistRepo, PatientRepository patientRepo, RoomRepository roomRepo) {
+    public DataLoader(TherapistRepository therapistRepo, PatientRepository patientRepo, RoomRepository roomRepo, AppointmentRepository appointmentRepo) {
         this.therapistRepo = therapistRepo;
         this.patientRepo = patientRepo;
         this.roomRepo = roomRepo;
+        this.appointmentRepo = appointmentRepo;
     }
 
     @Override
@@ -49,6 +56,38 @@ public class DataLoader implements CommandLineRunner {
             r.setNombre("Consultorio 1");
             roomRepo.save(r);
             System.out.println("✅ Sala de prueba cargada (ID 1).");
+        }
+
+        // Rellenar folios faltantes para pacientes existentes (6 dígitos aleatorios, únicos)
+        List<Patient> patients = patientRepo.findAll();
+        Random rnd = new Random();
+        for (Patient p : patients) {
+            if (p.getFolio() == null || p.getFolio().isBlank()) {
+                String folio;
+                int attempts = 0;
+                do {
+                    folio = String.format("%06d", rnd.nextInt(1_000_000));
+                    attempts++;
+                    if (attempts > 200) {
+                        // Fallback: use padded ID
+                        folio = String.format("%06d", p.getId());
+                        break;
+                    }
+                } while (patientRepo.existsByFolio(folio));
+                p.setFolio(folio);
+                patientRepo.save(p);
+                System.out.println("✅ Folio generado para paciente ID " + p.getId() + ": " + folio);
+            }
+        }
+
+        // Rellenar estado de citas existentes a 'pendiente' si no tienen
+        List<Appointment> appointments = appointmentRepo.findAll();
+        for (Appointment ap : appointments) {
+            if (ap.getAppointmentStatus() == null) {
+                ap.setAppointmentStatus(AppointmentStatus.PENDIENTE);
+                appointmentRepo.save(ap);
+                System.out.println("✅ Estado asignado 'pendiente' a cita ID " + ap.getId());
+            }
         }
     }
 }
