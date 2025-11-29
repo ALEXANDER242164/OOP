@@ -24,6 +24,9 @@ public class Patient {
     @Column(name = "birth_date")
     private LocalDate birthDate;
 
+    @Column(name = "folio", length = 6, unique = true)
+    private String folio;
+
     private String email;
 
     private String phone;
@@ -75,5 +78,13 @@ public class Patient {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getFolio() {
+        return folio;
+    }
+
+    public void setFolio(String folio) {
+        this.folio = folio;
     }
 }

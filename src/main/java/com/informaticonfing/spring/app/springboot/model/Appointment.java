@@ -2,6 +2,7 @@ package com.informaticonfing.spring.app.springboot.model;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import com.informaticonfing.spring.app.springboot.model.AppointmentStatus;
 
 @Entity
 @Table(name = "appointments")
@@ -30,6 +31,10 @@ public class Appointment { // Nombre corregido (Mayúscula)
     private LocalDateTime endDateTime;
 
     private String paymentProofPath;
+
+    @Convert(converter = com.informaticonfing.spring.app.springboot.model.AppointmentStatusConverter.class)
+    @Column(name = "appointment_status", length = 16)
+    private AppointmentStatus appointmentStatus;
 
     public Appointment() {
     }
@@ -97,5 +102,13 @@ public class Appointment { // Nombre corregido (Mayúscula)
 
     public void setPaymentProofPath(String paymentProofPath) {
         this.paymentProofPath = paymentProofPath;
+    }
+
+    public AppointmentStatus getAppointmentStatus() {
+        return appointmentStatus;
+    }
+
+    public void setAppointmentStatus(AppointmentStatus appointmentStatus) {
+        this.appointmentStatus = appointmentStatus;
     }
 }
