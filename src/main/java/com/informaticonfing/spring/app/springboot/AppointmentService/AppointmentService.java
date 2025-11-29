@@ -164,7 +164,7 @@ public class AppointmentService {
                                         .orElseThrow(() -> new RuntimeException("Cita no encontrada con ID: " + appointmentId));
                         AppointmentStatus s = AppointmentStatus.fromDbValue(statusStr);
                         if (s == null) {
-                                throw new RuntimeException("Estado inválido. Valores permitidos: pendiente, completado, cancelado");
+                                throw new IllegalArgumentException("Estado inválido. Valores permitidos: pendiente, completado, cancelado");
                         }
                         a.setAppointmentStatus(s);
                         Appointment saved = appointmentRepo.save(a);
