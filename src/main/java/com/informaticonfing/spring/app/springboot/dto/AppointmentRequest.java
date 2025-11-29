@@ -10,153 +10,220 @@ import java.time.LocalTime;
 @Schema(name = "AppointmentRequest", description = "Datos necesarios para registrar una nueva cita en el sistema.")
 public class AppointmentRequest {
 
-        @Schema(description = "Tipo de sesión solicitada (Evaluación inicial o Cita terapéutica).", example = "INITIAL_EVALUATION")
-        @NotNull
-        private SessionType sessionType;
+    @Schema(description = "Tipo de sesión solicitada (Evaluación inicial o Cita terapéutica).", example = "INITIAL_EVALUATION")
+    @NotNull
+    private SessionType sessionType;
+    //-----identificadores para el paciente------
 
-        @Schema(description = "ID del paciente que solicita la cita. Si es nulo, se creará un nuevo paciente con los datos proporcionados.", example = "12")
-        private Long patientId;
+    @Schema(description = "ID del paciente que solicita la cita. Si es nulo, se creará un nuevo paciente con los datos proporcionados.", example = "12")
+    private Long patientId;
 
-        @Schema(description = "Nombre del paciente (Requerido si patientId es nulo).", example = "Juan")
-        private String patientNombre;
+    @Schema(description = "Nombre del paciente (Requerido si patientId es nulo).", example = "Juan")
+    private String patientNombre;
 
-        @Schema(description = "Apellido del paciente (Requerido si patientId es nulo).", example = "Pérez")
-        private String patientApellido;
+    @Schema(description = "Apellido del paciente (Requerido si patientId es nulo).", example = "Pérez")
+    private String patientApellido;
 
-        @Schema(description = "Teléfono del paciente.", example = "555-1234")
-        private String patientTelefono;
+    @Schema(
+            description = "Fecha de nacimiento del paciente (requerida cuando patientId es null). La edad no puede ser mayor a 100 años.",
+            example = "1995-04-10"
+    )
+    private LocalDate patientBirthDate;
 
-        @Schema(description = "Email del paciente.", example = "juan@mail.com")
-        private String patientEmail;
+    @Schema(
+            description = "Teléfono del paciente. Debe haber al menos teléfono o correo.",
+            example = "999-123-4567"
+    )
+    private String patientTelefono;
 
-        @Schema(description = "ID del terapeuta asignado a la cita.", example = "5")
-        @NotNull(message = "El therapistId es requerido")
-        private Long therapistId;
+    @Schema(
+            description = "Correo electrónico del paciente. Debe haber al menos teléfono o correo.",
+            example = "juan@example.com"
+    )
+    private String patientEmail;
 
-        @Schema(description = "ID de la sala donde se llevará a cabo la cita.", example = "3")
-        @NotNull(message = "El roomId es requerido")
-        private Long roomId;
 
-        @Schema(description = "Fecha programada para la cita.", example = "2025-11-15")
-        @NotNull
-        private LocalDate date;
+    //-------Datos para la cita----
+    @Schema(description = "ID del terapeuta asignado a la cita.", example = "5")
+    @NotNull(message = "El therapistId es requerido")
+    private Long therapistId;
 
-        @Schema(description = "Hora de inicio de la cita (formato 24h).", example = "10:30")
-        @NotNull
-        private LocalTime startTime;
+    @Schema(description = "ID de la sala donde se llevará a cabo la cita.", example = "3")
+    @NotNull(message = "El roomId es requerido")
+    private Long roomId;
 
-        @Schema(description = "Duración de la cita en minutos. Por defecto 60.", example = "60")
-        private Integer durationMinutes = 60;
+    @Schema(description = "Fecha programada para la cita.", example = "2025-11-15")
+    @NotNull
+    private LocalDate date;
 
-        @Schema(description = "Cantidad a pagar en pesos mexicanos.", example = "300.00")
-        private Double amountMx;
+    @Schema(description = "Hora de inicio de la cita (formato 24h).", example = "10:30")
+    @NotNull
+    private LocalTime startTime;
 
-        @Schema(description = "Folio del paciente si ya existe. Si es primera cita, el sistema generará uno automáticamente.", example = "FOL-2025-0012")
-        private String folio;
+    @Schema(description = "Duración de la cita en minutos. Por defecto 60.", example = "60")
+    private Integer durationMinutes = 60;
 
-        // --------------------- GETTERS & SETTERS ---------------------
 
-        public SessionType getSessionType() {
-                return sessionType;
-        }
+    //los pagos y comentarios  de los pacientes
 
-        public void setSessionType(SessionType sessionType) {
-                this.sessionType = sessionType;
-        }
+    @Schema(description = "Cantidad a pagar en pesos mexicanos.", example = "300.00")
+    private Double amountMx;
 
-        public Long getPatientId() {
-                return patientId;
-        }
+    @Schema(description = "Comentarios sobre la cita. Son obligatorios tanto para EVALUACION_INICIAL como para CITA_DE_TERAPIA (máx. 500 caracteres).",
+            example = "Paciente refiere ansiedad moderada, primera sesión."
+    )
+    private String comments;
 
-        public void setPatientId(Long patientId) {
-                this.patientId = patientId;
-        }
+    @Schema(description = "Ruta o identificador del comprobante de pago. Es obligatorio para CITA_DE_TERAPIA y null para EVALUACION_INICIAL.",
+            example = "uploads/comprobantes/pago-123.pdf"
+    )
+    private String paymentProofPath;
 
-        public Long getTherapistId() {
-                return therapistId;
-        }
+    @Schema(description = "Folio del paciente si ya existe. Si es primera cita, el sistema generará uno automáticamente.", example = "FOL-2025-0012")
+    private String folio;
 
-        public void setTherapistId(Long therapistId) {
-                this.therapistId = therapistId;
-        }
+    // --------------------- GETTERS & SETTERS ---------------------
 
-        public Long getRoomId() {
-                return roomId;
-        }
+    public SessionType getSessionType() {
+        return sessionType;
+    }
 
-        public void setRoomId(Long roomId) {
-                this.roomId = roomId;
-        }
+    public void setSessionType(SessionType sessionType) {
+        this.sessionType = sessionType;
+    }
 
-        public LocalDate getDate() {
-                return date;
-        }
+    //-----------------------------------
+    public Long getPatientId() {
+        return patientId;
+    }
 
-        public void setDate(LocalDate date) {
-                this.date = date;
-        }
+    public void setPatientId(Long patientId) {
+        this.patientId = patientId;
+    }
+//-------------------------
 
-        public LocalTime getStartTime() {
-                return startTime;
-        }
+    public Long getTherapistId() {
+        return therapistId;
+    }
 
-        public void setStartTime(LocalTime startTime) {
-                this.startTime = startTime;
-        }
+    public void setTherapistId(Long therapistId) {
+        this.therapistId = therapistId;
+    }
+//---------------------------------------------
 
-        public Integer getDurationMinutes() {
-                return durationMinutes;
-        }
+    public Long getRoomId() {
+        return roomId;
+    }
 
-        public void setDurationMinutes(Integer durationMinutes) {
-                this.durationMinutes = durationMinutes;
-        }
+    public void setRoomId(Long roomId) {
+        this.roomId = roomId;
+    }
 
-        public Double getAmountMx() {
-                return amountMx;
-        }
+    public LocalDate getDate() {
+        return date;
+    }
 
-        public void setAmountMx(Double amountMx) {
-                this.amountMx = amountMx;
-        }
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
 
-        public String getFolio() {
-                return folio;
-        }
+    public LocalTime getStartTime() {
+        return startTime;
+    }
 
-        public void setFolio(String folio) {
-                this.folio = folio;
-        }
+    public void setStartTime(LocalTime startTime) {
+        this.startTime = startTime;
+    }
 
-        public String getPatientNombre() {
-                return patientNombre;
-        }
+    public Integer getDurationMinutes() {
+        return durationMinutes;
+    }
 
-        public void setPatientNombre(String patientNombre) {
-                this.patientNombre = patientNombre;
-        }
+    public void setDurationMinutes(Integer durationMinutes) {
+        this.durationMinutes = durationMinutes;
+    }
 
-        public String getPatientApellido() {
-                return patientApellido;
-        }
+    public Double getAmountMx() {
+        return amountMx;
+    }
 
-        public void setPatientApellido(String patientApellido) {
-                this.patientApellido = patientApellido;
-        }
+    public void setAmountMx(Double amountMx) {
+        this.amountMx = amountMx;
+    }
 
-        public String getPatientTelefono() {
-                return patientTelefono;
-        }
+    // ---------- FOLIO ----------
+    public String getFolio() {
+        return folio;
+    }
 
-        public void setPatientTelefono(String patientTelefono) {
-                this.patientTelefono = patientTelefono;
-        }
+    public void setFolio(String folio) {
+        this.folio = folio;
+    }
 
-        public String getPatientEmail() {
-                return patientEmail;
-        }
+    // ---------- DATOS DEL PACIENTE ----------
+    public String getPatientNombre() {
+        return patientNombre;
+    }
 
-        public void setPatientEmail(String patientEmail) {
-                this.patientEmail = patientEmail;
-        }
+    public void setPatientNombre(String patientNombre) {
+        this.patientNombre = patientNombre;
+    }
+
+    public String getPatientApellido() {
+        return patientApellido;
+    }
+
+    public void setPatientApellido(String patientApellido) {
+        this.patientApellido = patientApellido;
+    }
+
+    public String getPatientTelefono() {
+        return patientTelefono;
+    }
+
+    public void setPatientTelefono(String patientTelefono) {
+        this.patientTelefono = patientTelefono;
+    }
+
+    public String getPatientEmail() {
+        return patientEmail;
+    }
+
+    public void setPatientEmail(String patientEmail) {
+        this.patientEmail = patientEmail;
+    }
+
+// ---------- CAMPOS NUEVOS AGREGADOS ----------
+
+    // Fecha de nacimiento (no estaba en tu primer código)
+
+
+    public LocalDate getPatientBirthDate() {
+        return patientBirthDate;
+    }
+
+    public void setPatientBirthDate(LocalDate patientBirthDate) {
+        this.patientBirthDate = patientBirthDate;
+    }
+
+    // Comentarios
+
+
+    public String getComments() {
+        return comments;
+    }
+
+    public void setComments(String comments) {
+        this.comments = comments;
+    }
+
+    // Comprobante de pago (no estaba en tu primer código)
+
+    public String getPaymentProofPath() {
+        return paymentProofPath;
+    }
+
+    public void setPaymentProofPath(String paymentProofPath) {
+        this.paymentProofPath = paymentProofPath;
+    }
 }

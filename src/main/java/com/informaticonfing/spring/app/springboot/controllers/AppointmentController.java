@@ -18,7 +18,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.time.LocalDate;
-import com.informaticonfing.spring.app.springboot.model.AppointmentStatus;
 
 @Tag(name = "Appointments", description = "Operaciones para gestionar citas: creación, verificación y consulta.")
 @RestController

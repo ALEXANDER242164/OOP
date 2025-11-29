@@ -27,13 +27,26 @@ public class Appointment { // Nombre corregido (Mayúscula)
     @JoinColumn(name = "room_id")
     private Room room;
 
+    @Column(name = "start_date_time", nullable = false)
     private LocalDateTime startDateTime;
+
+    @Column(name = "end_date_time", nullable = false)
     private LocalDateTime endDateTime;
 
+    @Column(name = "amount_mx")
+    private Double amountMx;
+
+    @Column(name = "payment_proof_path")
     private String paymentProofPath;
 
+    @Column(name = "comments", length = 500)
+    private String comments;
+
+
+
+
     @Convert(converter = com.informaticonfing.spring.app.springboot.model.AppointmentStatusConverter.class)
-    @Column(name = "appointment_status", length = 16)
+    @Column(name = "appointment_status", length = 16,nullable = false)
     private AppointmentStatus appointmentStatus;
 
     public Appointment() {
@@ -91,18 +104,26 @@ public class Appointment { // Nombre corregido (Mayúscula)
     public LocalDateTime getEndDateTime() {
         return endDateTime;
     }
-
     public void setEndDateTime(LocalDateTime endDateTime) {
         this.endDateTime = endDateTime;
     }
 
-    public String getPaymentProofPath() {
-        return paymentProofPath;
-    }
+    public Double getAmountMx() { return amountMx; }
+    public void setAmountMx(Double amountMx) { this.amountMx = amountMx; }
+
+
+
+
+    public String getPaymentProofPath() { return paymentProofPath; }
 
     public void setPaymentProofPath(String paymentProofPath) {
         this.paymentProofPath = paymentProofPath;
     }
+
+
+    public String getComments() { return comments; }
+
+    public void setComments(String comments) { this.comments = comments; }
 
     public AppointmentStatus getAppointmentStatus() {
         return appointmentStatus;
