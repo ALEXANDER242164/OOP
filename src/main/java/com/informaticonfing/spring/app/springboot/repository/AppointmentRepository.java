@@ -1,7 +1,10 @@
 package com.informaticonfing.spring.app.springboot.repository;
 
 import com.informaticonfing.spring.app.springboot.model.Appointment;
+import com.informaticonfing.spring.app.springboot.model.AppointmentStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
@@ -10,4 +13,12 @@ import java.util.List;
 @Repository
 public interface AppointmentRepository extends JpaRepository<Appointment, Long> {
     List<Appointment> findByStartDateTimeBetween(LocalDateTime start, LocalDateTime end);
+
+    @Query("SELECT a FROM Appointment a WHERE " +
+            "((a.startDateTime < :end) AND (a.endDateTime > :start)) AND " +
+            "(a.room.id = :roomId OR a.therapist.id = :therapistId)")
+    List<Appointment> findOverlappingAppointments(@Param("start") LocalDateTime start,
+            @Param("end") LocalDateTime end,
+            @Param("roomId") Long roomId,
+            @Param("therapistId") Long therapistId);
 }

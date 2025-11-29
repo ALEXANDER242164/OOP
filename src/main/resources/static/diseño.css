@@ -132,3 +132,11 @@ body {
 }
 .btn-cancel { background-color: #f3f4f6; color: var(--text-gray-800); padding: 0.5rem 1rem; border-radius: 0.5rem; border: none; cursor: pointer; }
 .btn-save { background-color: var(--green-600); color: white; padding: 0.5rem 1rem; border-radius: 0.5rem; border: none; cursor: pointer; }
+
+.appointment-card.cancelled {
+    background-color: #fecaca;
+    border-color: #f87171;
+    color: #991b1b;
+}
+
+.modal-body p { margin-bottom: 0.5rem; font-size: 0.95rem; }
