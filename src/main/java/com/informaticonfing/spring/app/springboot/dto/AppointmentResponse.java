@@ -25,12 +25,16 @@ public class AppointmentResponse {
             example = "FOL-2025-0043"
     )
     private String patientFolio;
+    
+    @Schema(description = "Estado de la cita: pendiente, completado o cancelado", example = "pendiente")
+    private String appointmentStatus;
 
     // 👇 ESTE es el constructor que está usando tu service
-    public AppointmentResponse(String message, Long appointmentId, String patientFolio) {
+    public AppointmentResponse(String message, Long appointmentId, String patientFolio, String appointmentStatus) {
         this.message = message;
         this.appointmentId = appointmentId;
         this.patientFolio = patientFolio;
+        this.appointmentStatus = appointmentStatus;
     }
 
     // getters (por si el controller los serializa a JSON)
@@ -44,5 +48,9 @@ public class AppointmentResponse {
 
     public String getPatientFolio() {
         return patientFolio;
+    }
+
+    public String getAppointmentStatus() {
+        return appointmentStatus;
     }
 }

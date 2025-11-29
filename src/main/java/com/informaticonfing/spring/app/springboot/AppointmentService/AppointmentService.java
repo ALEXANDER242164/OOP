@@ -12,6 +12,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Random;
+import com.informaticonfing.spring.app.springboot.model.AppointmentStatus;
 
 @Service
 public class AppointmentService {
@@ -48,6 +50,22 @@ public class AppointmentService {
                         patient.setLastName(req.getPatientApellido());
                         patient.setPhone(req.getPatientTelefono());
                         patient.setEmail(req.getPatientEmail());
+                        // Guardar primero para obtener ID
+                        patient = patientRepo.save(patient);
+                        // Generar folio aleatorio único de 6 dígitos
+                        Random rnd = new Random();
+                        String generatedFolio;
+                        int attempts = 0;
+                        do {
+                                generatedFolio = String.format("%06d", rnd.nextInt(1_000_000));
+                                attempts++;
+                                if (attempts > 100) {
+                                        // Fallback determinístico si hay demasiados intentos
+                                        generatedFolio = String.format("%06d", patient.getId());
+                                        break;
+                                }
+                        } while (patientRepo.existsByFolio(generatedFolio));
+                        patient.setFolio(generatedFolio);
                         patient = patientRepo.save(patient);
                 }
 
@@ -69,13 +87,33 @@ public class AppointmentService {
                 a.setStartDateTime(start);
                 a.setEndDateTime(end);
                 a.setPaymentProofPath(null);
+                // Set default status
+                a.setAppointmentStatus(AppointmentStatus.PENDIENTE);
 
                 Appointment saved = appointmentRepo.save(a);
+
+                // Asegurar que el paciente tenga folio (por si era paciente existente sin folio)
+                if (patient.getFolio() == null || patient.getFolio().isBlank()) {
+                        Random rnd2 = new Random();
+                        String gen;
+                        int attempts2 = 0;
+                        do {
+                                gen = String.format("%06d", rnd2.nextInt(1_000_000));
+                                attempts2++;
+                                if (attempts2 > 100) {
+                                        gen = String.format("%06d", patient.getId());
+                                        break;
+                                }
+                        } while (patientRepo.existsByFolio(gen));
+                        patient.setFolio(gen);
+                        patientRepo.save(patient);
+                }
 
                 return new AppointmentResponse(
                                 "Cita creada correctamente",
                                 saved.getId(),
-                                req.getFolio() != null ? req.getFolio() : generarFolioPaciente(patient.getId()));
+                                patient.getFolio(),
+                                saved.getAppointmentStatus() != null ? saved.getAppointmentStatus().toString() : AppointmentStatus.PENDIENTE.toString());
         }
 
         public List<AppointmentCalendarItem> getDay(LocalDate date) {
@@ -110,8 +148,7 @@ public class AppointmentService {
         }
 
         private String generarFolioPaciente(Long patientId) {
-                LocalDate now = LocalDate.now();
-                return "FOL-" + now.getYear() + "-" + String.format("%04d", patientId);
+                return String.format("%06d", patientId);
         }
 
         public List<AppointmentResponse> findAll() {
@@ -121,10 +158,29 @@ public class AppointmentService {
                                 .toList();
         }
 
+                @Transactional
+                public AppointmentResponse updateStatus(Long appointmentId, String statusStr) {
+                        Appointment a = appointmentRepo.findById(appointmentId)
+                                        .orElseThrow(() -> new RuntimeException("Cita no encontrada con ID: " + appointmentId));
+                        AppointmentStatus s = AppointmentStatus.fromDbValue(statusStr);
+                        if (s == null) {
+                                throw new RuntimeException("Estado inválido. Valores permitidos: pendiente, completado, cancelado");
+                        }
+                        a.setAppointmentStatus(s);
+                        Appointment saved = appointmentRepo.save(a);
+                        String folio = saved.getPatient() != null ? saved.getPatient().getFolio() : null;
+                        return new AppointmentResponse("Estado actualizado", saved.getId(), folio, saved.getAppointmentStatus().toString());
+                }
+
         private AppointmentResponse toResponse(Appointment a) {
+                String folio = a.getPatient() != null ? a.getPatient().getFolio() : null;
+                if (folio == null || folio.isBlank()) {
+                        folio = generarFolioPaciente(a.getPatient() != null ? a.getPatient().getId() : 0L);
+                }
                 return new AppointmentResponse(
                                 "Cita encontrada",
                                 a.getId(),
-                                generarFolioPaciente(a.getPatient() != null ? a.getPatient().getId() : 0L));
+                                folio,
+                                a.getAppointmentStatus() != null ? a.getAppointmentStatus().toString() : AppointmentStatus.PENDIENTE.toString());
         }
 }
