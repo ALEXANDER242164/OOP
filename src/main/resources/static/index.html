@@ -38,6 +38,13 @@
                 <button class="btn-left" onclick="switchView('week')">Semana</button>
                 <button class="btn-right" onclick="switchView('day')">Día</button>
             </div>
+
+            <div class="nav-controls" style="display: flex; align-items: center; gap: 1rem;">
+                <button onclick="changeDate(-1)" style="padding: 0.25rem 0.5rem; cursor: pointer; border: 1px solid #ccc; border-radius: 4px; background: white;">&lt;</button>
+                <span id="currentDateLabel" style="font-weight: 600; min-width: 150px; text-align: center;">Hoy</span>
+                <button onclick="changeDate(1)" style="padding: 0.25rem 0.5rem; cursor: pointer; border: 1px solid #ccc; border-radius: 4px; background: white;">&gt;</button>
+            </div>
+
             <button class="btn-add" onclick="openModal()">
                 <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
                 Agendar Cita
@@ -101,7 +108,17 @@
                         </div>
                         <div class="form-group">
                             <label for="hora">Hora Inicio</label>
-                            <input type="time" id="hora" required>
+                            <select id="hora" required>
+                                <option value="">-- Seleccione Hora --</option>
+                                <option value="09:00">09:00 AM</option>
+                                <option value="10:00">10:00 AM</option>
+                                <option value="11:00">11:00 AM</option>
+                                <option value="12:00">12:00 PM</option>
+                                <option value="13:00">01:00 PM</option>
+                                <option value="14:00">02:00 PM</option>
+                                <option value="15:00">03:00 PM</option>
+                                <option value="16:00">04:00 PM</option>
+                            </select>
                         </div>
 
                         <div class="form-group full-width">
@@ -116,6 +133,31 @@
                     <button type="submit" class="btn-save">Guardar Cita</button>
                 </div>
             </form>
+        </div>
+    </div>
+
+    <!-- MODAL DE DETALLES -->
+    <div id="detailsModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Detalles de la cita</h3>
+                <button type="button" class="close-btn" onclick="closeDetailsModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p><strong>Tipo:</strong> <span id="detailType"></span></p>
+                <p><strong>Paciente:</strong> <span id="detailPatient"></span></p>
+                <p><strong>Folio:</strong> <span id="detailFolio"></span></p>
+                <p><strong>Fecha:</strong> <span id="detailDate"></span></p>
+                <p><strong>Hora inicio:</strong> <span id="detailStart"></span></p>
+                <p><strong>Duración:</strong> <span id="detailDuration"></span></p>
+                <p><strong>Sala:</strong> <span id="detailRoom"></span></p>
+                <p><strong>Terapeuta:</strong> <span id="detailTherapist"></span></p>
+                <p><strong>Estado:</strong> <span id="detailStatus"></span></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-cancel" id="btnCancelAppt">Cancelar Cita</button>
+                <button type="button" class="btn-save" onclick="closeDetailsModal()">Cerrar</button>
+            </div>
         </div>
     </div>
 
@@ -139,8 +181,31 @@
         document.addEventListener('DOMContentLoaded', () => {
             cargarTerapeutas();
             cargarTiposSesion();
+            updateDateLabel();
             renderCalendar(); // Cargar calendario al inicio
         });
+
+        function changeDate(offset) {
+            if (currentView === 'week') {
+                currentDate.setDate(currentDate.getDate() + (offset * 7));
+            } else {
+                currentDate.setDate(currentDate.getDate() + offset);
+            }
+            updateDateLabel();
+            renderCalendar();
+        }
+
+        function updateDateLabel() {
+            const label = document.getElementById('currentDateLabel');
+            if (currentView === 'week') {
+                const monday = getMonday(currentDate);
+                const friday = new Date(monday);
+                friday.setDate(monday.getDate() + 4);
+                label.textContent = `${monday.toLocaleDateString()} - ${friday.toLocaleDateString()}`;
+            } else {
+                label.textContent = currentDate.toLocaleDateString();
+            }
+        }
 
         // --- Funciones del Calendario ---
         function getMonday(d) {
@@ -179,6 +244,63 @@
                     console.error(err);
                     grid.innerHTML = '<div class="grid-cell full-width">Error cargando citas</div>';
                 });
+        }
+
+        // --- Funciones del Modal de Detalles ---
+        function openDetailsModal(appt) {
+            document.getElementById('detailType').textContent = appt.sessionType;
+            document.getElementById('detailPatient').textContent = appt.patientNombre;
+            document.getElementById('detailFolio').textContent = appt.patientFolio || '---';
+            
+            const start = new Date(appt.start);
+            const end = new Date(appt.end);
+            const duration = (end - start) / (1000 * 60); // minutos
+
+            document.getElementById('detailDate').textContent = start.toLocaleDateString();
+            document.getElementById('detailStart').textContent = start.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            document.getElementById('detailDuration').textContent = duration + ' min';
+            document.getElementById('detailRoom').textContent = appt.roomNombre || '---';
+            document.getElementById('detailTherapist').textContent = appt.therapistNombre;
+            
+            // Normalizar estado a mayúsculas para comparación
+            const status = appt.status ? appt.status.toUpperCase() : 'PENDIENTE';
+            document.getElementById('detailStatus').textContent = status;
+
+            const btnCancel = document.getElementById('btnCancelAppt');
+            if (status === 'CANCELADO') {
+                btnCancel.style.display = 'none';
+            } else {
+                btnCancel.style.display = 'inline-block';
+                btnCancel.onclick = () => cancelAppointment(appt.id);
+            }
+
+            document.getElementById('detailsModal').classList.add('active');
+        }
+
+        function closeDetailsModal() {
+            document.getElementById('detailsModal').classList.remove('active');
+        }
+
+        function cancelAppointment(id) {
+            if (confirm('¿Está seguro de que desea cancelar esta cita? Esta acción no se puede deshacer.')) {
+                fetch(`${API_BASE}/appointments/${id}/cancel`, {
+                    method: 'POST'
+                })
+                .then(async res => {
+                    if (res.ok) {
+                        alert('Cita cancelada correctamente.');
+                        closeDetailsModal();
+                        renderCalendar();
+                    } else {
+                        const txt = await res.text();
+                        alert('Error al cancelar: ' + txt);
+                    }
+                })
+                .catch(err => {
+                    console.error(err);
+                    alert('Error de conexión.');
+                });
+            }
         }
 
         function buildGrid(appointments) {
@@ -228,7 +350,6 @@
                     cell.className = 'grid-cell';
                     
                     // Buscar cita para este día y hora
-                    // Nota: Esto es una simplificación. En producción idealmente se valida rango de minutos.
                     const appt = appointments.find(a => {
                         const aDate = new Date(a.start);
                         return aDate.getDate() === dayDate.getDate() && 
@@ -239,13 +360,20 @@
                     if (appt) {
                         const card = document.createElement('div');
                         card.className = 'appointment-card';
-                        // Estilo diferente según tipo
-                        if (appt.sessionType === 'CITA_TERAPEUTICA') {
+                        
+                        // Normalizar estado a mayúsculas
+                        const status = appt.status ? appt.status.toUpperCase() : 'PENDIENTE';
+
+                        if (status === 'CANCELADO') {
+                            card.classList.add('cancelled');
+                        } else if (appt.sessionType === 'CITA_TERAPEUTICA') {
                              card.style.backgroundColor = '#bfdbfe';
                              card.style.borderColor = '#93c5fd';
                              card.style.color = '#1e40af';
                         }
+                        
                         card.innerHTML = `<strong>${appt.patientNombre}</strong><br>${appt.therapistNombre}`;
+                        card.onclick = () => openDetailsModal(appt);
                         cell.appendChild(card);
                     }
 
@@ -274,6 +402,7 @@
                 // Ajustar grid CSS para día (2 columnas: Hora + Día)
                 document.getElementById('calendarGrid').style.gridTemplateColumns = 'repeat(2, 1fr)';
             }
+            updateDateLabel();
             renderCalendar();
         }
 

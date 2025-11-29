@@ -8,6 +8,7 @@ import com.informaticonfing.spring.app.springboot.repository.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -35,6 +36,25 @@ public class AppointmentService {
 
         @Transactional
         public AppointmentResponse create(AppointmentRequest req) {
+                // 1. Validar Fin de Semana
+                DayOfWeek day = req.getDate().getDayOfWeek();
+                if (day == DayOfWeek.SATURDAY || day == DayOfWeek.SUNDAY) {
+                        throw new RuntimeException("No se pueden agendar citas en fines de semana.");
+                }
+
+                // 2. Validar Bloques de 1 Hora (Minutos = 0)
+                if (req.getStartTime().getMinute() != 0) {
+                        throw new RuntimeException("Las citas deben iniciar en punto de la hora (ej. 09:00, 10:00).");
+                }
+
+                // 3. Validar Horario (9:00 - 17:30)
+                // Como son bloques de 1 hora, la última cita puede empezar a las 16:00 (termina
+                // 17:00).
+                if (req.getStartTime().getHour() < 9 || req.getStartTime().getHour() > 16) {
+                        throw new RuntimeException(
+                                        "El horario de atención es de 09:00 a 17:30. Última cita a las 16:00.");
+                }
+
                 Patient patient;
                 if (req.getPatientId() != null) {
                         patient = patientRepo.findById(req.getPatientId())
@@ -79,6 +99,15 @@ public class AppointmentService {
                 LocalDateTime start = LocalDateTime.of(req.getDate(), req.getStartTime());
                 LocalDateTime end = start.plusMinutes(req.getDurationMinutes() != null ? req.getDurationMinutes() : 60);
 
+                // 4. Validar Solapamiento (Incluyendo Canceladas para bloquear el horario)
+                List<Appointment> overlaps = appointmentRepo.findOverlappingAppointments(
+                                start, end, req.getRoomId(), req.getTherapistId());
+
+                if (!overlaps.isEmpty()) {
+                        throw new RuntimeException(
+                                        "El horario, sala o terapeuta no están disponibles (Conflicto con otra cita).");
+                }
+
                 Appointment a = new Appointment();
                 a.setPatient(patient);
                 a.setTherapist(therapist);
@@ -92,7 +121,8 @@ public class AppointmentService {
 
                 Appointment saved = appointmentRepo.save(a);
 
-                // Asegurar que el paciente tenga folio (por si era paciente existente sin folio)
+                // Asegurar que el paciente tenga folio (por si era paciente existente sin
+                // folio)
                 if (patient.getFolio() == null || patient.getFolio().isBlank()) {
                         Random rnd2 = new Random();
                         String gen;
@@ -113,7 +143,8 @@ public class AppointmentService {
                                 "Cita creada correctamente",
                                 saved.getId(),
                                 patient.getFolio(),
-                                saved.getAppointmentStatus() != null ? saved.getAppointmentStatus().toString() : AppointmentStatus.PENDIENTE.toString());
+                                saved.getAppointmentStatus() != null ? saved.getAppointmentStatus().toString()
+                                                : AppointmentStatus.PENDIENTE.toString());
         }
 
         public List<AppointmentCalendarItem> getDay(LocalDate date) {
@@ -144,7 +175,9 @@ public class AppointmentService {
                                 a.getTherapist() != null ? a.getTherapist().getName() : null,
                                 a.getRoom() != null ? a.getRoom().getNombre() : null,
                                 a.getStartDateTime(),
-                                a.getEndDateTime());
+                                a.getEndDateTime(),
+                                a.getAppointmentStatus() != null ? a.getAppointmentStatus().toString() : "PENDIENTE",
+                                a.getPatient() != null ? a.getPatient().getFolio() : null);
         }
 
         private String generarFolioPaciente(Long patientId) {
@@ -158,19 +191,21 @@ public class AppointmentService {
                                 .toList();
         }
 
-                @Transactional
-                public AppointmentResponse updateStatus(Long appointmentId, String statusStr) {
-                        Appointment a = appointmentRepo.findById(appointmentId)
-                                        .orElseThrow(() -> new RuntimeException("Cita no encontrada con ID: " + appointmentId));
-                        AppointmentStatus s = AppointmentStatus.fromDbValue(statusStr);
-                        if (s == null) {
-                                throw new RuntimeException("Estado inválido. Valores permitidos: pendiente, completado, cancelado");
-                        }
-                        a.setAppointmentStatus(s);
-                        Appointment saved = appointmentRepo.save(a);
-                        String folio = saved.getPatient() != null ? saved.getPatient().getFolio() : null;
-                        return new AppointmentResponse("Estado actualizado", saved.getId(), folio, saved.getAppointmentStatus().toString());
+        @Transactional
+        public AppointmentResponse updateStatus(Long appointmentId, String statusStr) {
+                Appointment a = appointmentRepo.findById(appointmentId)
+                                .orElseThrow(() -> new RuntimeException("Cita no encontrada con ID: " + appointmentId));
+                AppointmentStatus s = AppointmentStatus.fromDbValue(statusStr);
+                if (s == null) {
+                        throw new RuntimeException(
+                                        "Estado inválido. Valores permitidos: pendiente, completado, cancelado");
                 }
+                a.setAppointmentStatus(s);
+                Appointment saved = appointmentRepo.save(a);
+                String folio = saved.getPatient() != null ? saved.getPatient().getFolio() : null;
+                return new AppointmentResponse("Estado actualizado", saved.getId(), folio,
+                                saved.getAppointmentStatus().toString());
+        }
 
         private AppointmentResponse toResponse(Appointment a) {
                 String folio = a.getPatient() != null ? a.getPatient().getFolio() : null;
@@ -181,6 +216,7 @@ public class AppointmentService {
                                 "Cita encontrada",
                                 a.getId(),
                                 folio,
-                                a.getAppointmentStatus() != null ? a.getAppointmentStatus().toString() : AppointmentStatus.PENDIENTE.toString());
+                                a.getAppointmentStatus() != null ? a.getAppointmentStatus().toString()
+                                                : AppointmentStatus.PENDIENTE.toString());
         }
 }

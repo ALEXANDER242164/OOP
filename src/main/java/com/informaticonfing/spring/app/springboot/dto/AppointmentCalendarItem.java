@@ -11,14 +11,18 @@ public class AppointmentCalendarItem {
     private String roomNombre;
     private LocalDateTime start;
     private LocalDateTime end;
+    private String status;
+    private String patientFolio;
 
     public AppointmentCalendarItem(Long id,
-                                   SessionType sessionType,
-                                   String patientNombre,
-                                   String therapistNombre,
-                                   String roomNombre,
-                                   LocalDateTime start,
-                                   LocalDateTime end) {
+            SessionType sessionType,
+            String patientNombre,
+            String therapistNombre,
+            String roomNombre,
+            LocalDateTime start,
+            LocalDateTime end,
+            String status,
+            String patientFolio) {
         this.id = id;
         this.sessionType = sessionType;
         this.patientNombre = patientNombre;
@@ -26,13 +30,43 @@ public class AppointmentCalendarItem {
         this.roomNombre = roomNombre;
         this.start = start;
         this.end = end;
+        this.status = status;
+        this.patientFolio = patientFolio;
     }
 
-    public Long getId() { return id; }
-    public SessionType getSessionType() { return sessionType; }
-    public String getPatientNombre() { return patientNombre; }
-    public String getTherapistNombre() { return therapistNombre; }
-    public String getRoomNombre() { return roomNombre; }
-    public LocalDateTime getStart() { return start; }
-    public LocalDateTime getEnd() { return end; }
+    public Long getId() {
+        return id;
+    }
+
+    public SessionType getSessionType() {
+        return sessionType;
+    }
+
+    public String getPatientNombre() {
+        return patientNombre;
+    }
+
+    public String getTherapistNombre() {
+        return therapistNombre;
+    }
+
+    public String getRoomNombre() {
+        return roomNombre;
+    }
+
+    public LocalDateTime getStart() {
+        return start;
+    }
+
+    public LocalDateTime getEnd() {
+        return end;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public String getPatientFolio() {
+        return patientFolio;
+    }
 }
