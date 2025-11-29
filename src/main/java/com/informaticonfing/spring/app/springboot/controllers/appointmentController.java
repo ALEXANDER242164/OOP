@@ -39,6 +39,14 @@ public class AppointmentController {
                         return ResponseEntity.ok(resp);
                 }
 
+                @Operation(summary = "Cancelar una cita", description = "Marca la cita como 'cancelado' sin eliminar el registro.")
+                @PostMapping("/{id}/cancel")
+                public ResponseEntity<AppointmentResponse> cancelAppointment(@PathVariable("id") Long id) {
+                        // Uso del servicio existente para actualizar el estado a 'cancelado'
+                        AppointmentResponse resp = appointmentService.updateStatus(id, "cancelado");
+                        return ResponseEntity.ok(resp);
+                }
+
         @Operation(summary = "Crear una nueva cita", description = "Registra una cita en el sistema validando horarios, disponibilidad, sala, terapeuta y reglas de negocio.")
         @ApiResponses(value = {
                         @ApiResponse(responseCode = "200", description = "Cita creada correctamente"),
