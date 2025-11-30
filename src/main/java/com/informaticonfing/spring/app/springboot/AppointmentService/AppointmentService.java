@@ -57,19 +57,18 @@ public class AppointmentService {
 
                 // Validar Comentarios
                 String comments = req.getComments();
-                if (comments == null || comments.trim().isEmpty()) {
-                        throw new RuntimeException("Los comentarios son obligatorios para la cita.");
-                }
-                comments = comments.trim();
-                if (comments.length() > 500) {
-                        throw new RuntimeException("Los comentarios no pueden exceder 500 caracteres.");
+                if (comments != null) {
+                        comments = comments.trim();
+                        if (comments.length() > 500) {
+                                throw new RuntimeException("Los comentarios no pueden exceder 500 caracteres.");
+                        }
                 }
 
                 Patient patient;
                 if (req.getPatientId() != null) {
                         patient = patientRepo.findById(req.getPatientId())
                                         .orElseThrow(() -> new RuntimeException(
-                                                        "Paciente no encontrado con ID: " + req.getPatientId()));
+                                                        "Paciente no encontrado."));
 
                         // Validar que el paciente no tenga otra cita el mismo día
                         LocalDateTime startOfDay = req.getDate().atStartOfDay();
@@ -112,10 +111,10 @@ public class AppointmentService {
 
                 Therapist therapist = therapistRepo.findById(req.getTherapistId())
                                 .orElseThrow(() -> new RuntimeException(
-                                                "Terapeuta no encontrado con ID: " + req.getTherapistId()));
+                                                "Terapeuta no encontrado."));
                 Room room = roomRepo.findById(req.getRoomId())
                                 .orElseThrow(() -> new RuntimeException(
-                                                "Sala no encontrada con ID: " + req.getRoomId()));
+                                                "Sala no encontrada."));
 
                 LocalDateTime start = LocalDateTime.of(req.getDate(), req.getStartTime());
                 LocalDateTime end = start.plusMinutes(req.getDurationMinutes() != null ? req.getDurationMinutes() : 60);
@@ -154,7 +153,7 @@ public class AppointmentService {
                 a.setSessionType(req.getSessionType());
                 a.setStartDateTime(start);
                 a.setEndDateTime(end);
-                a.setPaymentProofPath(null);
+                a.setPaymentProofPath(req.getPaymentProof());
                 a.setComments(comments);
                 // Set default status
                 a.setAppointmentStatus(AppointmentStatus.PENDIENTE);
@@ -234,7 +233,7 @@ public class AppointmentService {
         @Transactional
         public AppointmentResponse updateStatus(Long appointmentId, String statusStr) {
                 Appointment a = appointmentRepo.findById(appointmentId)
-                                .orElseThrow(() -> new RuntimeException("Cita no encontrada con ID: " + appointmentId));
+                                .orElseThrow(() -> new RuntimeException("Cita no encontrada."));
                 AppointmentStatus s = AppointmentStatus.fromDbValue(statusStr);
                 if (s == null) {
                         throw new RuntimeException(

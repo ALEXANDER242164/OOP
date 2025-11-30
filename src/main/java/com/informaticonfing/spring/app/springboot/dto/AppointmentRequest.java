@@ -57,6 +57,9 @@ public class AppointmentRequest {
         @Schema(description = "Comentarios adicionales sobre la cita.", example = "Paciente refiere ansiedad.")
         private String comments;
 
+        @Schema(description = "Nombre del archivo del comprobante de pago.", example = "comprobante.pdf")
+        private String paymentProof;
+
         // --------------------- GETTERS & SETTERS ---------------------
 
         public SessionType getSessionType() {
@@ -169,5 +172,13 @@ public class AppointmentRequest {
 
         public void setComments(String comments) {
                 this.comments = comments;
+        }
+
+        public String getPaymentProof() {
+                return paymentProof;
+        }
+
+        public void setPaymentProof(String paymentProof) {
+                this.paymentProof = paymentProof;
         }
 }
