@@ -37,9 +37,8 @@ public class CatalogController {
         public List<String> getSessionTypes() {
                 return Arrays.asList(
                                 "CITA_DE_TERAPIA",
-                                "EVALUACION_INICIAL",
-                                "TERAPIA_DE_PAREJA",
-                                "CONSULTA_ONLINE");
+                                "EVALUACION_INICIAL"
+                );
         }
 
         @Operation(summary = "Listar pacientes", description = "Devuelve todos los pacientes registrados en el sistema.")

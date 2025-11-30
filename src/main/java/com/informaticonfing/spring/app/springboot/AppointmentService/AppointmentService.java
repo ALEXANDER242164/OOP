@@ -31,6 +31,7 @@ public class AppointmentService {
                 this.roomRepo = roomRepo;
         }
 
+        @SuppressWarnings("null")
         @Transactional
         public AppointmentResponse create(AppointmentRequest req) {
                 Patient patient;

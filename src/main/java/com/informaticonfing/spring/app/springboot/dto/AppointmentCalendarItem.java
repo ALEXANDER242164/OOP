@@ -4,6 +4,7 @@ import com.informaticonfing.spring.app.springboot.model.SessionType;
 import java.time.LocalDateTime;
 
 public class AppointmentCalendarItem {
+    //Atributos...
     private Long id;
     private SessionType sessionType;
     private String patientNombre;
@@ -12,6 +13,7 @@ public class AppointmentCalendarItem {
     private LocalDateTime start;
     private LocalDateTime end;
 
+    //Constructor...
     public AppointmentCalendarItem(Long id,
                                    SessionType sessionType,
                                    String patientNombre,
@@ -28,6 +30,7 @@ public class AppointmentCalendarItem {
         this.end = end;
     }
 
+    //Gets..
     public Long getId() { return id; }
     public SessionType getSessionType() { return sessionType; }
     public String getPatientNombre() { return patientNombre; }
