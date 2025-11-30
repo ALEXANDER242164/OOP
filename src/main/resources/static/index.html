@@ -70,44 +70,66 @@
                 
                 <div class="modal-body">
                     <div class="form-grid">
-                        <!-- Campos del formulario original -->
-                        <div class="form-group">
-                            <label for="nombre">Nombres</label>
-                            <input type="text" id="nombre" placeholder="Ingrese nombres" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="apellidos">Apellidos</label>
-                            <input type="text" id="apellidos" placeholder="Ingrese apellidos" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="telefono">Teléfono</label>
-                            <input type="tel" id="telefono" placeholder="Ej: 999-123-4567" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="correo">Correo electrónico</label>
-                            <input type="email" id="correo" placeholder="ejemplo@correo.com" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="sessionTypeSelect">Tipo de Sesión</label>
-                            <select id="sessionTypeSelect" required>
+                        <!-- 1. Tipo de Sesión (Moved to top) -->
+                        <div class="form-group full-width">
+                            <label for="sessionTypeSelect">Tipo de Evento:</label>
+                            <select id="sessionTypeSelect" required onchange="toggleFormFields()">
                                 <option value="">Cargando...</option>
                             </select>
                         </div>
+
+                        <!-- 2. Campos para Paciente Nuevo (Evaluación Inicial) -->
+                        <div id="newPatientFields" class="form-grid full-width" style="display:none; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div class="form-group">
+                                <label for="nombre">Nombres</label>
+                                <input type="text" id="nombre" placeholder="Ingrese nombres">
+                            </div>
+                            <div class="form-group">
+                                <label for="apellidos">Apellidos</label>
+                                <input type="text" id="apellidos" placeholder="Ingrese apellidos">
+                            </div>
+                            <div class="form-group">
+                                <label for="telefono">Teléfono</label>
+                                <input type="tel" id="telefono" placeholder="Ej: 999-123-4567">
+                            </div>
+                            <div class="form-group">
+                                <label for="correo">Correo electrónico</label>
+                                <input type="email" id="correo" placeholder="ejemplo@correo.com">
+                            </div>
+                        </div>
+
+                        <!-- 3. Campos para Paciente Existente (Cita de Terapia) -->
+                        <div id="existingPatientFields" class="form-grid full-width" style="display:none; grid-template-columns: 1fr; gap: 1rem;">
+                            <div class="form-group">
+                                <label for="patientSelect">Paciente:</label>
+                                <select id="patientSelect" onchange="updateFolio()">
+                                    <option value="">Seleccionar paciente</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- 4. Campos Específicos de Terapia (Folio, Pago, etc) -->
+                        <div id="therapyFields" class="form-grid full-width" style="display:none; grid-template-columns: 1fr; gap: 1rem;">
+                             <div class="form-group">
+                                <label for="folio">Folio:</label>
+                                <input type="text" id="folio" readonly placeholder="Se cargará automáticamente" style="background-color: #f9fafb;">
+                            </div>
+                        </div>
+
+                        <!-- 5. Campos Comunes -->
                         <div class="form-group">
-                            <label for="therapistSelect">Terapeuta</label>
+                            <label for="therapistSelect">Terapeuta:</label>
                             <select id="therapistSelect" required>
                                 <option value="">Cargando...</option>
                             </select>
                         </div>
 
                         <div class="form-group">
-                            <label for="fecha">Fecha</label>
+                            <label for="fecha">Fecha:</label>
                             <input type="date" id="fecha" required>
                         </div>
                         <div class="form-group">
-                            <label for="hora">Hora Inicio</label>
+                            <label for="hora">Hora Inicio:</label>
                             <select id="hora" required>
                                 <option value="">-- Seleccione Hora --</option>
                                 <option value="09:00">09:00 AM</option>
@@ -119,6 +141,30 @@
                                 <option value="15:00">03:00 PM</option>
                                 <option value="16:00">04:00 PM</option>
                             </select>
+                        </div>
+                        
+                        <div class="form-group">
+                             <label>Duración:</label>
+                             <input type="text" value="60 min" readonly style="background-color: #f3f4f6; border:none;">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="salaSelect">Sala:</label>
+                             <select id="salaSelect" required>
+                                <option value="">Cargando...</option>
+                            </select>
+                        </div>
+
+                        <!-- Campos extra de terapia (Pago) -->
+                        <div id="paymentFields" class="form-grid full-width" style="display:none; grid-template-columns: 1fr; gap: 1rem;">
+                            <div class="form-group">
+                                <label for="comprobante">Comprobante de pago (PDF, PNG, JPG – máx 5 MB):</label>
+                                <input type="file" id="comprobante" accept=".pdf,.png,.jpg,.jpeg">
+                            </div>
+                            <div class="form-group">
+                                <label for="cuota">Cuota a pagar (MXN):</label>
+                                <input type="number" id="cuota" placeholder="0.00">
+                            </div>
                         </div>
 
                         <div class="form-group full-width">
@@ -161,6 +207,39 @@
         </div>
     </div>
 
+    <!-- MODAL DE MENSAJES (Reemplazo de alert) -->
+    <div id="messageModal" class="modal-overlay">
+        <div class="modal-content" style="max-width: 400px;">
+            <div class="modal-header">
+                <h3 id="messageTitle">Mensaje</h3>
+                <button type="button" class="close-btn" onclick="closeMessageModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p id="messageBody"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-save" onclick="closeMessageModal()">Aceptar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL DE CONFIRMACIÓN (Reemplazo de confirm) -->
+    <div id="confirmModal" class="modal-overlay">
+        <div class="modal-content" style="max-width: 400px;">
+            <div class="modal-header">
+                <h3 id="confirmTitle">Confirmación</h3>
+                <button type="button" class="close-btn" onclick="closeConfirmModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p id="confirmBody"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-cancel" onclick="closeConfirmModal()">Cancelar</button>
+                <button type="button" class="btn-save" id="confirmBtnAction">Confirmar</button>
+            </div>
+        </div>
+    </div>
+
     <!-- LÓGICA JAVASCRIPT (Conectada al Backend) -->
     <script>
         const API_BASE = '/api';
@@ -174,16 +253,129 @@
             document.getElementById('createModal').classList.remove('active');
         }
 
+        function showMessage(message, title = "Información") {
+            document.getElementById('messageTitle').textContent = title;
+            document.getElementById('messageBody').textContent = message;
+            document.getElementById('messageBody').style.whiteSpace = 'pre-wrap';
+            document.getElementById('messageModal').classList.add('active');
+        }
+
+        function closeMessageModal() {
+            document.getElementById('messageModal').classList.remove('active');
+        }
+
+        // --- Lógica de Confirmación ---
+        let onConfirmAction = null;
+
+        function showConfirm(message, onConfirm, title = "Confirmación") {
+            document.getElementById('confirmTitle').textContent = title;
+            document.getElementById('confirmBody').textContent = message;
+            document.getElementById('confirmModal').classList.add('active');
+            
+            // Guardamos la acción a ejecutar
+            onConfirmAction = onConfirm;
+        }
+
+        function closeConfirmModal() {
+            document.getElementById('confirmModal').classList.remove('active');
+            onConfirmAction = null;
+        }
+
+        // Asignar evento al botón de confirmar una sola vez
+        document.getElementById('confirmBtnAction').addEventListener('click', function() {
+            if (onConfirmAction) {
+                onConfirmAction();
+            }
+            closeConfirmModal();
+        });
+
         // --- Carga Inicial ---
         let currentView = 'week'; // 'week' | 'day'
         let currentDate = new Date();
+        let allPatients = [];
 
         document.addEventListener('DOMContentLoaded', () => {
             cargarTerapeutas();
             cargarTiposSesion();
+            cargarPacientes();
+            cargarSalas();
             updateDateLabel();
             renderCalendar(); // Cargar calendario al inicio
         });
+
+        function cargarSalas() {
+            fetch(`${API_BASE}/catalogs/rooms`)
+                .then(response => response.json())
+                .then(data => {
+                    const select = document.getElementById('salaSelect');
+                    select.innerHTML = '<option value="">-- Seleccione Sala --</option>';
+                    data.forEach(r => {
+                        const option = document.createElement('option');
+                        option.value = r.id;
+                        option.textContent = r.nombre;
+                        select.appendChild(option);
+                    });
+                })
+                .catch(err => console.error("Error cargando salas:", err));
+        }
+
+        function cargarPacientes() {
+             fetch(`${API_BASE}/catalogs/patients`)
+                .then(response => response.json())
+                .then(data => {
+                    allPatients = data;
+                    const select = document.getElementById('patientSelect');
+                    select.innerHTML = '<option value="">Seleccionar paciente</option>';
+                    data.forEach(p => {
+                        const option = document.createElement('option');
+                        option.value = p.id;
+                        option.textContent = `${p.firstName} ${p.lastName}`;
+                        select.appendChild(option);
+                    });
+                })
+                .catch(err => console.error("Error cargando pacientes:", err));
+        }
+
+        function toggleFormFields() {
+            const type = document.getElementById('sessionTypeSelect').value;
+            const newPatientFields = document.getElementById('newPatientFields');
+            const existingPatientFields = document.getElementById('existingPatientFields');
+            const therapyFields = document.getElementById('therapyFields');
+            const paymentFields = document.getElementById('paymentFields');
+
+            // Reset displays
+            newPatientFields.style.display = 'none';
+            existingPatientFields.style.display = 'none';
+            therapyFields.style.display = 'none';
+            paymentFields.style.display = 'none';
+
+            if (type === 'EVALUACION_INICIAL') {
+                newPatientFields.style.display = 'grid';
+            } else if (type === 'CITA_DE_TERAPIA') {
+                existingPatientFields.style.display = 'grid';
+                therapyFields.style.display = 'grid';
+                paymentFields.style.display = 'grid';
+            } else {
+                // Default behavior for other types
+                if (type) {
+                     existingPatientFields.style.display = 'grid';
+                }
+            }
+        }
+
+        function updateFolio() {
+            const patientId = document.getElementById('patientSelect').value;
+            const folioInput = document.getElementById('folio');
+            
+            if (patientId) {
+                const patient = allPatients.find(p => p.id == patientId);
+                if (patient) {
+                    folioInput.value = patient.folio || '';
+                }
+            } else {
+                folioInput.value = '';
+            }
+        }
 
         function changeDate(offset) {
             if (currentView === 'week') {
@@ -282,25 +474,25 @@
         }
 
         function cancelAppointment(id) {
-            if (confirm('¿Está seguro de que desea cancelar esta cita? Esta acción no se puede deshacer.')) {
+            showConfirm('¿Está seguro de que desea cancelar esta cita? Esta acción no se puede deshacer.', () => {
                 fetch(`${API_BASE}/appointments/${id}/cancel`, {
                     method: 'POST'
                 })
                 .then(async res => {
                     if (res.ok) {
-                        alert('Cita cancelada correctamente.');
+                        showMessage('Cita cancelada correctamente.', 'Éxito');
                         closeDetailsModal();
                         renderCalendar();
                     } else {
                         const txt = await res.text();
-                        alert('Error al cancelar: ' + txt);
+                        showMessage('Error al cancelar: ' + txt, 'Error');
                     }
                 })
                 .catch(err => {
                     console.error(err);
-                    alert('Error de conexión.');
+                    showMessage('Error de conexión.', 'Error');
                 });
-            }
+            });
         }
 
         function buildGrid(appointments) {
@@ -349,15 +541,16 @@
                     const cell = document.createElement('div');
                     cell.className = 'grid-cell';
                     
-                    // Buscar cita para este día y hora
-                    const appt = appointments.find(a => {
+                    // Buscar TODAS las citas para este día y hora
+                    const cellAppointments = appointments.filter(a => {
                         const aDate = new Date(a.start);
                         return aDate.getDate() === dayDate.getDate() && 
                                aDate.getMonth() === dayDate.getMonth() &&
                                aDate.getHours() === hour;
                     });
 
-                    if (appt) {
+                    // Renderizar cada cita encontrada
+                    cellAppointments.forEach(appt => {
                         const card = document.createElement('div');
                         card.className = 'appointment-card';
                         
@@ -375,7 +568,7 @@
                         card.innerHTML = `<strong>${appt.patientNombre}</strong><br>${appt.therapistNombre}`;
                         card.onclick = () => openDetailsModal(appt);
                         cell.appendChild(card);
-                    }
+                    });
 
                     grid.appendChild(cell);
                 });
@@ -446,26 +639,62 @@
             // Construimos el objeto tal cual lo espera el Backend
             const sessionTypeValue = document.getElementById('sessionTypeSelect').value;
             if (!sessionTypeValue) {
-                alert("Seleccione el tipo de sesión.");
+                showMessage("Seleccione el tipo de sesión.", "Atención");
                 return;
             }
 
-            const appointmentData = {
+            let appointmentData = {
                 date: document.getElementById('fecha').value,
                 startTime: document.getElementById('hora').value + ":00",
                 therapistId: parseInt(document.getElementById('therapistSelect').value),
-                roomId: 1,
-                // patientId: 1, // YA NO USAMOS EL ID FIJO
-                patientNombre: document.getElementById('nombre').value,
-                patientApellido: document.getElementById('apellidos').value,
-                patientTelefono: document.getElementById('telefono').value,
-                patientEmail: document.getElementById('correo').value,
+                roomId: parseInt(document.getElementById('salaSelect').value) || 1,
                 sessionType: sessionTypeValue, 
-                comments: `
-                    Tipo: ${sessionTypeValue}. 
-                    Nota: ${document.getElementById('comentarios').value}
-                `
+                comments: document.getElementById('comentarios').value
             };
+
+            // Validaciones Generales
+            if (!appointmentData.date || !document.getElementById('hora').value || !appointmentData.therapistId || !appointmentData.roomId) {
+                showMessage("Faltan datos obligatorios: Fecha, Hora, Terapeuta o Sala.", "Atención");
+                return;
+            }
+
+            if (sessionTypeValue === 'EVALUACION_INICIAL') {
+                appointmentData.patientNombre = document.getElementById('nombre').value;
+                appointmentData.patientApellido = document.getElementById('apellidos').value;
+                appointmentData.patientTelefono = document.getElementById('telefono').value;
+                appointmentData.patientEmail = document.getElementById('correo').value;
+
+                if (!appointmentData.patientNombre || !appointmentData.patientApellido || !appointmentData.patientTelefono || !appointmentData.patientEmail) {
+                    showMessage("Faltan datos del paciente (Nombre, Apellido, Teléfono, Email).", "Atención");
+                    return;
+                }
+
+            } else {
+                // CITA_DE_TERAPIA or others
+                const pId = document.getElementById('patientSelect').value;
+                if (!pId) {
+                    showMessage("Seleccione un paciente.", "Atención");
+                    return;
+                }
+                appointmentData.patientId = parseInt(pId);
+                appointmentData.folio = document.getElementById('folio').value;
+                
+                const cuota = document.getElementById('cuota').value;
+                if (cuota) appointmentData.amountMx = parseFloat(cuota);
+                
+                // Validación de Comprobante de Pago
+                const fileInput = document.getElementById('comprobante');
+                if (sessionTypeValue === 'CITA_DE_TERAPIA') {
+                    if (fileInput.files.length === 0) {
+                        showMessage("Falta documentación: Debe subir el comprobante de pago.", "Atención");
+                        return;
+                    }
+                }
+
+                if (fileInput.files.length > 0) {
+                    appointmentData.comments += ` [Comprobante: ${fileInput.files[0].name}]`;
+                }
+            }
 
             console.log("Enviando:", appointmentData);
 
@@ -477,17 +706,45 @@
             .then(async response => {
                 if (response.ok) {
                     const json = await response.json();
-                    alert(`¡Cita agendada con éxito! ID: ${json.appointmentId}`);
+                    showMessage(`¡Cita agendada con éxito! ID: ${json.appointmentId}`, "Éxito");
                     document.getElementById('citaForm').reset();
                     closeModal();
+                    toggleFormFields(); // Reset visibility
                 } else {
                     const errorText = await response.text();
-                    alert(`Error del servidor: ${errorText}`);
+                    // Intentar parsear si es JSON para mostrar mensaje limpio
+                    try {
+                        const errObj = JSON.parse(errorText);
+                        
+                        // Si hay un mensaje explícito (ej: RuntimeException message)
+                        if (errObj.message && errObj.message !== 'No message available') {
+                            showMessage(errObj.message, "Error");
+                        } 
+                        // Si es un mapa de errores (fallback)
+                        else if (typeof errObj === 'object') {
+                            let msg = "";
+                            for (const key in errObj) {
+                                // Filtrar campos técnicos para no ensuciar el mensaje
+                                if (key !== 'trace' && key !== 'timestamp' && key !== 'path' && key !== 'status' && key !== 'error') {
+                                    msg += `- ${key}: ${errObj[key]}\n`;
+                                }
+                            }
+                            // Si quedó vacío, usar el error genérico
+                            if (!msg && errObj.error) msg = errObj.error;
+                            
+                            showMessage(msg || "Ocurrió un error inesperado.", "Error");
+                        } else {
+                            showMessage(`Error: ${errorText}`, "Error");
+                        }
+                    } catch (e) {
+                        // Si es texto plano
+                        showMessage(`Error: ${errorText}`, "Error");
+                    }
                 }
             })
             .catch(error => {
                 console.error('Error de red:', error);
-                alert("Error de conexión: No se pudo contactar al servidor.");
+                showMessage("Error de conexión: No se pudo contactar al servidor.", "Error de Conexión");
             });
         });
     </script>

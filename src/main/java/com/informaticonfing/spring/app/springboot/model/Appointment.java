@@ -36,6 +36,9 @@ public class Appointment { // Nombre corregido (Mayúscula)
     @Column(name = "appointment_status", length = 16)
     private AppointmentStatus appointmentStatus;
 
+    @Column(name = "comments", length = 500)
+    private String comments;
+
     public Appointment() {
     }
 
@@ -110,5 +113,13 @@ public class Appointment { // Nombre corregido (Mayúscula)
 
     public void setAppointmentStatus(AppointmentStatus appointmentStatus) {
         this.appointmentStatus = appointmentStatus;
+    }
+
+    public String getComments() {
+        return comments;
+    }
+
+    public void setComments(String comments) {
+        this.comments = comments;
     }
 }
