@@ -22,7 +22,8 @@ public class DataLoader implements CommandLineRunner {
     private final RoomRepository roomRepo;
     private final AppointmentRepository appointmentRepo;
 
-    public DataLoader(TherapistRepository therapistRepo, PatientRepository patientRepo, RoomRepository roomRepo, AppointmentRepository appointmentRepo) {
+    public DataLoader(TherapistRepository therapistRepo, PatientRepository patientRepo, RoomRepository roomRepo,
+            AppointmentRepository appointmentRepo) {
         this.therapistRepo = therapistRepo;
         this.patientRepo = patientRepo;
         this.roomRepo = roomRepo;
@@ -52,13 +53,23 @@ public class DataLoader implements CommandLineRunner {
 
         // Cargar Salas
         if (roomRepo.count() == 0) {
-            Room r = new Room();
-            r.setNombre("Consultorio 1");
-            roomRepo.save(r);
-            System.out.println("✅ Sala de prueba cargada (ID 1).");
+            roomRepo.save(new Room("Consultorio 1"));
+            roomRepo.save(new Room("Consultorio 2"));
+            roomRepo.save(new Room("Consultorio 3"));
+            System.out.println("✅ 3 Salas de prueba cargadas.");
+        } else if (roomRepo.count() < 3) {
+            // Si ya existen algunas pero no las 3, agregamos las que falten (simple check)
+            if (roomRepo.findByNombre("Consultorio 2").isEmpty()) {
+                roomRepo.save(new Room("Consultorio 2"));
+            }
+            if (roomRepo.findByNombre("Consultorio 3").isEmpty()) {
+                roomRepo.save(new Room("Consultorio 3"));
+            }
+            System.out.println("✅ Salas complementarias cargadas.");
         }
 
-        // Rellenar folios faltantes para pacientes existentes (6 dígitos aleatorios, únicos)
+        // Rellenar folios faltantes para pacientes existentes (6 dígitos aleatorios,
+        // únicos)
         List<Patient> patients = patientRepo.findAll();
         Random rnd = new Random();
         for (Patient p : patients) {

@@ -54,6 +54,9 @@ public class AppointmentRequest {
         @Schema(description = "Folio del paciente si ya existe. Si es primera cita, el sistema generará uno automáticamente.", example = "FOL-2025-0012")
         private String folio;
 
+        @Schema(description = "Comentarios adicionales sobre la cita.", example = "Paciente refiere ansiedad.")
+        private String comments;
+
         // --------------------- GETTERS & SETTERS ---------------------
 
         public SessionType getSessionType() {
@@ -158,5 +161,13 @@ public class AppointmentRequest {
 
         public void setPatientEmail(String patientEmail) {
                 this.patientEmail = patientEmail;
+        }
+
+        public String getComments() {
+                return comments;
+        }
+
+        public void setComments(String comments) {
+                this.comments = comments;
         }
 }

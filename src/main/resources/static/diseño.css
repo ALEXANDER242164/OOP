@@ -84,7 +84,14 @@ body {
     border-radius: 0.5rem; overflow: hidden;
 }
 
-.grid-cell { background-color: white; padding: 0.5rem; min-height: 80px; }
+.grid-cell { 
+    background-color: white; 
+    padding: 0.25rem; 
+    min-height: 80px; 
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
 .grid-header { background-color: white; padding: 0.75rem; text-align: center; font-weight: 600; color: var(--text-gray-600); }
 .time-col { color: var(--text-gray-500); font-size: 0.875rem; font-weight: bold; display: flex; align-items: center; justify-content: center; }
 
@@ -95,7 +102,9 @@ body {
 .appointment-card {
     background-color: #e9d5ff; border: 1px solid #d8b4fe; color: #6b21a8;
     border-radius: 0.375rem; padding: 0.25rem 0.5rem; font-size: 0.75rem;
-    cursor: pointer; height: 100%;
+    cursor: pointer; 
+    height: auto;
+    width: 100%;
 }
 
 /* --- MODAL --- */

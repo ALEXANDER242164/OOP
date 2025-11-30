@@ -55,11 +55,32 @@ public class AppointmentService {
                                         "El horario de atención es de 09:00 a 17:30. Última cita a las 16:00.");
                 }
 
+                // Validar Comentarios
+                String comments = req.getComments();
+                if (comments == null || comments.trim().isEmpty()) {
+                        throw new RuntimeException("Los comentarios son obligatorios para la cita.");
+                }
+                comments = comments.trim();
+                if (comments.length() > 500) {
+                        throw new RuntimeException("Los comentarios no pueden exceder 500 caracteres.");
+                }
+
                 Patient patient;
                 if (req.getPatientId() != null) {
                         patient = patientRepo.findById(req.getPatientId())
                                         .orElseThrow(() -> new RuntimeException(
                                                         "Paciente no encontrado con ID: " + req.getPatientId()));
+
+                        // Validar que el paciente no tenga otra cita el mismo día
+                        LocalDateTime startOfDay = req.getDate().atStartOfDay();
+                        LocalDateTime endOfDay = req.getDate().atTime(LocalTime.MAX);
+                        long existingAppts = appointmentRepo.countAppointmentsByPatientAndDate(
+                                        patient.getId(), startOfDay, endOfDay);
+                        if (existingAppts > 0) {
+                                throw new RuntimeException(
+                                                "El paciente ya tiene una cita programada para este día. No se permite más de una cita diaria.");
+                        }
+
                 } else {
                         // Crear nuevo paciente
                         if (req.getPatientNombre() == null || req.getPatientApellido() == null) {
@@ -99,11 +120,29 @@ public class AppointmentService {
                 LocalDateTime start = LocalDateTime.of(req.getDate(), req.getStartTime());
                 LocalDateTime end = start.plusMinutes(req.getDurationMinutes() != null ? req.getDurationMinutes() : 60);
 
-                // 4. Validar Solapamiento (Incluyendo Canceladas para bloquear el horario)
+                // 4. Validar Máximo de Citas Globales (Regla de Negocio: Máx 2 simultáneas)
+                long activeAppointmentsCount = appointmentRepo.countActiveAppointmentsInTimeRange(start, end);
+                if (activeAppointmentsCount >= 2) {
+                        throw new RuntimeException(
+                                        "Lo sentimos, ya se ha alcanzado el límite máximo de citas (2) para este horario.");
+                }
+
+                // 5. Validar Solapamiento Específico (Sala o Terapeuta)
                 List<Appointment> overlaps = appointmentRepo.findOverlappingAppointments(
                                 start, end, req.getRoomId(), req.getTherapistId());
 
                 if (!overlaps.isEmpty()) {
+                        // Check specific conflict
+                        for (Appointment overlap : overlaps) {
+                                if (overlap.getRoom().getId().equals(req.getRoomId())) {
+                                        throw new RuntimeException("La sala está ocupada en dicho rango de horario.");
+                                }
+                                if (overlap.getTherapist().getId().equals(req.getTherapistId())) {
+                                        throw new RuntimeException(
+                                                        "El terapeuta está ocupado en dicho rango de horario.");
+                                }
+                        }
+                        // Fallback
                         throw new RuntimeException(
                                         "El horario, sala o terapeuta no están disponibles (Conflicto con otra cita).");
                 }
@@ -116,6 +155,7 @@ public class AppointmentService {
                 a.setStartDateTime(start);
                 a.setEndDateTime(end);
                 a.setPaymentProofPath(null);
+                a.setComments(comments);
                 // Set default status
                 a.setAppointmentStatus(AppointmentStatus.PENDIENTE);
 
