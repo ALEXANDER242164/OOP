@@ -41,3 +41,6 @@ Desktop.ini
 .env
 .env.backup
 .vscode/
+
+.env
+.env.backup
