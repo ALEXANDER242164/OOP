@@ -692,7 +692,7 @@
                 }
 
                 if (fileInput.files.length > 0) {
-                    appointmentData.comments += ` [Comprobante: ${fileInput.files[0].name}]`;
+                    appointmentData.paymentProof = fileInput.files[0].name;
                 }
             }
 
@@ -706,7 +706,7 @@
             .then(async response => {
                 if (response.ok) {
                     const json = await response.json();
-                    showMessage(`¡Cita agendada con éxito! ID: ${json.appointmentId}`, "Éxito");
+                    showMessage(`¡Cita agendada con éxito!`, "Éxito");
                     document.getElementById('citaForm').reset();
                     closeModal();
                     toggleFormFields(); // Reset visibility
