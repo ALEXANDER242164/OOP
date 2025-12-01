@@ -16,7 +16,8 @@ WORKDIR /app
 # Copiamos el JAR construido desde la etapa anterior. Usamos patrón para que no importe la versión
 COPY --from=builder /build/target/*.jar app.jar
 
-EXPOSE 8081
+# Railway asigna el puerto dinámicamente via variable de entorno PORT
+EXPOSE ${PORT:-8081}
 
-# La aplicación usa el puerto 8081 por defecto según application.properties
+# La aplicación usa la variable PORT de Railway, con fallback a 8081
 ENTRYPOINT ["java","-jar","/app/app.jar"]
