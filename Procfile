@@ -1,2 +1,1 @@
-web: bash start.sh
-web: java -jar app.jar
+web: java -Dserver.port=$PORT -jar target/*.jar
