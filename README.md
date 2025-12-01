@@ -1,2 +1,2 @@
 
-![Diagrama UML](documents/uml/appointment-class-diagram.png)
+![Diagrama UML](docs/uml/appointment-class-diagram.png)
