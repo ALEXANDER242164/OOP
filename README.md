@@ -1,2 +1,2 @@
-Puedes ver el diagrama UML en el siguiente archivo:  
- [Diagrama UML](docs/uml/OOPULTIMATEUML.md)
+
+![Diagrama UML](documents/uml/appointment-class-diagram.png)
