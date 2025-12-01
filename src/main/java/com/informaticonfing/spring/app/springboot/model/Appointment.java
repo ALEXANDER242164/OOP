@@ -36,6 +36,15 @@ public class Appointment { // Nombre corregido (Mayúscula)
     @Column(name = "appointment_status", length = 16)
     private AppointmentStatus appointmentStatus;
 
+<<<<<<< Updated upstream
+=======
+    @Column(name = "comments", length = 500)
+    private String comments;
+
+    @Column(name = "reminder_sent")
+    private Boolean reminderSent = false;
+
+>>>>>>> Stashed changes
     public Appointment() {
     }
 
@@ -111,4 +120,23 @@ public class Appointment { // Nombre corregido (Mayúscula)
     public void setAppointmentStatus(AppointmentStatus appointmentStatus) {
         this.appointmentStatus = appointmentStatus;
     }
+<<<<<<< Updated upstream
+=======
+
+    public String getComments() {
+        return comments;
+    }
+
+    public void setComments(String comments) {
+        this.comments = comments;
+    }
+
+    public Boolean getReminderSent() {
+        return reminderSent;
+    }
+
+    public void setReminderSent(Boolean reminderSent) {
+        this.reminderSent = reminderSent;
+    }
+>>>>>>> Stashed changes
 }

@@ -134,6 +134,108 @@ public class AppointmentService {
                                 .toList();
         }
 
+        public com.informaticonfing.spring.app.springboot.dto.AppointmentDetail getAppointmentDetail(Long id) {
+                Appointment a = appointmentRepo.findById(id)
+                                .orElseThrow(() -> new RuntimeException("Cita no encontrada."));
+                LocalDate date = a.getStartDateTime().toLocalDate();
+                java.time.LocalTime startTime = a.getStartDateTime().toLocalTime();
+                long minutes = java.time.Duration.between(a.getStartDateTime(), a.getEndDateTime()).toMinutes();
+                Integer duration = (int) minutes;
+                return new com.informaticonfing.spring.app.springboot.dto.AppointmentDetail(
+                                a.getId(),
+                                a.getSessionType(),
+                                a.getPatient() != null ? a.getPatient().getId() : null,
+                                a.getPatient() != null ? a.getPatient().getFirstName() + " " + a.getPatient().getLastName() : null,
+                                a.getTherapist() != null ? a.getTherapist().getId() : null,
+                                a.getTherapist() != null ? a.getTherapist().getName() : null,
+                                a.getRoom() != null ? a.getRoom().getId() : null,
+                                a.getRoom() != null ? a.getRoom().getNombre() : null,
+                                date,
+                                startTime,
+                                duration,
+                                a.getComments()
+                );
+        }
+
+        @Transactional
+        public AppointmentResponse updateAppointment(Long appointmentId, AppointmentRequest req) {
+                Appointment a = appointmentRepo.findById(appointmentId)
+                                .orElseThrow(() -> new RuntimeException("Cita no encontrada."));
+
+                // Validar Fin de Semana
+                java.time.DayOfWeek day = req.getDate().getDayOfWeek();
+                if (day == java.time.DayOfWeek.SATURDAY || day == java.time.DayOfWeek.SUNDAY) {
+                        throw new RuntimeException("No se pueden agendar citas en fines de semana.");
+                }
+
+                // Validar Minutos = 0
+                if (req.getStartTime().getMinute() != 0) {
+                        throw new RuntimeException("Las citas deben iniciar en punto de la hora (ej. 09:00, 10:00).");
+                }
+
+                // Validar Horario
+                if (req.getStartTime().getHour() < 9 || req.getStartTime().getHour() > 16) {
+                        throw new RuntimeException("El horario de atención es de 09:00 a 17:30. Última cita a las 16:00.");
+                }
+
+                // Validar comentarios
+                String comments = req.getComments();
+                if (comments != null) {
+                        comments = comments.trim();
+                        if (comments.length() > 500) {
+                                throw new RuntimeException("Los comentarios no pueden exceder 500 caracteres.");
+                        }
+                }
+
+                Therapist therapist = therapistRepo.findById(req.getTherapistId())
+                                .orElseThrow(() -> new RuntimeException("Terapeuta no encontrado."));
+                Room room = roomRepo.findById(req.getRoomId())
+                                .orElseThrow(() -> new RuntimeException("Sala no encontrada."));
+
+                java.time.LocalDateTime start = java.time.LocalDateTime.of(req.getDate(), req.getStartTime());
+                java.time.LocalDateTime end = start.plusMinutes(req.getDurationMinutes() != null ? req.getDurationMinutes() : 60);
+
+                // Contar citas activas en rango y excluir la propia si aplica
+                long activeAppointmentsCount = appointmentRepo.countActiveAppointmentsInTimeRange(start, end);
+                boolean selfOverlaps = a.getStartDateTime().isBefore(end) && a.getEndDateTime().isAfter(start);
+                if (selfOverlaps) {
+                        activeAppointmentsCount = Math.max(0, activeAppointmentsCount - 1);
+                }
+                if (activeAppointmentsCount >= 2) {
+                        throw new RuntimeException("Lo sentimos, ya se ha alcanzado el límite máximo de citas (2) para este horario.");
+                }
+
+                // Verificar solapamientos con otros
+                java.util.List<Appointment> overlaps = appointmentRepo.findOverlappingAppointments(start, end, req.getRoomId(), req.getTherapistId())
+                                .stream()
+                                .filter(x -> !x.getId().equals(appointmentId))
+                                .toList();
+                if (!overlaps.isEmpty()) {
+                        for (Appointment overlap : overlaps) {
+                                if (overlap.getRoom() != null && overlap.getRoom().getId().equals(req.getRoomId())) {
+                                        throw new RuntimeException("La sala está ocupada en dicho rango de horario.");
+                                }
+                                if (overlap.getTherapist() != null && overlap.getTherapist().getId().equals(req.getTherapistId())) {
+                                        throw new RuntimeException("El terapeuta está ocupado en dicho rango de horario.");
+                                }
+                        }
+                        throw new RuntimeException("El horario, sala o terapeuta no están disponibles (Conflicto con otra cita).");
+                }
+
+                // Actualizar campos permitidos
+                a.setTherapist(therapist);
+                a.setRoom(room);
+                a.setStartDateTime(start);
+                a.setEndDateTime(end);
+                a.setComments(comments);
+
+                Appointment saved = appointmentRepo.save(a);
+
+                String folio = saved.getPatient() != null ? saved.getPatient().getFolio() : null;
+                return new AppointmentResponse("Cita actualizada correctamente", saved.getId(), folio,
+                                saved.getAppointmentStatus() != null ? saved.getAppointmentStatus().toString() : AppointmentStatus.PENDIENTE.toString());
+        }
+
         private AppointmentCalendarItem toCalendarItem(Appointment a) {
                 return new AppointmentCalendarItem(
                                 a.getId(),

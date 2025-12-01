@@ -84,6 +84,20 @@ public class AppointmentController {
                 return appointmentService.getWeek(monday);
         }
 
+        @Operation(summary = "Obtener detalle de una cita", description = "Devuelve los datos completos de una cita por su id.")
+        @GetMapping("/{id}")
+        public ResponseEntity<?> getById(@PathVariable("id") Long id) {
+                return ResponseEntity.ok(appointmentService.getAppointmentDetail(id));
+        }
+
+        @Operation(summary = "Actualizar una cita", description = "Actualiza fecha, hora, terapeuta, sala, duración y comentarios de una cita existente.")
+        @PutMapping("/{id}")
+        public ResponseEntity<AppointmentResponse> update(@PathVariable("id") Long id,
+                        @Valid @RequestBody AppointmentRequest request) {
+                AppointmentResponse resp = appointmentService.updateAppointment(id, request);
+                return ResponseEntity.ok(resp);
+        }
+
         @ResponseStatus(HttpStatus.BAD_REQUEST)
         @ExceptionHandler(MethodArgumentNotValidException.class)
         public Map<String, String> handleValidationExceptions(

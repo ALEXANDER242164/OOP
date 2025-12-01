@@ -119,6 +119,127 @@
         </div>
     </div>
 
+<<<<<<< Updated upstream
+=======
+    <!-- MODAL DE EDICIÓN DE CITA -->
+    <div id="editModal" class="modal-overlay">
+        <div class="modal-content">
+            <form id="editForm">
+                <div class="modal-header">
+                    <h3>Actualizar Cita</h3>
+                    <button type="button" class="close-btn" onclick="closeEditModal()">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="editFecha">Fecha:</label>
+                            <input type="date" id="editFecha" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="editHora">Hora Inicio:</label>
+                            <select id="editHora" required>
+                                <option value="">-- Seleccione Hora --</option>
+                                <option value="09:00">09:00 AM</option>
+                                <option value="10:00">10:00 AM</option>
+                                <option value="11:00">11:00 AM</option>
+                                <option value="12:00">12:00 PM</option>
+                                <option value="13:00">01:00 PM</option>
+                                <option value="14:00">02:00 PM</option>
+                                <option value="15:00">03:00 PM</option>
+                                <option value="16:00">04:00 PM</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="editDuration">Duración (min):</label>
+                            <input type="number" id="editDuration" value="60" min="30" step="15">
+                        </div>
+                        <div class="form-group">
+                            <label for="editTherapistSelect">Terapeuta:</label>
+                            <select id="editTherapistSelect" required>
+                                <option value="">Cargando...</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="editSalaSelect">Sala:</label>
+                            <select id="editSalaSelect" required>
+                                <option value="">Cargando...</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label for="editComentarios">Comentarios</label>
+                            <textarea id="editComentarios" rows="3" placeholder="Comentarios..."></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-cancel" onclick="closeEditModal()">Cancelar</button>
+                    <button type="submit" class="btn-save">Actualizar Cita</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL DE DETALLES -->
+    <div id="detailsModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Detalles de la cita</h3>
+                <button type="button" class="close-btn" onclick="closeDetailsModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p><strong>Tipo:</strong> <span id="detailType"></span></p>
+                <p><strong>Paciente:</strong> <span id="detailPatient"></span></p>
+                <p><strong>Folio:</strong> <span id="detailFolio"></span></p>
+                <p><strong>Fecha:</strong> <span id="detailDate"></span></p>
+                <p><strong>Hora inicio:</strong> <span id="detailStart"></span></p>
+                <p><strong>Duración:</strong> <span id="detailDuration"></span></p>
+                <p><strong>Sala:</strong> <span id="detailRoom"></span></p>
+                <p><strong>Terapeuta:</strong> <span id="detailTherapist"></span></p>
+                <p><strong>Estado:</strong> <span id="detailStatus"></span></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-cancel" id="btnCancelAppt">Cancelar Cita</button>
+                <button type="button" class="btn-save" id="btnUpdateAppt" style="display:none; margin-left:0.5rem;">Actualizar</button>
+                <button type="button" class="btn-save" onclick="closeDetailsModal()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL DE MENSAJES (Reemplazo de alert) -->
+    <div id="messageModal" class="modal-overlay">
+        <div class="modal-content" style="max-width: 400px;">
+            <div class="modal-header">
+                <h3 id="messageTitle">Mensaje</h3>
+                <button type="button" class="close-btn" onclick="closeMessageModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p id="messageBody"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-save" onclick="closeMessageModal()">Aceptar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL DE CONFIRMACIÓN (Reemplazo de confirm) -->
+    <div id="confirmModal" class="modal-overlay">
+        <div class="modal-content" style="max-width: 400px;">
+            <div class="modal-header">
+                <h3 id="confirmTitle">Confirmación</h3>
+                <button type="button" class="close-btn" onclick="closeConfirmModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p id="confirmBody"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-cancel" onclick="closeConfirmModal()">Cancelar</button>
+                <button type="button" class="btn-save" id="confirmBtnAction">Confirmar</button>
+            </div>
+        </div>
+    </div>
+
+>>>>>>> Stashed changes
     <!-- LÓGICA JAVASCRIPT (Conectada al Backend) -->
     <script>
         const API_BASE = '/api';
@@ -142,6 +263,115 @@
             renderCalendar(); // Cargar calendario al inicio
         });
 
+<<<<<<< Updated upstream
+=======
+        function cargarSalas() {
+            fetch(`${API_BASE}/catalogs/rooms`)
+                .then(response => response.json())
+                .then(data => {
+                    const select = document.getElementById('salaSelect');
+                    select.innerHTML = '<option value="">-- Seleccione Sala --</option>';
+                    data.forEach(r => {
+                        const option = document.createElement('option');
+                        option.value = r.id;
+                        option.textContent = r.nombre;
+                        select.appendChild(option);
+                    });
+                    const editSelect = document.getElementById('editSalaSelect');
+                    if (editSelect) {
+                        editSelect.innerHTML = '<option value="">-- Seleccione Sala --</option>';
+                        data.forEach(r => {
+                            const o = document.createElement('option');
+                            o.value = r.id;
+                            o.textContent = r.nombre;
+                            editSelect.appendChild(o);
+                        });
+                    }
+                })
+                .catch(err => console.error("Error cargando salas:", err));
+        }
+
+        function cargarPacientes() {
+             fetch(`${API_BASE}/catalogs/patients`)
+                .then(response => response.json())
+                .then(data => {
+                    allPatients = data;
+                    const select = document.getElementById('patientSelect');
+                    select.innerHTML = '<option value="">Seleccionar paciente</option>';
+                    data.forEach(p => {
+                        const option = document.createElement('option');
+                        option.value = p.id;
+                        option.textContent = `${p.firstName} ${p.lastName}`;
+                        select.appendChild(option);
+                    });
+                })
+                .catch(err => console.error("Error cargando pacientes:", err));
+        }
+
+        function toggleFormFields() {
+            const type = document.getElementById('sessionTypeSelect').value;
+            const newPatientFields = document.getElementById('newPatientFields');
+            const existingPatientFields = document.getElementById('existingPatientFields');
+            const therapyFields = document.getElementById('therapyFields');
+            const paymentFields = document.getElementById('paymentFields');
+
+            // Reset displays
+            newPatientFields.style.display = 'none';
+            existingPatientFields.style.display = 'none';
+            therapyFields.style.display = 'none';
+            paymentFields.style.display = 'none';
+
+            if (type === 'EVALUACION_INICIAL') {
+                newPatientFields.style.display = 'grid';
+            } else if (type === 'CITA_DE_TERAPIA') {
+                existingPatientFields.style.display = 'grid';
+                therapyFields.style.display = 'grid';
+                paymentFields.style.display = 'grid';
+            } else {
+                // Default behavior for other types
+                if (type) {
+                     existingPatientFields.style.display = 'grid';
+                }
+            }
+        }
+
+        function updateFolio() {
+            const patientId = document.getElementById('patientSelect').value;
+            const folioInput = document.getElementById('folio');
+            
+            if (patientId) {
+                const patient = allPatients.find(p => p.id == patientId);
+                if (patient) {
+                    folioInput.value = patient.folio || '';
+                }
+            } else {
+                folioInput.value = '';
+            }
+        }
+
+        function changeDate(offset) {
+            if (currentView === 'week') {
+                currentDate.setDate(currentDate.getDate() + (offset * 7));
+            } else {
+                currentDate.setDate(currentDate.getDate() + offset);
+            }
+            updateDateLabel();
+            renderCalendar();
+        }
+
+        function updateDateLabel() {
+            const label = document.getElementById('currentDateLabel');
+            if (currentView === 'week') {
+                const monday = getMonday(currentDate);
+                const friday = new Date(monday);
+                friday.setDate(monday.getDate() + 4);
+                label.textContent = `${monday.toLocaleDateString()} - ${friday.toLocaleDateString()}`;
+            } else {
+                label.textContent = currentDate.toLocaleDateString();
+            }
+        }
+
+>>>>>>> Stashed changes
         // --- Funciones del Calendario ---
         function getMonday(d) {
             d = new Date(d);
@@ -181,6 +411,170 @@
                 });
         }
 
+<<<<<<< Updated upstream
+=======
+        // --- Funciones del Modal de Detalles ---
+        function openDetailsModal(appt) {
+            // Guardar id actual para acciones posteriores (editar)
+            window.currentViewingApptId = appt.id;
+
+            document.getElementById('detailType').textContent = appt.sessionType;
+            document.getElementById('detailPatient').textContent = appt.patientNombre;
+            document.getElementById('detailFolio').textContent = appt.patientFolio || '---';
+            
+            const start = new Date(appt.start);
+            const end = new Date(appt.end);
+            const duration = (end - start) / (1000 * 60); // minutos
+
+            document.getElementById('detailDate').textContent = start.toLocaleDateString();
+            document.getElementById('detailStart').textContent = start.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            document.getElementById('detailDuration').textContent = duration + ' min';
+            document.getElementById('detailRoom').textContent = appt.roomNombre || '---';
+            document.getElementById('detailTherapist').textContent = appt.therapistNombre;
+            
+            // Normalizar estado a mayúsculas para comparación
+            const status = appt.status ? appt.status.toUpperCase() : 'PENDIENTE';
+            document.getElementById('detailStatus').textContent = status;
+
+            const btnCancel = document.getElementById('btnCancelAppt');
+            if (status === 'CANCELADO') {
+                btnCancel.style.display = 'none';
+            } else {
+                btnCancel.style.display = 'inline-block';
+                btnCancel.onclick = () => cancelAppointment(appt.id);
+            }
+
+            // Mostrar botón de actualizar y asignar acción (cerrar details antes de abrir edit)
+            const btnUpdate = document.getElementById('btnUpdateAppt');
+            if (btnUpdate) {
+                btnUpdate.style.display = 'inline-block';
+                btnUpdate.onclick = () => {
+                    closeDetailsModal();
+                    // pequeña espera para evitar parpadeos (opcional)
+                    setTimeout(() => openEditModal(appt.id), 50);
+                };
+            }
+
+            document.getElementById('detailsModal').classList.add('active');
+        }
+
+        function closeDetailsModal() {
+            document.getElementById('detailsModal').classList.remove('active');
+        }
+
+        function cancelAppointment(id) {
+            showConfirm('¿Está seguro de que desea cancelar esta cita? Esta acción no se puede deshacer.', () => {
+                fetch(`${API_BASE}/appointments/${id}/cancel`, {
+                    method: 'POST'
+                })
+                .then(async res => {
+                    if (res.ok) {
+                        showMessage('Cita cancelada correctamente.', 'Éxito');
+                        closeDetailsModal();
+                        renderCalendar();
+                    } else {
+                        const txt = await res.text();
+                        showMessage('Error al cancelar: ' + txt, 'Error');
+                    }
+                })
+                .catch(err => {
+                    console.error(err);
+                    showMessage('Error de conexión.', 'Error');
+                });
+            });
+        }
+
+        // --- Funciones para editar cita ---
+        function openEditModal(id) {
+            // Asegurar id actual y cerrar detalles si siguen abiertos
+            window.currentViewingApptId = id;
+            closeDetailsModal();
+
+            // Obtener datos del backend
+            fetch(`${API_BASE}/appointments/${id}`)
+                .then(res => res.json())
+                .then(data => {
+                    window.currentEditingAppt = data;
+                    // Poblar campos
+                    document.getElementById('editFecha').value = data.date;
+                    // startTime viene como HH:MM:SS o HH:MM:SS.sss, aseguramos HH:MM
+                    const st = data.startTime ? data.startTime.substring(0,5) : '';
+                    document.getElementById('editHora').value = st;
+                    document.getElementById('editDuration').value = data.durationMinutes || 60;
+                    document.getElementById('editComentarios').value = data.comments || '';
+                    // Seleccionar terapeuta y sala en los selects (se poblaron al inicio)
+                    const tSel = document.getElementById('editTherapistSelect');
+                    if (tSel) tSel.value = data.therapistId || '';
+                    const rSel = document.getElementById('editSalaSelect');
+                    if (rSel) rSel.value = data.roomId || '';
+
+                    // Abrir modal
+                    document.getElementById('editModal').classList.add('active');
+                })
+                .catch(err => {
+                    console.error(err);
+                    showMessage('Error al cargar datos de la cita.', 'Error');
+                });
+        }
+
+        function closeEditModal() {
+            document.getElementById('editModal').classList.remove('active');
+        }
+
+        // Manejar submit del formulario de edición
+        document.getElementById('editForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const id = window.currentViewingApptId;
+            if (!id) {
+                showMessage('No se identificó la cita a actualizar.', 'Error');
+                return;
+            }
+
+            const payload = {
+                date: document.getElementById('editFecha').value,
+                startTime: document.getElementById('editHora').value + ':00',
+                durationMinutes: parseInt(document.getElementById('editDuration').value) || 60,
+                therapistId: parseInt(document.getElementById('editTherapistSelect').value),
+                roomId: parseInt(document.getElementById('editSalaSelect').value),
+                comments: document.getElementById('editComentarios').value,
+                // sessionType: conservar el que ya tenía la cita
+            };
+            if (window.currentEditingAppt && window.currentEditingAppt.sessionType) {
+                payload.sessionType = window.currentEditingAppt.sessionType;
+            }
+
+            // Minimal validations
+            if (!payload.date || !payload.startTime || !payload.therapistId || !payload.roomId) {
+                showMessage('Faltan campos obligatorios: fecha, hora, terapeuta o sala.', 'Atención');
+                return;
+            }
+
+            // Obtener el sessionType actual desde el detalle (lo podríamos conservar)
+            // Llamamos al endpoint de actualización
+            fetch(`${API_BASE}/appointments/${id}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            })
+            .then(async res => {
+                if (res.ok) {
+                    const json = await res.json();
+                    showMessage(json.message || 'Cita actualizada correctamente.', 'Éxito');
+                    closeEditModal();
+                    closeDetailsModal();
+                    renderCalendar();
+                } else {
+                    const txt = await res.text();
+                    showMessage('Error al actualizar: ' + txt, 'Error');
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                showMessage('Error de conexión al actualizar.', 'Error');
+            });
+        });
+
+>>>>>>> Stashed changes
         function buildGrid(appointments) {
             const grid = document.getElementById('calendarGrid');
             grid.innerHTML = ''; // Limpiar
@@ -290,6 +684,17 @@
                         option.textContent = t.name; 
                         select.appendChild(option);
                     });
+                    // Si existe select de edición, poblarlo también
+                    const editSelect = document.getElementById('editTherapistSelect');
+                    if (editSelect) {
+                        editSelect.innerHTML = '<option value="">-- Seleccione un Terapeuta --</option>';
+                        data.forEach(t => {
+                            const o = document.createElement('option');
+                            o.value = t.id;
+                            o.textContent = t.name;
+                            editSelect.appendChild(o);
+                        });
+                    }
                 })
                 .catch(err => console.error("Error cargando terapeutas:", err));
         }
