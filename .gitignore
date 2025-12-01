@@ -1,1 +1,42 @@
+# --- Build de Java (Maven) ---
 target/
+*.class
+*.jar
+*.war
+*.ear
+
+# --- Logs ---
+*.log
+
+# --- Archivos de Sistema Operativo (Basura) ---
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Mac
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# --- IDEs y Editores ---
+# VS Code (Opcional: a veces se quiere compartir la config, a veces no)
+.vscode/
+!.vscode/launch.json
+!.vscode/tasks.json
+!.vscode/extensions.json
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Eclipse
+.classpath
+.project
+.settings/
+
+# --- Seguridad ---
+.env
+.env.backup

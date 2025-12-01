@@ -38,17 +38,17 @@ In the following charts, you can [see the PDF](https://github.com/ALEXANDER24216
 
 ## Detailed Task Breakdown
 
-| Member | Task ID | Description |
-|---|---|---|
-| Juan | 1.1 | Inicialización del proyecto |
-| Juan | 1.2 | Appointement reminder |
-| Juan | 1.3 | Patient creation |
-| Juan | 1.4 | Data base creation |
-| Freddie | 2.1 | Appointement Reminder |
-| Leonardo | 3.1 | Refinamiento de requisitos |
-| Leonardo | 3.2 | Appointement |
-| Alexander | 4.1 | Primera Versiones de la pagina en general |
-| Rolando | 5.1 | Primera version del formulario |
-| Paola | 6.1 | Diseño css |
-| Paola | 6.1.1 | Parte la primera version de la pagina |
-| Paola | 6.1.2 | Parte primera version del formulario |
+| Member | Task ID | Description |Size|
+|---|---|---|---|
+| Juan | 1.1 | Inicialización del proyecto |1
+| Juan | 1.2 | Appointement reminder |3
+| Juan | 1.3 | Patient creation |1
+| Juan | 1.4 | Data base creation |3
+| Freddie | 2.1 | Appointement Reminder |5
+| Leonardo | 3.1 | Refinamiento de requisitos | 1
+| Leonardo | 3.2 | Appointement |1
+| Alexander | 4.1 | Primera Versiones de la pagina en general | 3
+| Rolando | 5.1 | Primera version del formulario | 3
+| Paola | 6.1 | Diseño css | 1
+| Paola | 6.1.1 | Parte la primera version de la pagina | 3
+| Paola | 6.1.2 | Parte primera version del formulario |1
