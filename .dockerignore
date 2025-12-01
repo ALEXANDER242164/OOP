@@ -1,0 +1,10 @@
+target/
+.mvn/
+.idea/
+.git/
+logs/
+*.log
+node_modules/
+*.iml
+Dockerfile
+*.md
