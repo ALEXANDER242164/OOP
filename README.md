@@ -12,3 +12,25 @@ Para terminar con la **tercera** entrega:
 1. Se deja de usar H2 que es una base de datos en memoria para usar MySQL y el servicio de RailWay para almacenar la base de datos.
 2. EndPoints 
 3. Se trabaja el frontend.
+    1. Interfaz
+        a. html
+        b. css
+4. Se trabajo el backend: Endpoints y controladores
+    1. Controlador de citas
+    2. Controlador de Catálogos
+
+# [Requirements](Documentation/FinalRequirements.md) 
+
+- [Funcional requirements(FR)]()
+- [Non-funcional requirements(NFR)]()
+
+# New Artifacts
+
+- ![Use Case Diagram](../assets/UseCaseDiagramV1.png)
+
+- [Use Case](Documentation/UseCase.md)
+
+- [User Stories](Documentation/UserStories.md)
+
+# Process
+
