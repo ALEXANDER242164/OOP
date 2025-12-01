@@ -82,6 +82,12 @@
             <optional>true</optional>
         </dependency>
 
+        <!-- Envío de correos -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
+
         <!-- Dependencia para pruebas unitarias -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

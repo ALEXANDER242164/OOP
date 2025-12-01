@@ -39,6 +39,9 @@ public class Appointment { // Nombre corregido (Mayúscula)
     @Column(name = "comments", length = 500)
     private String comments;
 
+    @Column(name = "reminder_sent")
+    private Boolean reminderSent = false;
+
     public Appointment() {
     }
 
@@ -121,5 +124,13 @@ public class Appointment { // Nombre corregido (Mayúscula)
 
     public void setComments(String comments) {
         this.comments = comments;
+    }
+
+    public Boolean getReminderSent() {
+        return reminderSent;
+    }
+
+    public void setReminderSent(Boolean reminderSent) {
+        this.reminderSent = reminderSent;
     }
 }

@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agenda de Citas - Clínica Salud</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="diseño.css">
 </head>
 <body>
@@ -202,7 +205,64 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn-cancel" id="btnCancelAppt">Cancelar Cita</button>
+                <button type="button" class="btn-cancel" id="btnRescheduleOpen">Reprogramar</button>
                 <button type="button" class="btn-save" onclick="closeDetailsModal()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL DE REPROGRAMAR / ACTUALIZAR CITA -->
+    <div id="rescheduleModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Reprogramar cita</h3>
+                <button type="button" class="close-btn" onclick="closeRescheduleModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="rescheduleDate">Fecha</label>
+                        <input type="date" id="rescheduleDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="rescheduleTime">Hora Inicio</label>
+                        <select id="rescheduleTime" required>
+                            <option value="">-- Seleccione Hora --</option>
+                            <option value="09:00">09:00 AM</option>
+                            <option value="10:00">10:00 AM</option>
+                            <option value="11:00">11:00 AM</option>
+                            <option value="12:00">12:00 PM</option>
+                            <option value="13:00">01:00 PM</option>
+                            <option value="14:00">02:00 PM</option>
+                            <option value="15:00">03:00 PM</option>
+                            <option value="16:00">04:00 PM</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="rescheduleDuration">Duración (min)</label>
+                        <input type="number" id="rescheduleDuration" value="60" min="30" step="30">
+                    </div>
+                    <div class="form-group">
+                        <label for="rescheduleTherapistSelect">Terapeuta</label>
+                        <select id="rescheduleTherapistSelect">
+                            <option value="">Cargando...</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="rescheduleRoomSelect">Sala</label>
+                        <select id="rescheduleRoomSelect">
+                            <option value="">Cargando...</option>
+                        </select>
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="rescheduleComments">Comentarios</label>
+                        <textarea id="rescheduleComments" rows="3"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-cancel" onclick="closeRescheduleModal()">Cancelar</button>
+                <button type="button" class="btn-save" id="rescheduleSaveBtn">Actualizar</button>
             </div>
         </div>
     </div>
@@ -315,6 +375,17 @@
                         option.textContent = r.nombre;
                         select.appendChild(option);
                     });
+
+                    const resSelect = document.getElementById('rescheduleRoomSelect');
+                    if (resSelect) {
+                        resSelect.innerHTML = '<option value="">-- Seleccione Sala --</option>';
+                        data.forEach(r => {
+                            const opt = document.createElement('option');
+                            opt.value = r.id;
+                            opt.textContent = r.nombre;
+                            resSelect.appendChild(opt);
+                        });
+                    }
                 })
                 .catch(err => console.error("Error cargando salas:", err));
         }
@@ -440,6 +511,8 @@
 
         // --- Funciones del Modal de Detalles ---
         function openDetailsModal(appt) {
+            // Guardar referencia global para acciones posteriores (reprogramar)
+            window.currentDetailAppt = appt;
             document.getElementById('detailType').textContent = appt.sessionType;
             document.getElementById('detailPatient').textContent = appt.patientNombre;
             document.getElementById('detailFolio').textContent = appt.patientFolio || '---';
@@ -464,6 +537,17 @@
             } else {
                 btnCancel.style.display = 'inline-block';
                 btnCancel.onclick = () => cancelAppointment(appt.id);
+            }
+
+            // Botón reprogramar
+            const btnRescheduleOpen = document.getElementById('btnRescheduleOpen');
+            if (btnRescheduleOpen) {
+                btnRescheduleOpen.onclick = () => openRescheduleModal(appt);
+                if (status === 'CANCELADO') {
+                    btnRescheduleOpen.style.display = 'none';
+                } else {
+                    btnRescheduleOpen.style.display = 'inline-block';
+                }
             }
 
             document.getElementById('detailsModal').classList.add('active');
@@ -612,9 +696,106 @@
                         option.textContent = t.name; 
                         select.appendChild(option);
                     });
+
+                    // También popular select del modal de reprogramar si existe
+                    const resSelect = document.getElementById('rescheduleTherapistSelect');
+                    if (resSelect) {
+                        resSelect.innerHTML = '<option value="">-- Seleccione un Terapeuta --</option>';
+                        data.forEach(t => {
+                            const opt = document.createElement('option');
+                            opt.value = t.id;
+                            opt.textContent = t.name;
+                            resSelect.appendChild(opt);
+                        });
+                    }
                 })
                 .catch(err => console.error("Error cargando terapeutas:", err));
         }
+
+        // --- Reprogramar / Actualizar Cita ---
+        function openRescheduleModal(appt) {
+            // Prefill values
+            const start = new Date(appt.start);
+            document.getElementById('rescheduleDate').value = start.toISOString().split('T')[0];
+            document.getElementById('rescheduleTime').value = start.toTimeString().slice(0,5);
+            const end = new Date(appt.end);
+            const duration = (end - start) / (1000*60);
+            document.getElementById('rescheduleDuration').value = duration;
+            const resSel = document.getElementById('rescheduleTherapistSelect');
+            if (resSel) {
+                // intentar seleccionar terapeuta por id si está disponible
+                for (let i=0;i<resSel.options.length;i++){
+                    if (appt.therapistId && resSel.options[i].value == appt.therapistId) {
+                        resSel.selectedIndex = i; break;
+                    }
+                    if (resSel.options[i].textContent == appt.therapistNombre) {
+                        resSel.selectedIndex = i; break;
+                    }
+                }
+            }
+
+            const resRoomSel = document.getElementById('rescheduleRoomSelect');
+            if (resRoomSel) {
+                for (let i=0;i<resRoomSel.options.length;i++){
+                    if (appt.roomId && resRoomSel.options[i].value == appt.roomId) {
+                        resRoomSel.selectedIndex = i; break;
+                    }
+                    if (resRoomSel.options[i].textContent == appt.roomNombre) {
+                        resRoomSel.selectedIndex = i; break;
+                    }
+                }
+            }
+            document.getElementById('rescheduleComments').value = appt.comments || '';
+            document.getElementById('rescheduleModal').classList.add('active');
+        }
+
+        function closeRescheduleModal() {
+            document.getElementById('rescheduleModal').classList.remove('active');
+        }
+
+        document.getElementById('rescheduleSaveBtn').addEventListener('click', function() {
+            const appt = window.currentDetailAppt;
+            if (!appt) {
+                showMessage('No se encontró la cita seleccionada.', 'Error');
+                return;
+            }
+            const payload = {
+                date: document.getElementById('rescheduleDate').value,
+                startTime: document.getElementById('rescheduleTime').value + ':00',
+                durationMinutes: parseInt(document.getElementById('rescheduleDuration').value) || 60,
+                therapistId: parseInt(document.getElementById('rescheduleTherapistSelect').value),
+                roomId: parseInt(document.getElementById('rescheduleRoomSelect').value),
+                comments: document.getElementById('rescheduleComments').value
+            };
+
+            if (!payload.date || !payload.startTime || !payload.therapistId) {
+                showMessage('Faltan datos obligatorios: Fecha, Hora o Terapeuta.', 'Atención');
+                return;
+            }
+
+            fetch(`${API_BASE}/appointments/${appt.id}/reschedule`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            })
+            .then(async res => {
+                if (res.ok) {
+                    const json = await res.json();
+                    showMessage('Cita actualizada correctamente.', 'Éxito');
+                    // cerrar modales: reprogramar y detalles
+                    closeRescheduleModal();
+                    closeDetailsModal();
+                    renderCalendar();
+                } else {
+                    const txt = await res.text();
+                    showMessage('Error al actualizar: ' + txt, 'Error');
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                showMessage('Error de conexión.', 'Error');
+            });
+        });
 
         function cargarTiposSesion() {
             fetch(`${API_BASE}/catalogs/session-types`)
