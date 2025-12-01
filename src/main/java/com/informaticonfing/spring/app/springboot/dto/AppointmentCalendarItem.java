@@ -9,6 +9,7 @@ public class AppointmentCalendarItem {
     private String patientNombre;
     private String therapistNombre;
     private String roomNombre;
+    private Long roomId;
     private LocalDateTime start;
     private LocalDateTime end;
     private String status;
@@ -19,6 +20,7 @@ public class AppointmentCalendarItem {
             String patientNombre,
             String therapistNombre,
             String roomNombre,
+            Long roomId,
             LocalDateTime start,
             LocalDateTime end,
             String status,
@@ -28,6 +30,7 @@ public class AppointmentCalendarItem {
         this.patientNombre = patientNombre;
         this.therapistNombre = therapistNombre;
         this.roomNombre = roomNombre;
+        this.roomId = roomId;
         this.start = start;
         this.end = end;
         this.status = status;
@@ -52,6 +55,10 @@ public class AppointmentCalendarItem {
 
     public String getRoomNombre() {
         return roomNombre;
+    }
+
+    public Long getRoomId() {
+        return roomId;
     }
 
     public LocalDateTime getStart() {

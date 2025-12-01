@@ -213,6 +213,7 @@ public class AppointmentService {
                                                 : null,
                                 a.getTherapist() != null ? a.getTherapist().getName() : null,
                                 a.getRoom() != null ? a.getRoom().getNombre() : null,
+                                a.getRoom() != null ? a.getRoom().getId() : null,
                                 a.getStartDateTime(),
                                 a.getEndDateTime(),
                                 a.getAppointmentStatus() != null ? a.getAppointmentStatus().toString() : "PENDIENTE",
@@ -244,6 +245,69 @@ public class AppointmentService {
                 String folio = saved.getPatient() != null ? saved.getPatient().getFolio() : null;
                 return new AppointmentResponse("Estado actualizado", saved.getId(), folio,
                                 saved.getAppointmentStatus().toString());
+        }
+
+        @Transactional
+        public AppointmentResponse reschedule(Long appointmentId, com.informaticonfing.spring.app.springboot.dto.RescheduleRequest req) {
+                Appointment a = appointmentRepo.findById(appointmentId)
+                                .orElseThrow(() -> new RuntimeException("Cita no encontrada."));
+
+                // Validaciones similares a create (no fines de semana)
+                java.time.DayOfWeek day = req.getDate().getDayOfWeek();
+                if (day == java.time.DayOfWeek.SATURDAY || day == java.time.DayOfWeek.SUNDAY) {
+                        throw new RuntimeException("No se pueden reprogramar citas a fines de semana.");
+                }
+
+                // Validar inicio en punto de hora (mantener consistencia)
+                if (req.getStartTime().getMinute() != 0) {
+                        throw new RuntimeException("Las citas deben iniciar en punto de la hora (ej. 09:00, 10:00).");
+                }
+
+                if (req.getStartTime().getHour() < 9 || req.getStartTime().getHour() > 16) {
+                        throw new RuntimeException("El horario de atención es de 09:00 a 17:30. Última cita a las 16:00.");
+                }
+
+
+                Therapist therapist = therapistRepo.findById(req.getTherapistId())
+                                .orElseThrow(() -> new RuntimeException("Terapeuta no encontrado."));
+
+                Room newRoom = roomRepo.findById(req.getRoomId() != null ? req.getRoomId() : a.getRoom().getId())
+                                .orElseThrow(() -> new RuntimeException("Sala no encontrada."));
+
+                LocalDateTime start = LocalDateTime.of(req.getDate(), req.getStartTime());
+                LocalDateTime end = start.plusMinutes(req.getDurationMinutes() != null ? req.getDurationMinutes() : 60);
+
+                // Revisar conflictos (ignorando la propia cita) usando la sala nueva
+                Long roomIdForCheck = newRoom.getId();
+                List<Appointment> overlaps = appointmentRepo.findOverlappingAppointments(start, end, roomIdForCheck, req.getTherapistId())
+                                .stream()
+                                .filter(o -> !o.getId().equals(appointmentId))
+                                .toList();
+
+                if (!overlaps.isEmpty()) {
+                        for (Appointment overlap : overlaps) {
+                                if (overlap.getRoom().getId().equals(a.getRoom().getId())) {
+                                        throw new RuntimeException("La sala está ocupada en dicho rango de horario.");
+                                }
+                                if (overlap.getTherapist().getId().equals(req.getTherapistId())) {
+                                        throw new RuntimeException("El terapeuta está ocupado en dicho rango de horario.");
+                                }
+                        }
+                        throw new RuntimeException("El horario, sala o terapeuta no están disponibles (Conflicto con otra cita).");
+                }
+
+                // Aplicar cambios (actualizar la entidad existente)
+                a.setTherapist(therapist);
+                a.setRoom(newRoom);
+                a.setStartDateTime(start);
+                a.setEndDateTime(end);
+                a.setComments(req.getComments());
+
+                Appointment saved = appointmentRepo.save(a);
+                String folio = saved.getPatient() != null ? saved.getPatient().getFolio() : null;
+                return new AppointmentResponse("Cita reprogramada", saved.getId(), folio,
+                                saved.getAppointmentStatus() != null ? saved.getAppointmentStatus().toString()
+                                                : AppointmentStatus.PENDIENTE.toString());
         }
 
         private AppointmentResponse toResponse(Appointment a) {
