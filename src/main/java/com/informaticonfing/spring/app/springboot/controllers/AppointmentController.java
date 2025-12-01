@@ -85,6 +85,14 @@ public class AppointmentController {
                 return appointmentService.getWeek(monday);
         }
 
+        @Operation(summary = "Reprogramar una cita", description = "Actualiza la fecha, hora, duración, terapeuta y comentarios de una cita existente.")
+        @PutMapping("/{id}/reschedule")
+        public ResponseEntity<AppointmentResponse> reschedule(@PathVariable("id") Long id,
+                        @RequestBody com.informaticonfing.spring.app.springboot.dto.RescheduleRequest request) {
+                AppointmentResponse resp = appointmentService.reschedule(id, request);
+                return ResponseEntity.ok(resp);
+        }
+
         @ResponseStatus(HttpStatus.BAD_REQUEST)
         @ExceptionHandler(MethodArgumentNotValidException.class)
         public Map<String, String> handleValidationExceptions(

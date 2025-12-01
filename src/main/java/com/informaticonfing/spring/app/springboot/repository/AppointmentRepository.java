@@ -36,4 +36,10 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
         long countAppointmentsByPatientAndDate(@Param("patientId") Long patientId,
                         @Param("startOfDay") LocalDateTime startOfDay,
                         @Param("endOfDay") LocalDateTime endOfDay);
+
+        @Query("SELECT a FROM Appointment a WHERE a.startDateTime BETWEEN :start AND :end " +
+                        "AND a.appointmentStatus <> com.informaticonfing.spring.app.springboot.model.AppointmentStatus.CANCELADO " +
+                        "AND (a.reminderSent IS NULL OR a.reminderSent = false)")
+        List<Appointment> findAppointmentsForReminder(@Param("start") LocalDateTime start,
+                        @Param("end") LocalDateTime end);
 }
