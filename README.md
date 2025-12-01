@@ -4,33 +4,39 @@
 
 ## Product Evolution 
 
-Durante la **primera** entrega se trabajo con el repositorio proposionado por [repository](https://github.com/Proyectos-Vinculacion-FMAT/ClinicaWeb) of Clinica Web that belongs to Carlos Roberto Ek Raigoza. El cual nos ayuda para extraer informacion importante sobre el comportamiento de sistema (modulo agenda) como lo son los requirimientos.
+During the **first** delivery, we worked with the repository provided by [repository](https://github.com/Proyectos-Vinculacion-FMAT/ClinicaWeb) of Clinica Web that belongs to Carlos Roberto Ek Raigoza. This helped us extract important information about the system behavior (agenda module) such as the requirements.
 
-Para la **segunda** entrega se hizo un refinamiento en los requisitos y primeras partes de [codigo](https://github.com/ALEXANDER242164/OOP/tree/Second-review/Spring/sprinboot-citas) como una Api que permite agenda de pacientes y permite a un miembro del staff la cual es la secretaria administrar las citas de manera didactica y facilmente.
+For the **second** delivery, a refinement was made in the requirements and first parts of the [code](https://github.com/ALEXANDER242164/OOP/tree/Second-review/Spring/sprinboot-citas) as an API that allows patient scheduling and allows a staff member, which is the secretary, to manage appointments didactically and easily.
 
-Para terminar con la **tercera** entrega:
-1. Se deja de usar H2 que es una base de datos en memoria para usar MySQL y el servicio de RailWay para almacenar la base de datos.
+To finish with the **third** delivery:
+1. We stopped using H2, which is an in-memory database, to use MySQL and the Railway service to store the database.
 2. EndPoints 
-3. Se trabaja el frontend.
-    1. Interfaz
+3. Worked on the frontend.
+    1. Interface
         a. html
         b. css
-4. Se trabajo el backend: Endpoints y controladores
-    1. Controlador de citas
-    2. Controlador de Catálogos
+4. Worked on the backend: Endpoints and controllers
+    1. Appointment Controller
+    2. Catalog Controller
 
 # [Requirements](Documentation/FinalRequirements.md) 
 
-- [Funcional requirements(FR)]()
-- [Non-funcional requirements(NFR)]()
+- [Functional requirements(FR)](Documentation/FinalRequirements.md)
+- [Non-functional requirements(NFR)](Documentation/FinalRequirements.md)
 
 # New Artifacts
 
-- ![Use Case Diagram](../assets/UseCaseDiagramV1.png)
+- [Use Case Diagram](../assets/UseCaseDiagramV1.png)
 
 - [Use Case](Documentation/UseCase.md)
 
 - [User Stories](Documentation/UserStories.md)
 
 # Process
+
+- [Individual Contribution Metric](Documentation/IndividualContributionMetric.md)
+
+- [Process Description](Documentation/ProcessDescription.md)
+
+
 
