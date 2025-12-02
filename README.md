@@ -33,8 +33,9 @@ To finish with the **third** delivery:
 - [User Stories](Documentation/UserStories.md)
 
 # Process
+- [Total Contribution Percentage](https://github.com/ALEXANDER242164/OOP/blob/Third-review/Documentation/process/IndividualContributionMetric.md#total-contribution-percentage)
 
-- [Individual Contribution Metric]([Documentation/IndividualContributionMetric.md](https://github.com/ALEXANDER242164/OOP/blob/Third-review/Documentation/process/IndividualContributionMetric.md))
+- [Individual Contribution Metric](https://github.com/ALEXANDER242164/OOP/blob/Third-review/Documentation/process/IndividualContributionMetric.md)
 
 - [Process Description](Documentation/ProcessDescription.md)
 
