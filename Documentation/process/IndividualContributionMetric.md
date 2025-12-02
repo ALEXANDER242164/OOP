@@ -34,15 +34,12 @@ In the following charts, you can [see the PDF](https://github.com/ALEXANDER24216
 |H1.0|Creation of slides|3|
 |H2.0|Video recording|5|
 
-
-
-# Second Review
-
 ## Tasks assigned per member
 ![tabla](https://github.com/ALEXANDER242164/OOP/blob/First-review/assets/Contribution.png)
 ## Percentage table
 ![table](https://github.com/ALEXANDER242164/OOP/blob/First-review/assets/grafic.png)
 
+# Second Review
 
 | Member | Task ID | Description |Size|
 |---|---|---|---|
