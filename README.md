@@ -34,7 +34,7 @@ To finish with the **third** delivery:
 
 # Process
 
-- [Individual Contribution Metric](Documentation/IndividualContributionMetric.md)
+- [Individual Contribution Metric]([Documentation/IndividualContributionMetric.md](https://github.com/ALEXANDER242164/OOP/blob/Third-review/Documentation/process/IndividualContributionMetric.md))
 
 - [Process Description](Documentation/ProcessDescription.md)
 
