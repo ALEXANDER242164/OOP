@@ -199,7 +199,7 @@
             if (currentView === 'week') {
                 const monday = getMonday(currentDate);
                 endpoint = `${API_BASE}/appointments/week`;
-                params = `?monday=${formatDate(monday)}`;
+                params = `?monday=${formatDateLocal(monday)}`;
             } else {
                 endpoint = `${API_BASE}/appointments/day`;
                 params = `?date=${formatDateLocal(currentDate)}`;
@@ -646,7 +646,9 @@
                     return (day === 0 || day === 6)
                 }
             ],
+            minDate: "today",
             locale: "es"
+            
         })
         //Formulario -> forms-data -> logica para resetear a valores por defecto al cerrar el formulario
         const closeBtn = document.getElementById("close-btn-forms");
