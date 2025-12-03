@@ -865,12 +865,12 @@
                 
                 // Validación de Comprobante de Pago
                 const fileInput = document.getElementById('comprobante');
-                if (sessionTypeValue === 'CITA_DE_TERAPIA') {
-                    if (fileInput.files.length === 0) {
-                        showMessage("Falta documentación: Debe subir el comprobante de pago.", "Atención");
-                        return;
-                    }
-                }
+               // if (sessionTypeValue === 'CITA_DE_TERAPIA') {
+                    //if (fileInput.files.length === 0) {
+                   //     showMessage("Falta documentación: Debe subir el comprobante de pago.", "Atención");
+                 //       return;
+                    //}
+              //  }
 
                 if (fileInput.files.length > 0) {
                     appointmentData.paymentProof = fileInput.files[0].name;
