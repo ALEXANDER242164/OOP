@@ -14,7 +14,7 @@
     <!-- SIDEBAR -->
     <aside class="sidebar">
         <div class="sidebar-header">
-            <h2>ClínicaPsico</h2>
+            <h2>Clinic System</h2>
             <span>Gestión de Citas</span>
         </div>
         <nav class="nav-links">
@@ -304,8 +304,10 @@
     <script>
         const API_BASE = '/api';
 
-        // --- Funciones del Modal ---
+        // --- Funciones del Modal ---//hecho por alexander
         function openModal() {
+            const hoy = new Date().toISOString().split('T')[0];// se añade logica para evitar fechas pasadas
+            document.getElementById('fecha').min = hoy;
             document.getElementById('createModal').classList.add('active');
         }
 
@@ -715,6 +717,8 @@
         // --- Reprogramar / Actualizar Cita ---
         function openRescheduleModal(appt) {
             // Prefill values
+            const hoy = new Date().toISOString().split('T')[0];// se añade logica para evitar fechas pasadas(hecho por rolando)
+            document.getElementById('rescheduleDate').min = hoy;
             const start = new Date(appt.start);
             document.getElementById('rescheduleDate').value = start.toISOString().split('T')[0];
             document.getElementById('rescheduleTime').value = start.toTimeString().slice(0,5);
