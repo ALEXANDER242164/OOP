@@ -4,10 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agenda de Citas - Clínica Salud</title>
+    <link rel="icon" type="image/png" href="psicologiaFavicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="diseno.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
 </head>
 <body>
 
@@ -126,7 +130,7 @@
                                 <option value="">Cargando...</option>
                             </select>
                         </div>
-
+                        
                         <div class="form-group">
                             <label for="fecha">Fecha:</label>
                             <input type="date" id="fecha" required>
@@ -178,7 +182,7 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn-cancel" onclick="closeModal()">Cancelar</button>
+                    <button type="button" id="close-btn-forms" class="btn-cancel" onclick="closeModal()">Cancelar</button>
                     <button type="submit" class="btn-save">Guardar Cita</button>
                 </div>
             </form>
@@ -869,12 +873,12 @@
                 
                 // Validación de Comprobante de Pago
                 const fileInput = document.getElementById('comprobante');
-                if (sessionTypeValue === 'CITA_DE_TERAPIA') {
-                    if (fileInput.files.length === 0) {
-                        showMessage("Falta documentación: Debe subir el comprobante de pago.", "Atención");
-                        return;
-                    }
-                }
+               // if (sessionTypeValue === 'CITA_DE_TERAPIA') {
+                    //if (fileInput.files.length === 0) {
+                   //     showMessage("Falta documentación: Debe subir el comprobante de pago.", "Atención");
+                 //       return;
+                    //}
+              //  }
 
                 if (fileInput.files.length > 0) {
                     appointmentData.paymentProof = fileInput.files[0].name;
@@ -932,6 +936,24 @@
                 showMessage("Error de conexión: No se pudo contactar al servidor.", "Error de Conexión");
             });
         });
+        //Formulario -> Input-Date -> Logica con javascript para la seleccion de dias...
+        flatpickr("#fecha",{
+            dateFormat: "Y-m-d",
+            disable : [
+                function(date){
+                    const day = date.getDay();
+                    return (day === 0 || day === 6)
+                }
+            ],
+            locale: "es"
+        })
+        //Formulario -> forms-data -> logica para resetear a valores por defecto al cerrar el formulario
+        const closeBtn = document.getElementById("close-btn-forms");
+        const formsData = document.getElementById("citaForm");
+
+        closeBtn.addEventListener("click", () => {
+            formsData.reset();
+        })
     </script>
 </body>
 </html>
