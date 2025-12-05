@@ -26,7 +26,7 @@ To finish with the **third** delivery:
 
 # New Artifacts
 
-- [Use Case Diagram](../assets/UseCaseDiagramV1.png)
+- [Use Case Diagram](https://github.com/ALEXANDER242164/OOP/blob/Third-review/Documentation/assets/UseCaseDiagramV1.png)
 
 - [Use Case](Documentation/UseCase.md)
 
