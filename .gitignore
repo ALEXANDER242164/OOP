@@ -40,3 +40,7 @@ Desktop.ini
 # --- Seguridad ---
 .env
 .env.backup
+.vscode/
+
+.env
+.env.backup

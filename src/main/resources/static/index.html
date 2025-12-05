@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agenda de Citas - Clínica Salud</title>
+    <link rel="icon" type="image/png" href="psicologiaFavicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="diseno.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+</head>
+<body>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h2>Clinic System</h2>
+            <span>Gestión de Citas</span>
+        </div>
+        <nav class="nav-links">
+            <a href="#" class="nav-link active">
+                <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                Agenda
+            </a>
+            <a href="#" class="nav-link">
+                <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                Pacientes
+            </a>
+            <a href="#" class="nav-link">
+                <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                Configuración
+            </a>
+        </nav>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+        <!-- Header Superior -->
+        <header class="top-header">
+            <div class="btn-group">
+                <button class="btn-left" onclick="switchView('week')">Semana</button>
+                <button class="btn-right" onclick="switchView('day')">Día</button>
+            </div>
+
+            <div class="nav-controls" style="display: flex; align-items: center; gap: 1rem;">
+                <button onclick="changeDate(-1)" style="padding: 0.25rem 0.5rem; cursor: pointer; border: 1px solid #ccc; border-radius: 4px; background: white;">&lt;</button>
+                <span id="currentDateLabel" style="font-weight: 600; min-width: 150px; text-align: center;">Hoy</span>
+                <button onclick="changeDate(1)" style="padding: 0.25rem 0.5rem; cursor: pointer; border: 1px solid #ccc; border-radius: 4px; background: white;">&gt;</button>
+            </div>
+
+            <button class="btn-add" onclick="openModal()">
+                <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+                Agendar Cita
+            </button>
+        </header>
+
+        <!-- Calendario Grid -->
+        <div class="calendar-container">
+            <div class="calendar-grid" id="calendarGrid">
+                <!-- El contenido se generará dinámicamente con JS -->
+            </div>
+        </div>
+    </main>
+
+    <!-- MODAL DE CREACIÓN (Con el formulario funcional) -->
+    <div id="createModal" class="modal-overlay">
+        <div class="modal-content">
+            <form id="citaForm">
+                <div class="modal-header">
+                    <h3>Agendar Nueva Cita</h3>
+                    <button type="button" class="close-btn" onclick="closeModal()">&times;</button>
+                </div>
+                
+                <div class="modal-body">
+                    <div class="form-grid">
+                        <!-- 1. Tipo de Sesión (Moved to top) -->
+                        <div class="form-group full-width">
+                            <label for="sessionTypeSelect">Tipo de Evento:</label>
+                            <select id="sessionTypeSelect" required onchange="toggleFormFields()">
+                                <option value="">Cargando...</option>
+                            </select>
+                        </div>
+
+                        <!-- 2. Campos para Paciente Nuevo (Evaluación Inicial) -->
+                        <div id="newPatientFields" class="form-grid full-width" style="display:none; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div class="form-group">
+                                <label for="nombre">Nombres</label>
+                                <input type="text" id="nombre" placeholder="Ingrese nombres">
+                            </div>
+                            <div class="form-group">
+                                <label for="apellidos">Apellidos</label>
+                                <input type="text" id="apellidos" placeholder="Ingrese apellidos">
+                            </div>
+                            <div class="form-group">
+                                <label for="telefono">Teléfono</label>
+                                <input type="tel" id="telefono" placeholder="Ej: 999-123-4567">
+                            </div>
+                            <div class="form-group">
+                                <label for="correo">Correo electrónico</label>
+                                <input type="email" id="correo" placeholder="ejemplo@correo.com">
+                            </div>
+                        </div>
+
+                        <!-- 3. Campos para Paciente Existente (Cita de Terapia) -->
+                        <div id="existingPatientFields" class="form-grid full-width" style="display:none; grid-template-columns: 1fr; gap: 1rem;">
+                            <div class="form-group">
+                                <label for="patientSelect">Paciente:</label>
+                                <select id="patientSelect" onchange="updateFolio()">
+                                    <option value="">Seleccionar paciente</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- 4. Campos Específicos de Terapia (Folio, Pago, etc) -->
+                        <div id="therapyFields" class="form-grid full-width" style="display:none; grid-template-columns: 1fr; gap: 1rem;">
+                             <div class="form-group">
+                                <label for="folio">Folio:</label>
+                                <input type="text" id="folio" readonly placeholder="Se cargará automáticamente" style="background-color: #f9fafb;">
+                            </div>
+                        </div>
+
+                        <!-- 5. Campos Comunes -->
+                        <div class="form-group">
+                            <label for="therapistSelect">Terapeuta:</label>
+                            <select id="therapistSelect" required>
+                                <option value="">Cargando...</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="fecha">Fecha:</label>
+                            <input type="date" id="fecha" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="hora">Hora Inicio:</label>
+                            <select id="hora" required>
+                                <option value="">-- Seleccione Hora --</option>
+                                <option value="09:00">09:00 AM</option>
+                                <option value="10:00">10:00 AM</option>
+                                <option value="11:00">11:00 AM</option>
+                                <option value="12:00">12:00 PM</option>
+                                <option value="13:00">01:00 PM</option>
+                                <option value="14:00">02:00 PM</option>
+                                <option value="15:00">03:00 PM</option>
+                                <option value="16:00">04:00 PM</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                             <label>Duración:</label>
+                             <input type="text" value="60 min" readonly style="background-color: #f3f4f6; border:none;">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="salaSelect">Sala:</label>
+                             <select id="salaSelect" required>
+                                <option value="">Cargando...</option>
+                            </select>
+                        </div>
+
+                        <!-- Campos extra de terapia (Pago) -->
+                        <div id="paymentFields" class="form-grid full-width" style="display:none; grid-template-columns: 1fr; gap: 1rem;">
+                            <div class="form-group">
+                                <label for="comprobante">Comprobante de pago (PDF, PNG, JPG – máx 5 MB):</label>
+                                <input type="file" id="comprobante" accept=".pdf,.png,.jpg,.jpeg">
+                            </div>
+                            <div class="form-group">
+                                <label for="cuota">Cuota a pagar (MXN):</label>
+                                <input type="number" id="cuota" placeholder="0.00">
+                            </div>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label for="comentarios">Comentarios</label>
+                            <textarea id="comentarios" rows="3" placeholder="Detalles adicionales..."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" id="close-btn-forms" class="btn-cancel" onclick="closeModal()">Cancelar</button>
+                    <button type="submit" class="btn-save">Guardar Cita</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL DE DETALLES -->
+    <div id="detailsModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Detalles de la cita</h3>
+                <button type="button" class="close-btn" onclick="closeDetailsModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p><strong>Tipo:</strong> <span id="detailType"></span></p>
+                <p><strong>Paciente:</strong> <span id="detailPatient"></span></p>
+                <p><strong>Folio:</strong> <span id="detailFolio"></span></p>
+                <p><strong>Fecha:</strong> <span id="detailDate"></span></p>
+                <p><strong>Hora inicio:</strong> <span id="detailStart"></span></p>
+                <p><strong>Duración:</strong> <span id="detailDuration"></span></p>
+                <p><strong>Sala:</strong> <span id="detailRoom"></span></p>
+                <p><strong>Terapeuta:</strong> <span id="detailTherapist"></span></p>
+                <p><strong>Estado:</strong> <span id="detailStatus"></span></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-cancel" id="btnCancelAppt">Cancelar Cita</button>
+                <button type="button" class="btn-cancel" id="btnRescheduleOpen">Reprogramar</button>
+                <button type="button" class="btn-save" onclick="closeDetailsModal()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL DE REPROGRAMAR / ACTUALIZAR CITA -->
+    <div id="rescheduleModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Reprogramar cita</h3>
+                <button type="button" class="close-btn" onclick="closeRescheduleModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="rescheduleDate">Fecha</label>
+                        <input type="date" id="rescheduleDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="rescheduleTime">Hora Inicio</label>
+                        <select id="rescheduleTime" required>
+                            <option value="">-- Seleccione Hora --</option>
+                            <option value="09:00">09:00 AM</option>
+                            <option value="10:00">10:00 AM</option>
+                            <option value="11:00">11:00 AM</option>
+                            <option value="12:00">12:00 PM</option>
+                            <option value="13:00">01:00 PM</option>
+                            <option value="14:00">02:00 PM</option>
+                            <option value="15:00">03:00 PM</option>
+                            <option value="16:00">04:00 PM</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="rescheduleDuration">Duración (min)</label>
+                        <input type="number" id="rescheduleDuration" value="60" min="30" step="30">
+                    </div>
+                    <div class="form-group">
+                        <label for="rescheduleTherapistSelect">Terapeuta</label>
+                        <select id="rescheduleTherapistSelect">
+                            <option value="">Cargando...</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="rescheduleRoomSelect">Sala</label>
+                        <select id="rescheduleRoomSelect">
+                            <option value="">Cargando...</option>
+                        </select>
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="rescheduleComments">Comentarios</label>
+                        <textarea id="rescheduleComments" rows="3"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-cancel" onclick="closeRescheduleModal()">Cancelar</button>
+                <button type="button" class="btn-save" id="rescheduleSaveBtn">Actualizar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL DE MENSAJES (Reemplazo de alert) -->
+    <div id="messageModal" class="modal-overlay">
+        <div class="modal-content" style="max-width: 400px;">
+            <div class="modal-header">
+                <h3 id="messageTitle">Mensaje</h3>
+                <button type="button" class="close-btn" onclick="closeMessageModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p id="messageBody"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-save" onclick="closeMessageModal()">Aceptar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL DE CONFIRMACIÓN (Reemplazo de confirm) -->
+    <div id="confirmModal" class="modal-overlay">
+        <div class="modal-content" style="max-width: 400px;">
+            <div class="modal-header">
+                <h3 id="confirmTitle">Confirmación</h3>
+                <button type="button" class="close-btn" onclick="closeConfirmModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p id="confirmBody"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-cancel" onclick="closeConfirmModal()">Cancelar</button>
+                <button type="button" class="btn-save" id="confirmBtnAction">Confirmar</button>
+            </div>
+        </div>
+    </div>
+    <script src="logic.js"></script>
+</body>
+</html>
